@@ -22,7 +22,7 @@ public class TorneoDeterministico extends Torneo {
 
 	@Override
 	public String toString() {
-		return "Torneo Determinístico";
+		return "Torneo DeterminÃ­stico";
 	}
 
 }

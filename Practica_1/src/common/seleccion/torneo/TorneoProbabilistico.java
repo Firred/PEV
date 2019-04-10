@@ -23,7 +23,7 @@ public class TorneoProbabilistico extends Torneo {
 			}
 		}
 		
-		//p debería ser un atributo global que se seleccione en la interfaz
+		//p deberï¿½a ser un atributo global que se seleccione en la interfaz
 		double p = 0.6;
 		if(rand.nextDouble() > p) 
 			return mejor;
@@ -33,7 +33,7 @@ public class TorneoProbabilistico extends Torneo {
 
 	@Override
 	public String toString() {
-		return "Torneo Probabilístico";
+		return "Torneo ProbabilÃ­stico";
 	}
 
 }

@@ -33,7 +33,7 @@ public class Funcion2 extends Funcion{
 
 	@Override
 	public String toString() {
-		return "Función 2";
+		return "FunciÃ³n 2";
 	}
 
 }

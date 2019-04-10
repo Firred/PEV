@@ -19,7 +19,7 @@ public class Funcion5  {
 	}
 
 	public String toString() {
-		return "Función 5";
+		return "FunciÃ³n 5";
 	}
 
 }

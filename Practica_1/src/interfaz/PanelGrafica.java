@@ -2,8 +2,7 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.eclipse.swt.awt.SWT_AWT;
-
+//import org.eclipse.swt.awt.SWT_AWT;
 import org.math.plot.Plot2DPanel;
 
 import common.Cromosoma;
@@ -69,7 +68,7 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 		}
 		else {
 			this.removeAllPlotables();
-			this.addLinePlot("Mejor Generación", x, yMejor);
+			this.addLinePlot("Mejor GeneraciÃ³n", x, yMejor);
 			this.addLinePlot("Media", x, yMedia);
 			this.addLinePlot("Mejor Global", x, yMejorG);
 		}

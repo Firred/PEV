@@ -39,14 +39,14 @@ public class FactoriaOpciones {
 	public static ConfigPanel<AlgoritmoGenetico> getConfigPanel() {
 		ConfigPanel<AlgoritmoGenetico> panel = new ConfigPanel<AlgoritmoGenetico>();
 		panel.addOption(new IntegerOption<AlgoritmoGenetico>(
-				"Poblaci髇", 
-				"Tama駉 de la poblaci髇",
+				"Poblaci贸n", 
+				"Tama帽o de la poblaci贸n",
 				"poblacion",
 				0, 
 				Integer.MAX_VALUE))
 		.addOption(new IntegerOption<>(
 				"Generaciones",
-				"N鷐ero m醲imo de generaciones",
+				"N煤mero m谩ximo de generaciones",
 				"generaciones",
 				0,
 				Integer.MAX_VALUE))
@@ -58,13 +58,13 @@ public class FactoriaOpciones {
 				100))
 		.addOption(new IntegerOption<>(
 				"Mutaciones",
-				"Probabilidad de mutaci髇",
+				"Probabilidad de mutaci贸n",
 				"PMut", 
 				0, 
 				100))
 		.addOption(new DoubleOption<>(
-				"Precisi髇",
-				"Precisi髇 del algoritmo",
+				"Precisi贸n",
+				"Precisi贸n del algoritmo",
 				"precision",
 				0,
 				Double.MAX_VALUE))
@@ -75,14 +75,14 @@ public class FactoriaOpciones {
 				0, 
 				100))
 		.addOption(new ChoiceOption<>(
-				"Selecci髇",
-				"M閠odo de selecci髇",
+				"Selecci贸n",
+				"M茅todo de selecci贸n",
 				"seleccion",
 				selecciones
 				))
 		.addOption(new ChoiceOption<>(
-				"Funci髇", 
-				"Funci髇 a optimizar",
+				"Funci贸n", 
+				"Funci贸n a optimizar",
 				"funcion",
 				funciones))
 		.endOptions();

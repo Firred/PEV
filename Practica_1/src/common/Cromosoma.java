@@ -14,9 +14,9 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	
 	private ArrayList<Gen> genes; //cadena de bits (genotipo)
 	private int longitud; // Cantidad de genes del cromosma
-	private double aptitud;//función de evaluación fitness adaptación);
-	private double puntuación; //puntuación relativa(aptitud/suma)
-	private double punt_acum; //puntuación acumulada para selección
+	private double aptitud;//funciï¿½n de evaluaciï¿½n fitness adaptaciï¿½n);
+	private double puntuacion; //puntuaciï¿½n relativa(aptitud/suma)
+	private double punt_acum; //puntuaciï¿½n acumulada para selecciï¿½n
 	private int tipo;
 	private boolean minimizar;
 
@@ -60,7 +60,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 		this.minimizar = crom.minimizar;
 		this.longitud = crom.longitud;	
 		this.aptitud = crom.aptitud;
-		this.puntuación = crom.puntuación;
+		this.puntuacion = crom.puntuacion;
 		this.punt_acum = crom.punt_acum;
 	}
 	
@@ -75,7 +75,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	
 	
 	/** GETTERS
-	 * devuelve el tamaño de un gen booleano[]
+	 * devuelve el tamaï¿½o de un gen booleano[]
 	 * @return int
 	 */
 	public int getGenes_long() {
@@ -123,7 +123,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	}
 	
 	/**
-	 * Devuelve la puntuación acumulada del cromosoma
+	 * Devuelve la puntuaciï¿½n acumulada del cromosoma
 	 * @return punt_Acum
 	 */
 	public double getPunt_Acum() {
@@ -131,11 +131,11 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	}
 
 	/**
-	 * Devuelve la puntuación del cromosoma
-	 * @return puntuación
+	 * Devuelve la puntuaciï¿½n del cromosoma
+	 * @return puntuaciï¿½n
 	 */
 	public double getPunt() {
-		return this.puntuación;
+		return this.puntuacion;
 	}
 	
 	/** SETTERS
@@ -154,14 +154,14 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	}
 	
 	/**
-	 * @param punt Puntuación 
+	 * @param punt Puntuaciï¿½n 
 	 */
 	public void setPunt(double punt) {
-		this.puntuación = punt;
+		this.puntuacion = punt;
 	}
 	
 	/**
-	 * @param punt Puntuación acumulada
+	 * @param punt Puntuaciï¿½n acumulada
 	 */
 	public void setPunt_Acum(double punt) {
 		this.punt_acum = punt;
@@ -199,7 +199,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 				for(int i = 0; i < genes.size() ; i++) {
 					string += this.genes.get(i).toString();
 				}
-				string += ", aptitud=" + aptitud	+ ", puntuación=" + puntuación + ", punt_acum=" + punt_acum + "]";
+				string += ", aptitud=" + aptitud	+ ", puntuaciï¿½n=" + puntuacion + ", punt_acum=" + punt_acum + "]";
 			return string;
 	}	
 }
