@@ -4,8 +4,7 @@ import common.Cromosoma;
 
 public class CruceCiclos extends Reproduccion {
 	
-	@Override
-	ParCromosoma cruce(ParCromosoma par) {
+	@Override ParCromosoma cruce(ParCromosoma par) {
 		int pos = 0;
 		
 		Cromosoma h1 = new Cromosoma(par.getC2()), h2 = new Cromosoma(par.getC1());
@@ -19,5 +18,4 @@ public class CruceCiclos extends Reproduccion {
 		
 		return new ParCromosoma(h1, h2);
 	}
-
 }

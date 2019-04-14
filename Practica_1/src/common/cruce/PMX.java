@@ -7,10 +7,9 @@ import common.genes.Gen;
 
 public class PMX<T extends Gen<?>> extends Reproduccion {
 
-	@Override
-	ParCromosoma cruce(ParCromosoma par) {
+	@Override ParCromosoma cruce(ParCromosoma par) {
 		int ini = rand.nextInt(par.getC1().getNumGenes()-1);
-		int fin = rand.nextInt(par.getC1().getNumGenes()-ini);
+		int fin = rand.nextInt(par.getC1().getNumGenes()-ini)+ini;
 		HashMap<T, Integer> map1 = new HashMap<>(fin - ini);
 		HashMap<T, Integer> map2 = new HashMap<>(fin - ini);
 		

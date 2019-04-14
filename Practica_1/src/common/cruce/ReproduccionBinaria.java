@@ -112,8 +112,7 @@ public class ReproduccionBinaria extends Reproduccion {
 		}
 	}*/
 
-	@Override
-	ParCromosoma cruce(ParCromosoma par) {
+	@Override ParCromosoma cruce(ParCromosoma par) {
 		Cromosoma h1 =  new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
 		int n = par.getC1().getGenes_long();
 		n = rand.nextInt(Math.abs(n));

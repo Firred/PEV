@@ -7,13 +7,12 @@ import common.genes.Gen;
 
 public class OX<T extends Gen<?>> extends Reproduccion {
 
-	@Override
-	ParCromosoma cruce(ParCromosoma par) {
+	@Override ParCromosoma cruce(ParCromosoma par) {
 		int nGenes = par.getC1().getNumGenes();
 		int ini = rand.nextInt(nGenes-1);
-		int fin = rand.nextInt(nGenes-ini);
+		int fin = rand.nextInt(nGenes-ini)+ini;
 		int j1 = nGenes+fin+1, j2 = nGenes+fin+1;
-		int j = nGenes + fin + 1;
+		//int j = nGenes + fin + 1;
 		HashMap<T, Integer> map1 = new HashMap<>(fin - ini);
 		HashMap<T, Integer> map2 = new HashMap<>(fin - ini);
 		

@@ -6,11 +6,12 @@ import common.Cromosoma;
 import common.Poblacion;
 import common.cruce.Reproduccion;
 import common.cruce.ReproduccionBinaria;
+import common.evaluacion.Evaluacion;
 import common.evaluacion.Function_Controller;
 import common.evaluacion.Function_main;
 import common.mutacion.FactoriaMutacion;
 import common.mutacion.Mutacion;
-import common.mutacion.MutacionImp;
+import common.mutacion.MutacionBinaria;
 import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
@@ -49,7 +50,7 @@ public class AlgoritmoGenetico {
 		this.precision = 0.001;
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
-		this.mutacion = new MutacionImp(this.pMut);
+		this.mutacion = new MutacionBinaria();
 	}
 	
 	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
@@ -64,7 +65,8 @@ public class AlgoritmoGenetico {
 		this.pMut = pMut;
 		Object[] args = new Object[1];
 		args[0] = pMut;
-		this.mutacion = FactoriaMutacion.getMutacion(mut, args);
+		//this.mutacion = FactoriaMutacion.getMutacion(mut, args);
+		this.mutacion = new MutacionBinaria();
 	}
 	
 	public void setSeleccion(Seleccion sel) {
@@ -184,12 +186,11 @@ public class AlgoritmoGenetico {
 	//	}
 		
 		for(Cromosoma crom : poblPrincipal.getIndividuos()) {
-			crom.setApt(funcion.Evalua(crom));
 			/*if(crom.compareTo(this.mejor) >= 1) {
 				this.mejor = new Cromosoma(crom);
 			}*/
 
-			suma_aptitud += crom.getApt();
+			suma_aptitud += Evaluacion.evaluar(crom);
 		}
 		
 		poblPrincipal.calcularMejorMedia();
