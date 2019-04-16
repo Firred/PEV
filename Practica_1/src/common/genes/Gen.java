@@ -64,6 +64,17 @@ public abstract class Gen<T> {
 		return "Gen [caracteristica=" + caracteristica + ", long_gen=" + long_gen + "]";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(o.getClass() == this.getClass()) {
+			if (this.getCaracteristica() == ((Gen<T>)o).getCaracteristica()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public abstract void calcularCaracteristica();
 
 }
