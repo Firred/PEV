@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import common.Cromosoma;
 import common.Poblacion;
 import common.evaluacion.Function_Controller;
-import practica1.AlgoritmoGenetico;
+import practicas.practica1.AlgoritmoGenetico;
 
 public class ControladorImp extends Controlador {
 	
@@ -18,6 +18,7 @@ public class ControladorImp extends Controlador {
 	
 	public void execute() {
 		System.out.println(this.aG.exe(this));
+		System.gc();
 	}
 	
 	public void addObservador(Observador obs) {

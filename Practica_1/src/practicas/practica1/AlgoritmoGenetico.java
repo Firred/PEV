@@ -1,4 +1,4 @@
-package practica1;
+package practicas.practica1;
 
 import java.io.IOException;
 
@@ -92,6 +92,7 @@ public class AlgoritmoGenetico {
 	
 	public void setFuncion(Funcion funcion) {
 		this.funcion = funcion;
+		Evaluacion.setFuncion(funcion);
 	}
 	
 	public void setPMut(int pMut) {

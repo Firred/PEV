@@ -39,7 +39,7 @@ public abstract class Gen<T> {
 	/** SETTERS
 	 * @param c valor caracteristica
 	 */
-	void setCarateristica(T c) {
+	public void setCarateristica(T c) {
 		caracteristica = c;
 	}
 

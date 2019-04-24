@@ -22,8 +22,8 @@ public class MutacionBinaria extends Mutacion {
 	@Override
 	public void execute(Poblacion pobl, int prob) {
 		boolean[] alelo;
-		for (Cromosoma c : pobl.getIndividuos()) {
-			for(Gen g : c.getGenes()) {
+		for (Cromosoma<Double> c : pobl.getIndividuos()) {
+			for(Gen<Double> g : c.getGenes()) {
 				alelo = ((GenBi)g).getAlelo();
 				
 				for(int i = 0; i < alelo.length; i++) {

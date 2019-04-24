@@ -6,13 +6,13 @@ import common.evaluacion.Function_main;
 import common.genes.Gen;
 import common.genes.GenBi;
 import common.genes.GenController;
-import common.genes.Gen_Bi;
-import practica1.Funcion;
+import practicas.Problema;
+import practicas.practica1.Funcion;
 
 
-public class Cromosoma implements Comparable<Cromosoma>{
+public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
-	private ArrayList<Gen> genes; //cadena de bits (genotipo)
+	private ArrayList<? extends Gen<T>> genes; //cadena de bits (genotipo)
 	private int longitud; // Cantidad de genes del cromosma
 	private double aptitud;//funci�n de evaluaci�n fitness adaptaci�n);
 	private double puntuacion; //puntuaci�n relativa(aptitud/suma)
@@ -22,19 +22,22 @@ public class Cromosoma implements Comparable<Cromosoma>{
 
 	
 	public Cromosoma() {};
+	
 	/**
 	 * Constructor por defecto para los genes
 	 * @param tipo de genes
 	 * @param min
 	 * @param max
 	 */
-	public Cromosoma(int tipo, Funcion func, double prec) {
+	public Cromosoma(int tipo, Problema<T> func, double prec) {
 		this.tipo = tipo;
-		this.genes = new ArrayList<Gen>();
+		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 
-		for(int i = 0; i < func.MAX.length; i++) 
-			genes.add(new GenBi(i, func.MIN[i], func.MAX[i], prec));
+		genes = func.crearGenes(prec);
+		
+/*		for(int i = 0; i < func.MAX.length; i++) 
+			genes.add(new GenBi(i, func.MIN[i], func.MAX[i], prec));*/
 		
 /*		for (int i = 0; i< Function_main.MAX.length; i++) {
 			genes.add(GenController.generarGen(tipo, i));
@@ -50,12 +53,15 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	 * Para objetos lo suyo no es crear un clon directo, sino hacer un set de cada uno de sus elementos
 	 * @param crom
 	 */
-	public Cromosoma (Cromosoma crom) {
-		this.genes = new ArrayList<>();
-		for (Gen g : crom.genes) {
+	public Cromosoma (Cromosoma<T> crom) {
+		this.genes = new ArrayList<>(crom.genes);
+		
+		
+		
+/*		for (Gen<T> g : crom.genes) {
 			this.genes.add(new GenBi((GenBi)g));
 			//this.genes.add(GenController.copiarGen(crom.tipo, g));
-		}
+		}*/
 		
 		this.minimizar = crom.minimizar;
 		this.longitud = crom.longitud;	
@@ -69,7 +75,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	 * Devuelve el gen de la pos
 	 * @return gen[pos]
 	 */
-	public Gen getGen(int pos) {
+	public Gen<T> getGen(int pos) {
 		return genes.get(pos);
 	}
 	
@@ -95,7 +101,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	}
 	
 	
-	public ArrayList<Gen> getGenes() {
+	public ArrayList<? extends Gen<T>> getGenes() {
 		return this.genes;
 	}
 	/**
@@ -103,7 +109,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	 * @return boolean[n1-end]
 	 */
 	public Boolean getGenes_Bool(int n1, int pos) {
-		return ((Gen_Bi) this.genes.get(pos)).getGenes_Bool(n1);
+		return ((GenBi) this.genes.get(pos)).getGenes_Bool(n1);
 	}
 	/**
 	 * @param n1 desde que posicion recibes del gen booleano[]
@@ -142,9 +148,14 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	 * @param b
 	 * @param n
 	 */
-	public void setAleloBi_1g(boolean b, int n, int pos) {
+	/*public void setAleloBi_1g(boolean b, int n, int pos) {
 		((Gen_Bi) genes.get(pos)).setAlelo(b,n);
+	}*/
+	
+	public void setGen(T caracteristica, int pos) {
+		this.genes.get(pos).setCarateristica(caracteristica);
 	}
+	
 	
 	/**
 	 * @param apt Aptitud
@@ -172,7 +183,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Cromosoma o) {
+	public int compareTo(Cromosoma<T> o) {
 		if(this.aptitud == o.aptitud)
 			return 0;
 		

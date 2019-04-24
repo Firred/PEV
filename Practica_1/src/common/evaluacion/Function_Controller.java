@@ -1,11 +1,11 @@
 package common.evaluacion;
 
 import common.Cromosoma;
-import practica1.Funcion1;
-import practica1.Funcion2;
-import practica1.Funcion3;
-import practica1.Funcion4;
-import practica1.Funcion;
+import practicas.practica1.Funcion;
+import practicas.practica1.Funcion1;
+import practicas.practica1.Funcion2;
+import practicas.practica1.Funcion3;
+import practicas.practica1.Funcion4;
 
 public class Function_Controller {
 	private static final Funcion[] TIPOS = { new Funcion1(), new Funcion2(), new Funcion3(), new Funcion4() };
@@ -17,7 +17,7 @@ public class Function_Controller {
 	 * @return 
 	 */
 	public void Evalua(Cromosoma ind_evaluar, int tipo) {	
-		ind_evaluar.setApt(TIPOS[tipo].Evalua(ind_evaluar));
+		ind_evaluar.setApt(TIPOS[tipo].evalua(ind_evaluar));
 	}
 
 	public static Funcion getF_actual() {

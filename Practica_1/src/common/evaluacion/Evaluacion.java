@@ -1,7 +1,7 @@
 package common.evaluacion;
 
 import common.Cromosoma;
-import practica1.Funcion;
+import practicas.practica1.Funcion;
 
 public class Evaluacion {
 	private static Funcion func = null;
@@ -14,7 +14,7 @@ public class Evaluacion {
 		if(func == null) 
 			return 0;
 					
-		crom.setApt(func.Evalua(crom));
+		crom.setApt(func.evalua(crom));
 
 		return crom.getApt();
 	}

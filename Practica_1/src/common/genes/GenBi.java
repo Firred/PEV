@@ -2,18 +2,14 @@ package common.genes;
 
 import java.util.Random;
 
-import common.evaluacion.Function_main;
-
-public class GenBi extends Gen<Double> implements Gen_Bi{
+public class GenBi extends Gen<Double> {
 	private boolean[] alelo;
-	private int pos;
 	private double min, max, prec;
 
 	/** CONSTRUCTORES
 	*/
 	public GenBi(int pos, double min, double max, double prec){
 		super();
-		this.pos = pos;
 		this.min = min;
 		this.max = max;
 		this.prec = prec;
@@ -31,7 +27,6 @@ public class GenBi extends Gen<Double> implements Gen_Bi{
 		super(g);
 		this.alelo = new boolean[g.alelo.length];
 		System.arraycopy(g.alelo, 0, this.alelo, 0, g.alelo.length);
-		this.pos = g.pos;
 		this.min = g.min;
 		this.max = g.max;
 		this.prec = g.prec;

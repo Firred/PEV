@@ -2,7 +2,7 @@ package interfaz.controlador;
 
 import common.Cromosoma;
 import common.Poblacion;
-import practica1.AlgoritmoGenetico;
+import practicas.practica1.AlgoritmoGenetico;
 
 public abstract class Controlador {
 	private static ControladorImp ctrl;

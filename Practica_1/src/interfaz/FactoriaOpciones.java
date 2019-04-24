@@ -12,7 +12,7 @@ import interfaz.ConfigPanel.ChoiceOption;
 import interfaz.ConfigPanel.DoubleOption;
 import interfaz.ConfigPanel.IntegerOption;
 
-import practica1.*;
+import practicas.practica1.*;
 
 public class FactoriaOpciones {
 	
@@ -39,14 +39,14 @@ public class FactoriaOpciones {
 	public static ConfigPanel<AlgoritmoGenetico> getConfigPanel() {
 		ConfigPanel<AlgoritmoGenetico> panel = new ConfigPanel<AlgoritmoGenetico>();
 		panel.addOption(new IntegerOption<AlgoritmoGenetico>(
-				"Población", 
-				"Tamaño de la población",
+				"Poblacion", 
+				"Tamano de la poblacion",
 				"poblacion",
 				0, 
 				Integer.MAX_VALUE))
 		.addOption(new IntegerOption<>(
 				"Generaciones",
-				"Número máximo de generaciones",
+				"Numero maximo de generaciones",
 				"generaciones",
 				0,
 				Integer.MAX_VALUE))
@@ -58,13 +58,13 @@ public class FactoriaOpciones {
 				100))
 		.addOption(new IntegerOption<>(
 				"Mutaciones",
-				"Probabilidad de mutación",
+				"Probabilidad de mutacion",
 				"PMut", 
 				0, 
 				100))
 		.addOption(new DoubleOption<>(
-				"Precisión",
-				"Precisión del algoritmo",
+				"Precision",
+				"Precision del algoritmo",
 				"precision",
 				0,
 				Double.MAX_VALUE))
@@ -75,14 +75,14 @@ public class FactoriaOpciones {
 				0, 
 				100))
 		.addOption(new ChoiceOption<>(
-				"Selección",
-				"Método de selección",
+				"Seleccion",
+				"Metodo de seleccion",
 				"seleccion",
 				selecciones
 				))
 		.addOption(new ChoiceOption<>(
-				"Función", 
-				"Función a optimizar",
+				"Funcion", 
+				"Funcion a optimizar",
 				"funcion",
 				funciones))
 		.endOptions();
