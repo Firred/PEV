@@ -2,10 +2,10 @@ package interfaz.controlador;
 
 import java.util.ArrayList;
 
+import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
 import common.evaluacion.Function_Controller;
-import practicas.practica1.AlgoritmoGenetico;
 
 public class ControladorImp extends Controlador {
 	

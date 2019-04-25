@@ -4,7 +4,6 @@ public abstract class Gen<T> {
 
 	private T caracteristica; //Caracteristica que representa el alelo del gen
 	protected int long_gen;
-	private GenController controller;
 	
 	/** CONSTRUCTORES
 	 * 
@@ -18,7 +17,6 @@ public abstract class Gen<T> {
 	public Gen (Gen<T> g) {
 		this.caracteristica = g.caracteristica;
 		this.long_gen = g.long_gen;
-		this.controller = g.controller;
 	}
 		
 	
@@ -42,15 +40,6 @@ public abstract class Gen<T> {
 	public void setCarateristica(T c) {
 		caracteristica = c;
 	}
-
-	/**
-	 * @param tipo
-	 * @return
-	 */
-	public Gen generarGen(int tipo, int z) {
-		return controller.generarGen(tipo,z);	
-	}
-
 /*	public void setAlelo(double valor) {
 		controller.setAlelo(valor);
 	}*/
@@ -75,6 +64,6 @@ public abstract class Gen<T> {
 		return false;
 	}
 	
-	public abstract void calcularCaracteristica();
+//	public abstract void calcularCaracteristica();
 
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import common.evaluacion.Function_main;
 import common.genes.Gen;
 import common.genes.GenBi;
-import common.genes.GenController;
 import practicas.Problema;
 import practicas.practica1.Funcion;
 
@@ -210,7 +209,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 				for(int i = 0; i < genes.size() ; i++) {
 					string += this.genes.get(i).toString();
 				}
-				string += ", aptitud=" + aptitud	+ ", puntuaci�n=" + puntuacion + ", punt_acum=" + punt_acum + "]";
+				string += ", aptitud=" + aptitud	+ ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
 			return string;
 	}	
 }

@@ -36,6 +36,6 @@ public class MuestreoEstocasticoUniversal extends Seleccion {
 
 	@Override
 	public String toString() {
-		return "Muestreo Estocástico Universal";
+		return "Muestreo Estocastico Universal";
 	}	
 }

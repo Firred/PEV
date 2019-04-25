@@ -33,7 +33,7 @@ public class TorneoProbabilistico extends Torneo {
 
 	@Override
 	public String toString() {
-		return "Torneo Probabilístico";
+		return "Torneo Probabilistico";
 	}
 
 }

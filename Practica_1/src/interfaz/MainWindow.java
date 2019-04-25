@@ -5,11 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import interfaz.controlador.Controlador;
 import interfaz.tablas.CromosomaTableModel;
 import interfaz.tablas.TablePanel;
-import practicas.practica1.AlgoritmoGenetico;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;

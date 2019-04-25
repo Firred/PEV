@@ -1,5 +1,6 @@
 package interfaz;
 
+import common.AlgoritmoGenetico;
 import common.seleccion.Ranking;
 import common.seleccion.Seleccion;
 import common.seleccion.Truncamiento;

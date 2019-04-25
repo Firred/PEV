@@ -1,9 +1,7 @@
-package practicas.practica1;
+package common;
 
 import java.io.IOException;
 
-import common.Cromosoma;
-import common.Poblacion;
 import common.cruce.Reproduccion;
 import common.cruce.ReproduccionBinaria;
 import common.evaluacion.Evaluacion;
@@ -16,6 +14,8 @@ import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.ControladorImp;
+import practicas.practica1.Funcion;
+import practicas.practica1.Funcion1;
 
 public class AlgoritmoGenetico {
 	/**Tamaño de la población*/

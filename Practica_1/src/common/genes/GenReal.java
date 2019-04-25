@@ -23,12 +23,5 @@ public class GenReal extends Gen{
 	@Override
 	public String toString() {
 		return "GenReal [alelo=" + alelo + ", pos=" + pos + "]";
-	}
-
-	@Override
-	public void calcularCaracteristica() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	}	
 }

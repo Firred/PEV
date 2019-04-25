@@ -1,8 +1,8 @@
 package interfaz.controlador;
 
+import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
-import practicas.practica1.AlgoritmoGenetico;
 
 public abstract class Controlador {
 	private static ControladorImp ctrl;

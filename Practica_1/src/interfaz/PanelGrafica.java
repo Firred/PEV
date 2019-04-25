@@ -68,7 +68,7 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 		}
 		else {
 			this.removeAllPlotables();
-			this.addLinePlot("Mejor Generación", x, yMejor);
+			this.addLinePlot("Mejor Generacion", x, yMejor);
 			this.addLinePlot("Media", x, yMedia);
 			this.addLinePlot("Mejor Global", x, yMejorG);
 		}
