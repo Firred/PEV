@@ -1,5 +1,9 @@
 package common.mutacion;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 import common.Cromosoma;
@@ -20,13 +24,19 @@ public class Heuristica<T> extends Mutacion {
 	}
 	
 	Cromosoma mutacion(Cromosoma crom, int n) {
-		int[] pos = new int[n];
+		ArrayList<Integer> pos = new ArrayList<>();
+		int aux;
 		boolean[] marcas = new boolean[n];
-		
-		for(int i = 0; i < n; i++) {
-			pos[i] = rand.nextInt(crom.getNumGenes());
+		System.out.println("Muta: ");
+		for(int i = 0; i < n; i++) {		
+			do {
+				aux = rand.nextInt(crom.getNumGenes());
+			}
+			while(pos.contains(aux));
+			
+			pos.add(aux);
 		}	
-		
+
 		mejor = crom;
 		
 		Evaluacion.evaluar(crom);
@@ -35,25 +45,34 @@ public class Heuristica<T> extends Mutacion {
 		return mejor;
 	}
 	
-	private void vueltaAtras(Cromosoma crom, int[] pos, boolean[] marcas, Stack<Gen<T>> genes) {
+	private void vueltaAtras(Cromosoma crom, List<Integer> pos, boolean[] marcas, Stack<Gen<T>> genes) {
 		int i = 0;
 		Cromosoma c = null;
 		
-		while(i < pos.length) {
+		while(i < pos.size()) {
+			
 			if (!marcas[i]) {
 				marcas[i] = true;
-				genes.push(crom.getGen(i));
-				
-				if(genes.size() == pos.length) {
+				genes.push(crom.getGen(pos.get(i)));
+				if(genes.size() == pos.size()) {
 					c = new Cromosoma(crom);
-					
-					for(int j = pos.length-1; j >= 0; j--) {
-						c.getGenes().set(pos[j], genes.pop());
+					Stack<Gen<T>> aux = new Stack<Gen<T>>();
+				
+					//Montar cromosoma	
+					for(int j = pos.size()-1; j >= 0; j--) {
+						aux.push(genes.peek());
+						c.getGenes().set(pos.get(j), genes.pop());
 					}						
 					
 					if(Evaluacion.evaluar(c) > mejor.getApt()) {
 						mejor = c;
-					}				
+					}
+					
+					System.out.println(aux);
+					
+					for(int j = 0; j < pos.size(); j++) {
+						genes.push(aux.pop());
+					}
 				}
 				else {
 					vueltaAtras(crom, pos, marcas, genes);
@@ -62,8 +81,15 @@ public class Heuristica<T> extends Mutacion {
 				genes.pop();
 				marcas[i] = false;
 			}
+
+			i++;
 		}
 		
 		return;
+	}
+	
+	@Override
+	public String toString() {
+		return "Heuristica";
 	}
 }

@@ -155,6 +155,9 @@ public class GenBi extends Gen<Double> {
 		return this.long_gen;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Gen [caracteristica=" + super.getCaracteristica() + ", long_gen=" + long_gen + "]";
+	}
 	
 }

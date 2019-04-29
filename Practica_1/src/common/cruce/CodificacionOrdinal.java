@@ -8,12 +8,15 @@ import java.util.ListIterator;
 import common.Cromosoma;
 import common.genes.Gen;
 
-public class CodificacionOrdinal<T> extends Reproduccion {
+public class CodificacionOrdinal extends Reproduccion {
+	
+	private List<? extends Gen<?>> lista;
 
-	ParCromosoma cruce(ParCromosoma par, List<Gen<T>> lista) {
+	@Override
+	ParCromosoma cruce(ParCromosoma par) {
 		int pos = 0, aux;
 		
-		ArrayList<Gen<T>> listaAux = new ArrayList<>(lista);
+		ArrayList<? extends Gen<?>> listaAux = new ArrayList<>(lista);
 		ArrayList<Integer> orden1 = new ArrayList<>(lista.size()), orden2 = new ArrayList<>(lista.size());
 		
 		Cromosoma h1 = new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
@@ -70,8 +73,13 @@ public class CodificacionOrdinal<T> extends Reproduccion {
 		
 		return new ParCromosoma(h1, h2);
 	}
+	
+	public void setLista(List<? extends Gen<?>> lista) {
+		this.lista = lista;
+	}
 
 	@Override
-	ParCromosoma cruce(ParCromosoma par) {return null;}
-
+	public String toString() {
+		return "Codificacion Ordinal";
+	}
 }

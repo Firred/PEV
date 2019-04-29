@@ -135,4 +135,9 @@ public class RecombinacionRutas<T> extends Reproduccion {
 		
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "Recombinacion de rutas";
+	}
 }

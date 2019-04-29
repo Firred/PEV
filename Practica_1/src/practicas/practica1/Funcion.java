@@ -13,7 +13,7 @@ public abstract class Funcion extends Problema<Double> {
 	public final double[] MAX;
 
 	public Funcion(double[] min, double[] max, boolean minimizar) {
-		super(minimizar);
+		super(minimizar, max.length);
 		this.MAX = min;
 		this.MIN = max;
 	}

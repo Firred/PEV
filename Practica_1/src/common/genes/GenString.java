@@ -9,4 +9,9 @@ public class GenString extends Gen<String> {
 	public GenString(GenString gen) {
 		super((Gen<String>)gen);
 	}
+
+	@Override
+	public String toString() {
+		return "Gen: " + this.getCaracteristica() + " ";
+	}
 }

@@ -55,4 +55,8 @@ public class MutacionBinaria extends Mutacion {
 		
 	}*/
 	
+	@Override
+		public String toString() {
+			return "Mutacion binaria";
+		}
 }

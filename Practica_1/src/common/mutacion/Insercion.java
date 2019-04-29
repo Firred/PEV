@@ -16,4 +16,8 @@ public class Insercion extends Mutacion {
 		return hijo;
 	}
 
+	@Override
+	public String toString() {
+		return "Insercion";
+	}
 }

@@ -20,4 +20,8 @@ public class Intercambio extends Mutacion {
 		return hijo;
 	}
 
+	@Override
+	public String toString() {
+		return "Intercambio";
+	}
 }

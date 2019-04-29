@@ -1,6 +1,18 @@
 package interfaz;
 
 import common.AlgoritmoGenetico;
+import common.cruce.CodificacionOrdinal;
+import common.cruce.CruceCiclos;
+import common.cruce.OX;
+import common.cruce.PMX;
+import common.cruce.RecombinacionRutas;
+import common.cruce.Reproduccion;
+import common.mutacion.Heuristica;
+import common.mutacion.Insercion;
+import common.mutacion.Intercambio;
+import common.mutacion.Inversion;
+import common.mutacion.Mutacion;
+import common.mutacion.MutacionBinaria;
 import common.seleccion.Ranking;
 import common.seleccion.Seleccion;
 import common.seleccion.Truncamiento;
@@ -12,25 +24,42 @@ import common.seleccion.torneo.TorneoProbabilistico;
 import interfaz.ConfigPanel.ChoiceOption;
 import interfaz.ConfigPanel.DoubleOption;
 import interfaz.ConfigPanel.IntegerOption;
-
+import practicas.Problema;
 import practicas.practica1.*;
+import practicas.practica2.Practica2;
 
 public class FactoriaOpciones {
 	
-	final public static Funcion[] funciones = new Funcion[] { 
-			new Funcion1(), 
-			new Funcion2(), 
-			new Funcion3(), 
-			new Funcion4(),
-			//new Funcion5() 
+	final public static Mutacion[] mutaciones = new Mutacion[] {
+		new Heuristica<>(),
+		new Insercion(),
+		new Intercambio(),
+		new Inversion()
+	};
+	
+	final public static Reproduccion[] reproducciones = new Reproduccion[] {
+		new CodificacionOrdinal(),
+		new CruceCiclos(),
+		new OX<>(),
+		new PMX<>(),
+		new RecombinacionRutas<>()
+	};
+	
+	final public static Problema<?>[] funciones = new Problema<?>[] { 
+		new Funcion1(), 
+		new Funcion2(), 
+		new Funcion3(), 
+		new Funcion4(),
+		//new Funcion5() 
+		new Practica2()
 	};
 	final public static Seleccion[] selecciones = new Seleccion[] {
-			new SeleccionRuleta(),
-			new MuestreoEstocasticoUniversal(),
-			new TorneoDeterministico(),
-			new TorneoProbabilistico(),
-			new Ranking(),
-			new Truncamiento()
+		new SeleccionRuleta(),
+		new MuestreoEstocasticoUniversal(),
+		new TorneoDeterministico(),
+		new TorneoProbabilistico(),
+		new Ranking(),
+		new Truncamiento()
 	};
 	
 	public FactoriaOpciones() {
@@ -58,7 +87,7 @@ public class FactoriaOpciones {
 				0,
 				100))
 		.addOption(new IntegerOption<>(
-				"Mutaciones",
+				"P.Mutacion",
 				"Probabilidad de mutacion",
 				"PMut", 
 				0, 
@@ -86,6 +115,16 @@ public class FactoriaOpciones {
 				"Funcion a optimizar",
 				"funcion",
 				funciones))
+		.addOption(new ChoiceOption<>(
+				"Mutacion", 
+				"Metodo de mutacion",
+				"mutacion",
+				mutaciones))
+		.addOption(new ChoiceOption<>(
+				"Reproduccion", 
+				"Metodo de reproduccion",
+				"reproduccion",
+				reproducciones))
 		.endOptions();
 
 		return panel;

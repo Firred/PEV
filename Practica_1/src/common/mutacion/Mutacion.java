@@ -10,7 +10,7 @@ public abstract class Mutacion {
 	protected Random rand = new Random();
 	
 	public void execute(Poblacion pobl, int prob) {
-		Cromosoma crom;
+		Cromosoma<?> crom;
 		
 		if(prob == 0)
 			return;
@@ -24,5 +24,5 @@ public abstract class Mutacion {
 		}		
 	}
 	
-	abstract Cromosoma mutacion(Cromosoma crom);
+	abstract <T extends Cromosoma<?>> T mutacion(T crom);
 }

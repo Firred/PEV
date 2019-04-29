@@ -5,7 +5,6 @@ import java.util.Random;
 import common.Poblacion;
 
 public abstract class Reproduccion {
-	public final static ReproduccionBinaria reproduccion = new ReproduccionBinaria();
 	protected Random rand = new Random();
 	
 	public void ejecutar(Poblacion pobl, int probCruce) {
@@ -29,6 +28,8 @@ public abstract class Reproduccion {
 					
 					pobl.setIndividuos(hijos.getC1(), h1);
 					pobl.setIndividuos(hijos.getC2(), i);
+					
+					seleccionado = false;
 				}
 			}
 			

@@ -1,12 +1,12 @@
 package common.evaluacion;
 
 import common.Cromosoma;
-import practicas.practica1.Funcion;
+import practicas.Problema;
 
 public class Evaluacion {
-	private static Funcion func = null;
+	private static Problema<?> func = null;
 	
-	public static void setFuncion(Funcion funcion) {
+	public static void setFuncion(Problema<?> funcion) {
 		func = funcion;
 	}
 	

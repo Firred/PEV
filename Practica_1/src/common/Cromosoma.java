@@ -1,22 +1,19 @@
 package common;
-import java.awt.List;
 import java.util.ArrayList;
 
-import common.evaluacion.Function_main;
 import common.genes.Gen;
 import common.genes.GenBi;
 import practicas.Problema;
-import practicas.practica1.Funcion;
 
 
 public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	private ArrayList<? extends Gen<T>> genes; //cadena de bits (genotipo)
 	private int longitud; // Cantidad de genes del cromosma
-	private double aptitud;//funci�n de evaluaci�n fitness adaptaci�n);
-	private double puntuacion; //puntuaci�n relativa(aptitud/suma)
-	private double punt_acum; //puntuaci�n acumulada para selecci�n
-	private int tipo;
+	private double aptitud;//funcion de evaluacion fitness adaptacion);
+	private double puntuacion; //puntuacion relativa(aptitud/suma)
+	private double punt_acum; //puntuacion acumulada para selecci�n
+//	private int tipo;
 	private boolean minimizar;
 
 	
@@ -29,7 +26,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 * @param max
 	 */
 	public Cromosoma(int tipo, Problema<T> func, double prec) {
-		this.tipo = tipo;
+//		this.tipo = tipo;
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 
@@ -206,11 +203,14 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	@Override
 	public String toString() {
 		String string =  "Cromosoma [genes= ";
-				for(int i = 0; i < genes.size() ; i++) {
-					string += this.genes.get(i).toString();
-				}
-				string += ", aptitud=" + aptitud	+ ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
-			return string;
+		
+		for(int i = 0; i < genes.size() ; i++) {
+			string += this.genes.get(i).toString();
+		}
+		
+		string += ", aptitud=" + aptitud	+ ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
+		
+		return string;
 	}	
 }
 

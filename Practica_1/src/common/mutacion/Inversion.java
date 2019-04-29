@@ -18,4 +18,9 @@ public class Inversion extends Mutacion {
 		
 		return hijo;
 	}
+	
+	@Override
+	public String toString() {
+		return "Inversion";
+	}
 }

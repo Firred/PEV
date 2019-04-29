@@ -2,6 +2,7 @@ package practicas.practica2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import common.Cromosoma;
 import common.genes.Gen;
@@ -77,20 +78,24 @@ public class Practica2 extends Problema<Integer>{
 			//"Orense", "Oviedo", "Palencia", "Pamplona", "Pontevedra", "Salamanca", "S.Sebastian", "Santander", "Segovia", "Sevilla",
 			//"Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vitoria", "Zamora", "Zaragoza"
 	};
+	
+	private final ArrayList<GenInt> lista;
 
-	public Practica2(boolean minimizar) {
-		super(minimizar);
+	public Practica2() {
+		super(true, CIUDADES.length);
+		lista = crearLista();
 	}
 
 	@Override
 	public double evalua(Cromosoma<Integer> crom) {
 		double aptitud=0;
-
+		
 		for(int i = 0; i < CIUDADES.length-1; i++) {
 			if(crom.getGen(i).getCaracteristica() > crom.getGen(i+1).getCaracteristica())
-				aptitud += _DIST[i][i+1];
-			else
-				aptitud += _DIST[i+1][i];
+				aptitud += _DIST[crom.getGen(i).getCaracteristica()][crom.getGen(i+1).getCaracteristica()];
+			else {				
+				aptitud += _DIST[crom.getGen(i+1).getCaracteristica()][crom.getGen(i).getCaracteristica()];
+			}
 		}
 		
 		return aptitud;
@@ -98,17 +103,35 @@ public class Practica2 extends Problema<Integer>{
 
 	@Override
 	public ArrayList<? extends Gen<Integer>> crearGenes(double... args) {
-		if(args.length != 0) {
-			return null;
-		}
-		
-		ArrayList<GenInt> genes = new ArrayList<GenInt>(CIUDADES.length);
+		/*ArrayList<GenInt> genes = new ArrayList<GenInt>(CIUDADES.length);
 		
 		for(int i = 0; i < CIUDADES.length; i++)
-			genes.add(new GenInt(i));
+			genes.add(new GenInt(i));*/
+		
+		ArrayList<GenInt> genes = new ArrayList<>(lista);
 		
 		Collections.shuffle(genes);
 		
 		return genes;
 	}
+	
+	public List<GenInt> getLista() {			
+		return this.lista;
+	}
+	
+	@Override
+	public String toString() {
+		return "Practica 2";
+	}
+	
+	private ArrayList<GenInt> crearLista() {
+		ArrayList<GenInt> genes = new ArrayList<GenInt>(CIUDADES.length);
+		
+		for(int i = 0; i < CIUDADES.length; i++)
+			genes.add(new GenInt(i));
+		
+		return genes;
+	}
+	
+	
 }

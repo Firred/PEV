@@ -2,27 +2,32 @@ package common;
 
 import java.io.IOException;
 
+import common.cruce.CodificacionOrdinal;
+import common.cruce.CruceCiclos;
 import common.cruce.Reproduccion;
 import common.cruce.ReproduccionBinaria;
 import common.evaluacion.Evaluacion;
 import common.evaluacion.Function_Controller;
 import common.evaluacion.Function_main;
 import common.mutacion.FactoriaMutacion;
+import common.mutacion.Heuristica;
 import common.mutacion.Mutacion;
 import common.mutacion.MutacionBinaria;
 import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.ControladorImp;
+import practicas.Problema;
 import practicas.practica1.Funcion;
 import practicas.practica1.Funcion1;
+import practicas.practica2.Practica2;
 
 public class AlgoritmoGenetico {
 	/**Tamaño de la población*/
 	private int poblacion;
 	private Poblacion poblPrincipal;
 	/**Función a optimizar*/
-	private Funcion funcion;	
+	private Problema<?> funcion;	
 	/**Mejor individuo*/
 	private Cromosoma mejor;
 	/**Método de selección*/
@@ -39,18 +44,21 @@ public class AlgoritmoGenetico {
 	/**Precisión*/
 	private double precision;
 	/**Prob. cruce*/
-	private int cruce;
+	private int pCruce;
+	/**Método de reproducion*/
+	private Reproduccion reproduccion;
 	
 	public AlgoritmoGenetico() {
 		this.poblacion = 100;
 		this.generaciones = 100;
 		this.elite = 2;
 		this.pMut = 5;
-		this.cruce = 60;
+		this.pCruce = 60;
 		this.precision = 0.001;
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
+		this.reproduccion = new ReproduccionBinaria();
 	}
 	
 	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
@@ -90,7 +98,7 @@ public class AlgoritmoGenetico {
 //		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
 	}
 	
-	public void setFuncion(Funcion funcion) {
+	public void setFuncion(Problema<?> funcion) {
 		this.funcion = funcion;
 		Evaluacion.setFuncion(funcion);
 	}
@@ -104,7 +112,11 @@ public class AlgoritmoGenetico {
 	}
 	
 	public void setCruce(int cruce) {
-		this.cruce = cruce;
+		this.pCruce = cruce;
+	}
+	
+	public void setReproduccion(Reproduccion reproduccion) {
+		this.reproduccion = reproduccion;
 	}
 	
 	public Seleccion getSeleccion() {
@@ -130,7 +142,7 @@ public class AlgoritmoGenetico {
 		return this.poblacion;
 	}
 	
-	public Funcion getFuncion() {
+	public Problema<?> getFuncion() {
 		return this.funcion;
 	}
 	
@@ -143,7 +155,11 @@ public class AlgoritmoGenetico {
 	}
 	
 	public int getCruce() {
-		return this.cruce;
+		return this.pCruce;
+	}
+	
+	public Reproduccion getReproduccion() {
+		return this.reproduccion;
 	}
 
 	@Override
@@ -215,7 +231,7 @@ public class AlgoritmoGenetico {
 			
 		}
 		
-		Reproduccion.reproduccion.ejecutar(poblPrincipal, this.cruce);
+		reproduccion.ejecutar(poblPrincipal, this.pCruce);
 	}
 	
 	public void muta() {
@@ -240,10 +256,28 @@ public class AlgoritmoGenetico {
 		return this.generaciones < poblPrincipal.getGeneracion();
 	}
 	
+	/**
+	 * Comprueba que la configuracion del algoritmo es correcta y realiza cambios si es necesario
+	 */
+	private void configCheck() {
+		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
+		if(Funcion.class.isAssignableFrom(this.funcion.getClass())) {
+			this.mutacion = new MutacionBinaria();
+			this.reproduccion = new ReproduccionBinaria();
+		}
+		if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
+			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
+				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
+		}
+	}
+	
 	public String exe(ControladorImp ctrl) {
 		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
-		ctrl.start(this.generaciones, this.funcion.MAX.length);		
+		
+		configCheck();
+		
+		ctrl.start(this.generaciones, this.funcion.genes);		
 		
 		Cromosoma[] eliteP = new Cromosoma[0];
 		

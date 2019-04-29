@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 import common.Cromosoma;
 import common.evaluacion.Function_main;
+import practicas.Problema;
 import practicas.practica1.Funcion;
 
 public class Poblacion {
@@ -30,7 +31,7 @@ public class Poblacion {
 	 * @param mejor
 	 * @param precision
 	 */
-	public Poblacion(int tipo, int tPobl, int generacion, Funcion func, double prec) {
+	public Poblacion(int tipo, int tPobl, int generacion, Problema<?> func, double prec) {
 		for(int i = 0; i < tPobl; i++) {
 			individuos.add(new Cromosoma(tipo, func, prec));
 		}

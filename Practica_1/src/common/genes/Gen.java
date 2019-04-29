@@ -49,10 +49,9 @@ public abstract class Gen<T> {
 	}*/
 	
 	@Override
-	public String toString() {
-		return "Gen [caracteristica=" + caracteristica + ", long_gen=" + long_gen + "]";
-	}
+	public abstract String toString();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object o) {
 		if(o.getClass() == this.getClass()) {
