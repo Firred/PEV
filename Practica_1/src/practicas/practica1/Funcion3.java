@@ -1,7 +1,6 @@
 package practicas.practica1;
 
 import common.Cromosoma;
-import common.evaluacion.Function_main;
 
 public class Funcion3 extends Funcion{
 	
@@ -10,17 +9,6 @@ public class Funcion3 extends Funcion{
 	
 	public Funcion3() {
 		super(min, max, true);
-		
-		//Set_Function();
-	}
-
-	public void Set_Function() {
-		Function_main.Set_Arrays(2);
-		for (int i = 0; i<2; i++) {
-			Function_main.MAX[i] = 10;
-			Function_main.MIN[i] = -10;
-			Function_main.PRECISION[i] = 0.0001;
-		}
 	}
 	
 	@Override

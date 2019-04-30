@@ -32,13 +32,6 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 
 		genes = func.crearGenes(prec);
 		
-/*		for(int i = 0; i < func.MAX.length; i++) 
-			genes.add(new GenBi(i, func.MIN[i], func.MAX[i], prec));*/
-		
-/*		for (int i = 0; i< Function_main.MAX.length; i++) {
-			genes.add(GenController.generarGen(tipo, i));
-		}*/
-		
 		if(tipo == 0) {
 			this.longitud = genes.size();
 		}
@@ -51,13 +44,6 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 */
 	public Cromosoma (Cromosoma<T> crom) {
 		this.genes = new ArrayList<>(crom.genes);
-		
-		
-		
-/*		for (Gen<T> g : crom.genes) {
-			this.genes.add(new GenBi((GenBi)g));
-			//this.genes.add(GenController.copiarGen(crom.tipo, g));
-		}*/
 		
 		this.minimizar = crom.minimizar;
 		this.longitud = crom.longitud;	
@@ -82,7 +68,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 */
 	public int getGenes_long() {
 		int z = 0;
-		for(int i = 0; i<genes.size(); i++) {
+		for(int i = 0; i < genes.size(); i++) {
 			z += genes.get(i).getTam();
 		}
 		return z;
@@ -140,14 +126,6 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		return this.puntuacion;
 	}
 	
-	/** SETTERS
-	 * @param b
-	 * @param n
-	 */
-	/*public void setAleloBi_1g(boolean b, int n, int pos) {
-		((Gen_Bi) genes.get(pos)).setAlelo(b,n);
-	}*/
-	
 	public void setGen(T caracteristica, int pos) {
 		this.genes.get(pos).setCarateristica(caracteristica);
 	}
@@ -175,7 +153,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	}
 	
 	/**
-	 *  Compara dos aptitudes para saber si son el mismo cromosoma
+	 *  Compara dos aptitudes para saber cual es mayor
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
@@ -202,13 +180,13 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 */
 	@Override
 	public String toString() {
-		String string =  "Cromosoma [genes= ";
+		String string =  "Cromosoma: Aptitud: " + aptitud + " [genes= ";
 		
 		for(int i = 0; i < genes.size() ; i++) {
 			string += this.genes.get(i).toString();
 		}
 		
-		string += ", aptitud=" + aptitud	+ ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
+		string += ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
 		
 		return string;
 	}	

@@ -27,7 +27,7 @@ public class Heuristica<T> extends Mutacion {
 		ArrayList<Integer> pos = new ArrayList<>();
 		int aux;
 		boolean[] marcas = new boolean[n];
-		System.out.println("Muta: ");
+
 		for(int i = 0; i < n; i++) {		
 			do {
 				aux = rand.nextInt(crom.getNumGenes());
@@ -67,8 +67,6 @@ public class Heuristica<T> extends Mutacion {
 					if(Evaluacion.evaluar(c) > mejor.getApt()) {
 						mejor = c;
 					}
-					
-					System.out.println(aux);
 					
 					for(int j = 0; j < pos.size(); j++) {
 						genes.push(aux.pop());

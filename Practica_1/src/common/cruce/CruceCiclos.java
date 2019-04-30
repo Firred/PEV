@@ -10,10 +10,17 @@ public class CruceCiclos extends Reproduccion {
 		Cromosoma h1 = new Cromosoma(par.getC2()), h2 = new Cromosoma(par.getC1());
 
 		while (par.getC1().getGen(0) != par.getC2().getGen(pos)) {
-			h1.getGenes().set(pos, par.getC1().getGen(pos));
-			h2.getGenes().set(pos, par.getC2().getGen(pos));
+			h2.getGenes().set(pos, par.getC1().getGen(pos));
 			
 			pos = par.getC1().getGenes().indexOf(par.getC2().getGen(pos));
+		}
+		
+		pos = 0;
+		
+		while (par.getC2().getGen(0) != par.getC1().getGen(pos)) {
+			h1.getGenes().set(pos, par.getC2().getGen(pos));
+			
+			pos = par.getC2().getGenes().indexOf(par.getC1().getGen(pos));
 		}
 		
 		System.out.println(h1);

@@ -103,11 +103,6 @@ public class Practica2 extends Problema<Integer>{
 
 	@Override
 	public ArrayList<? extends Gen<Integer>> crearGenes(double... args) {
-		/*ArrayList<GenInt> genes = new ArrayList<GenInt>(CIUDADES.length);
-		
-		for(int i = 0; i < CIUDADES.length; i++)
-			genes.add(new GenInt(i));*/
-		
 		ArrayList<GenInt> genes = new ArrayList<>(lista);
 		
 		Collections.shuffle(genes);
@@ -131,7 +126,5 @@ public class Practica2 extends Problema<Integer>{
 			genes.add(new GenInt(i));
 		
 		return genes;
-	}
-	
-	
+	}	
 }

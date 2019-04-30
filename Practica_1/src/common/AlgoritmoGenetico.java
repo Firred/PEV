@@ -95,7 +95,6 @@ public class AlgoritmoGenetico {
 	
 	public void setPoblacion(int poblacion) {
 		this.poblacion = poblacion;
-//		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
 	}
 	
 	public void setFuncion(Problema<?> funcion) {
@@ -212,8 +211,11 @@ public class AlgoritmoGenetico {
 		
 		poblPrincipal.calcularMejorMedia();
 		
-		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1)
+		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1) {
+			
 			this.mejor = poblPrincipal.getMejor();
+			System.out.println("Mejor que el otro: " + this.mejor);
+		}
 		
 		for(int i = 0; i<poblPrincipal.getTpobl();i++) {
 			poblPrincipal.getIndividuos(i).setPunt(poblPrincipal.getIndividuos(i).getApt()/suma_aptitud);
