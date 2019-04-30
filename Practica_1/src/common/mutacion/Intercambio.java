@@ -12,7 +12,9 @@ public class Intercambio extends Mutacion {
 		int p1 = rand.nextInt(crom.getNumGenes()), p2;
 		Cromosoma hijo = new Cromosoma(crom);
 		
-		while ((p2 = rand.nextInt(crom.getNumGenes())) == p1)
+		do {
+			p2 = rand.nextInt(crom.getNumGenes());
+		} while (p2 == p1);
 		
 		hijo.getGenes().set(p1, crom.getGen(p2));
 		hijo.getGenes().set(p2, crom.getGen(p1));
