@@ -89,11 +89,13 @@ public class Practica2 extends Problema<Integer>{
 	@Override
 	public double evalua(Cromosoma<Integer> crom) {
 		double aptitud=0;
-		
+		System.out.println(crom);
 		for(int i = 0; i < CIUDADES.length-1; i++) {
 			if(crom.getGen(i).getCaracteristica() > crom.getGen(i+1).getCaracteristica())
 				aptitud += _DIST[crom.getGen(i).getCaracteristica()][crom.getGen(i+1).getCaracteristica()];
-			else {				
+			else {	
+				if(crom.getGen(i).getCaracteristica() == crom.getGen(i+1).getCaracteristica())
+				System.out.println(i);
 				aptitud += _DIST[crom.getGen(i+1).getCaracteristica()][crom.getGen(i).getCaracteristica()];
 			}
 		}
@@ -127,4 +129,26 @@ public class Practica2 extends Problema<Integer>{
 		
 		return genes;
 	}	
+	
+	
+	/**
+	 * Comprueba si el cromosoma esta formado correctamente.
+	 * SOLO PARA PRUEBAS
+	 * @param crom
+	 * @return
+	 */
+	public static Gen<Integer> cromosomaCorrecto(Cromosoma<Integer> crom) {
+		ArrayList<Gen<Integer>> aux = new ArrayList<>();
+		
+		aux.add(crom.getGen(0));
+		
+		for(int i = 1; i < crom.getNumGenes(); i++) {
+			if(aux.contains(crom.getGen(i)))
+				return crom.getGen(i);
+			
+			aux.add(crom.getGen(i));
+		}
+		
+		return null;
+	}
 }

@@ -10,7 +10,7 @@ import common.Cromosoma;
 import common.evaluacion.Evaluacion;
 import common.genes.Gen;
 
-public class Heuristica<T> extends Mutacion {
+public class Heuristica extends Mutacion {
 
 	private Cromosoma mejor;
 	
@@ -40,12 +40,12 @@ public class Heuristica<T> extends Mutacion {
 		mejor = crom;
 		
 		Evaluacion.evaluar(crom);
-		vueltaAtras(crom, pos, marcas, new Stack<Gen<T>>());
+		vueltaAtras(crom, pos, marcas, new Stack<Gen<?>>());
 		
 		return mejor;
 	}
 	
-	private void vueltaAtras(Cromosoma crom, List<Integer> pos, boolean[] marcas, Stack<Gen<T>> genes) {
+	private void vueltaAtras(Cromosoma crom, List<Integer> pos, boolean[] marcas, Stack<Gen<?>> genes) {
 		int i = 0;
 		Cromosoma c = null;
 		
@@ -56,7 +56,7 @@ public class Heuristica<T> extends Mutacion {
 				genes.push(crom.getGen(pos.get(i)));
 				if(genes.size() == pos.size()) {
 					c = new Cromosoma(crom);
-					Stack<Gen<T>> aux = new Stack<Gen<T>>();
+					Stack<Gen<?>> aux = new Stack<Gen<?>>();
 				
 					//Montar cromosoma	
 					for(int j = pos.size()-1; j >= 0; j--) {

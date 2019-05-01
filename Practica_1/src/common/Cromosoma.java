@@ -8,7 +8,7 @@ import practicas.Problema;
 
 public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
-	private ArrayList<? extends Gen<T>> genes; //cadena de bits (genotipo)
+	private ArrayList<Gen<T>> genes; //cadena de bits (genotipo)
 	private int longitud; // Cantidad de genes del cromosma
 	private double aptitud;//funcion de evaluacion fitness adaptacion);
 	private double puntuacion; //puntuacion relativa(aptitud/suma)
@@ -30,7 +30,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 
-		genes = func.crearGenes(prec);
+		genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
 		
 		if(tipo == 0) {
 			this.longitud = genes.size();
@@ -126,8 +126,8 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		return this.puntuacion;
 	}
 	
-	public void setGen(T caracteristica, int pos) {
-		this.genes.get(pos).setCarateristica(caracteristica);
+	public <M extends Gen<T>> void setGen(M gen, int pos) {
+		this.genes.set(pos, gen);
 	}
 	
 	

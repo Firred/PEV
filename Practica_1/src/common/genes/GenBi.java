@@ -106,7 +106,7 @@ public class GenBi extends Gen<Double> {
 	 * Cambia la característica por el valor que representa el alelo
 	 * Usar tras cada modificación del alelo
 	 */
-	public void calcularCaracteristica() {
+	private void calcularCaracteristica() {
 		setCarateristica(this.min + bin2Dec()* ((this.max-this.min)/(Math.pow(2, alelo.length)-1)));
 	}
 	
@@ -133,7 +133,7 @@ public class GenBi extends Gen<Double> {
 	 * @param maximo de rango
 	 * @param precision
 	 */
-	public GenBi generarGen(int tipo) {
+/*	public GenBi generarGen(int tipo) {
 		int n = calcLongituGen();
 		alelo = new boolean[n];
 		Random rand = new Random();
@@ -141,7 +141,7 @@ public class GenBi extends Gen<Double> {
 			alelo[i] = rand.nextBoolean();
 		}	
 		return this;
-	}
+	}*/
 	
 	/**
 	 * Calcula la longitud del gen para su rango en una precision

@@ -12,6 +12,6 @@ public class GenInt extends Gen<Integer> {
 
 	@Override
 	public String toString() {
-		return "Gen: " + this.getCaracteristica().toString() + " ";
+		return "Gen: " + this.getCaracteristica() + " ";
 	}	
 }

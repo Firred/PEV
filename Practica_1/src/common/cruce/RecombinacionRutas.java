@@ -9,10 +9,10 @@ import org.math.plot.utils.Array;
 import common.Cromosoma;
 import common.genes.Gen;
 
-public class RecombinacionRutas<T> extends Reproduccion {
+public class RecombinacionRutas extends Reproduccion {
 
 	@Override ParCromosoma cruce(ParCromosoma par) {
-		HashMap<Gen<T>, ArrayList<Gen<T>>> map = generarMapa(par);		
+		HashMap<Gen<?>, ArrayList<Gen<?>>> map = generarMapa(par);		
 	
 		ArrayList<Boolean> marcas = new ArrayList<>(par.getC1().getNumGenes());
 		
@@ -35,34 +35,34 @@ public class RecombinacionRutas<T> extends Reproduccion {
 		return new ParCromosoma(h1, h2);
 	}
 
-	private HashMap<Gen<T>, ArrayList<Gen<T>>> generarMapa(ParCromosoma par) {
-		HashMap<Gen<T>, ArrayList<Gen<T>>> map = new HashMap<>();		
-		ArrayList<Gen<T>> auxList;
+	private <T extends Gen<?>> HashMap<T, ArrayList<T>> generarMapa(ParCromosoma par) {
+		HashMap<T, ArrayList<T>> map = new HashMap<>();		
+		ArrayList<T> auxList;
 		
 		for (int i = 1; i < par.getC1().getNumGenes()-1; i++) {
 			auxList = new ArrayList<>();
 			
-			auxList.add(par.getC1().getGen(i-1));
-			auxList.add(par.getC1().getGen(i+1));
+			auxList.add((T)par.getC1().getGen(i-1));
+			auxList.add((T)par.getC1().getGen(i+1));
 			
-			map.put(par.getC1().getGen(i), auxList);
+			map.put((T)par.getC1().getGen(i), auxList);
 		}
 		
 		//Adyacentes al primero
 		auxList = new ArrayList<>();
 		
-		auxList.add(par.getC1().getGen(1));
-		auxList.add(par.getC1().getGen(par.getC1().getNumGenes()-1));
+		auxList.add((T)par.getC1().getGen(1));
+		auxList.add((T) par.getC1().getGen(par.getC1().getNumGenes()-1));
 		
-		map.put(par.getC1().getGen(0), auxList);
+		map.put((T) par.getC1().getGen(0), auxList);
 		
 		//Adyacentes al ultimo
 		auxList = new ArrayList<>();
 		
-		auxList.add(par.getC1().getGen(0));
-		auxList.add(par.getC1().getGen(par.getC1().getNumGenes()-2));
+		auxList.add((T) par.getC1().getGen(0));
+		auxList.add((T) par.getC1().getGen(par.getC1().getNumGenes()-2));
 		
-		map.put(par.getC1().getGen(par.getC1().getNumGenes()-1), auxList);
+		map.put((T) par.getC1().getGen(par.getC1().getNumGenes()-1), auxList);
 		
 		
 		for (int i = 1; i < par.getC2().getNumGenes()-1; i++) {
@@ -70,10 +70,10 @@ public class RecombinacionRutas<T> extends Reproduccion {
 			
 			//Gen<T> Comparable?
 			if(auxList.contains(par.getC1().getGen(i-1)))
-				auxList.add(par.getC1().getGen(i-1));
+				auxList.add((T) par.getC1().getGen(i-1));
 			
 			if(auxList.contains(par.getC1().getGen(i+1)))
-				auxList.add(par.getC1().getGen(i+1));
+				auxList.add((T) par.getC1().getGen(i+1));
 			
 			//map.put(par.getC1().getGen(i), auxList);
 		}
@@ -82,9 +82,9 @@ public class RecombinacionRutas<T> extends Reproduccion {
 		auxList = map.get(par.getC2().getGen(0));
 		
 		if(auxList.contains(par.getC1().getGen(1)))
-			auxList.add(par.getC2().getGen(1));
+			auxList.add((T) par.getC2().getGen(1));
 		if(auxList.contains(par.getC1().getGen(par.getC2().getNumGenes()-1)))
-			auxList.add(par.getC2().getGen(par.getC2().getNumGenes()-1));
+			auxList.add((T) par.getC2().getGen(par.getC2().getNumGenes()-1));
 		
 		//map.put(par.getC2().getGen(0), auxList);
 		
@@ -92,19 +92,19 @@ public class RecombinacionRutas<T> extends Reproduccion {
 		auxList = map.get(par.getC2().getGen(par.getC2().getNumGenes()-1));
 		
 		if(auxList.contains(par.getC1().getGen(0)))
-			auxList.add(par.getC2().getGen(0));
+			auxList.add((T) par.getC2().getGen(0));
 		if(auxList.contains(par.getC1().getGen(par.getC2().getNumGenes()-2)))
-			auxList.add(par.getC2().getGen(par.getC2().getNumGenes()-2));
+			auxList.add((T) par.getC2().getGen(par.getC2().getNumGenes()-2));
 		
 		//map.put(par.getC1().getGen(par.getC1().getNumGenes()-1), auxList);
 		
 		return map;
 	}
 	
-	private boolean crearCromosoma(HashMap<Gen<T>, ArrayList<Gen<T>>> map, Gen<T> ini, Cromosoma crom) {
-		Gen<T> actual = ini, mejor;
-		ArrayList<Gen<T>> aux;
-		HashSet<Gen<T>> set = new HashSet<>();
+	private <T extends Gen<?>> boolean crearCromosoma(HashMap<T, ArrayList<T>> map, T ini, Cromosoma crom) {
+		T actual = ini, mejor;
+		ArrayList<T> aux;
+		HashSet<T> set = new HashSet<>();
 			
 		for (int i = 0; i < map.size(); i++) {
 			aux = map.get(actual);	

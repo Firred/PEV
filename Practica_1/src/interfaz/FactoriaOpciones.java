@@ -31,7 +31,7 @@ import practicas.practica2.Practica2;
 public class FactoriaOpciones {
 	
 	final public static Mutacion[] mutaciones = new Mutacion[] {
-		new Heuristica<>(),
+		new Heuristica(),
 		new Insercion(),
 		new Intercambio(),
 		new Inversion()
@@ -41,8 +41,8 @@ public class FactoriaOpciones {
 		new CodificacionOrdinal(),
 		new CruceCiclos(),
 		new OX<>(),
-		new PMX<>(),
-		new RecombinacionRutas<>()
+		new PMX(),
+		new RecombinacionRutas()
 	};
 	
 	final public static Problema<?>[] funciones = new Problema<?>[] { 
