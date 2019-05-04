@@ -40,7 +40,7 @@ public class FactoriaOpciones {
 	final public static Reproduccion[] reproducciones = new Reproduccion[] {
 		new CodificacionOrdinal(),
 		new CruceCiclos(),
-		new OX<>(),
+		new OX(),
 		new PMX(),
 		new RecombinacionRutas()
 	};

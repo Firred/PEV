@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
-import common.evaluacion.Function_Controller;
 
 public class ControladorImp extends Controlador {
 	

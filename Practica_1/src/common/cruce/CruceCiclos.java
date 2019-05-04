@@ -22,9 +22,7 @@ public class CruceCiclos extends Reproduccion {
 			
 			pos = par.getC2().getGenes().indexOf(par.getC1().getGen(pos));
 		}
-		
-		System.out.println(h1);
-		System.out.println(h2);
+
 		return new ParCromosoma(h1, h2);
 	}
 	

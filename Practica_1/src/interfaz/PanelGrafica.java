@@ -61,7 +61,6 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 	@Override
 	public void update(Poblacion pobl, Cromosoma mejorG/*Cromosoma mejorG, Cromosoma mejorP, int gen*/) {
 		if(pobl.getGeneracion() < this.generaciones) {
-			System.out.println(pobl.getMejor().getApt());
 			yMejor[pobl.getGeneracion()] = pobl.getMejor().getApt();
 			yMedia[pobl.getGeneracion()] = pobl.getMedia();
 			yMejorG[pobl.getGeneracion()] = mejorG.getApt();

@@ -1,56 +1,55 @@
 package common.cruce;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 import common.Cromosoma;
 import common.genes.Gen;
 
-public class OX<T extends Gen<?>> extends Reproduccion {
+public class OX extends Reproduccion {
 
 	@Override ParCromosoma cruce(ParCromosoma par) {
 		int nGenes = par.getC1().getNumGenes();
 		int ini = rand.nextInt(nGenes-1);
 		int fin = rand.nextInt(nGenes-ini)+ini;
 		int j1 = nGenes+fin+1, j2 = nGenes+fin+1;
-		//int j = nGenes + fin + 1;
-		HashMap<T, Integer> map1 = new HashMap<>(fin - ini);
-		HashMap<T, Integer> map2 = new HashMap<>(fin - ini);
 		
-		Cromosoma h1 = new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
+		HashSet<Gen<?>> list1 = new HashSet<>(), list2 = new HashSet<>();
 		
-		for (int i = ini; i <= fin; i++) {
-			h1.getGenes().set(i, par.getC2().getGen(i));
-			h2.getGenes().set(i, par.getC1().getGen(i));
-			map1.put((T) par.getC2().getGen(i), i);
-			map2.put((T) par.getC1().getGen(i), i);
+		Cromosoma h1 = new Cromosoma(par.getC2()), h2 = new Cromosoma(par.getC1());
+		
+		for (int i = ini; i < fin; i++) {
+			list1.add(par.getC2().getGen(i));
+			list2.add(par.getC1().getGen(i));
 		}
 		
-		for (int i = fin+1; i < nGenes; i++) {
-			while(map1.containsKey(par.getC1().getGen(j1%nGenes))) {
+		for (int i = fin; i < nGenes; i++, j1++, j2++) {
+			while(list1.contains(par.getC1().getGen(j1%nGenes))) {
 					j1++;
 			}
 			
-			h1.getGenes().set(i, par.getC1().getGenes().get(j1%nGenes));
+			h1.getGenes().set(i, par.getC1().getGen(j1%nGenes));
 			
-			while (map2.containsKey(par.getC2().getGen(j2%nGenes))) {
+			while(list2.contains(par.getC2().getGen(j2%nGenes))) {
 				j2++;
 			}
 			
-			h2.getGenes().set(i, par.getC2().getGenes().get(j2%nGenes));
+			h2.getGenes().set(i, par.getC2().getGen(j2%nGenes));
 		}
 		
-		for (int i = 0; i < ini; i++) {
-			while(map1.containsKey(par.getC1().getGen(j1%nGenes))) {
+		for (int i = 0; i < ini; i++, j1++, j2++) {
+			while(list1.contains(par.getC1().getGen(j1%nGenes))) {
 				j1++;
 			}
 		
-			h1.getGenes().set(i, par.getC1().getGenes().get(j1%nGenes));
+			h1.getGenes().set(i, par.getC1().getGen(j1%nGenes));
 		
-			while (map2.containsKey(par.getC2().getGen(j2%nGenes))) {
+			while(list2.contains(par.getC2().getGen(j2%nGenes))) {
 				j2++;
 			}
 			
-			h2.getGenes().set(i, par.getC2().getGenes().get(j2%nGenes));
+			h2.getGenes().set(i, par.getC2().getGen(j2%nGenes));
 		}
 		
 		return new ParCromosoma(h1, h2);

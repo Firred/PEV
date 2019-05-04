@@ -186,7 +186,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 			string += this.genes.get(i).toString();
 		}
 		
-		string += ", puntuacion=" + puntuacion + ", punt_acum=" + punt_acum + "]";
+		string += "], puntuacion=" + puntuacion + ", punt_acum=" + punt_acum;
 		
 		return string;
 	}	

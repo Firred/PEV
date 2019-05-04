@@ -1,9 +1,7 @@
 package common.cruce;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import common.Cromosoma;
 import common.genes.Gen;
@@ -35,40 +33,29 @@ public class CodificacionOrdinal extends Reproduccion {
 			orden2.add(pos);
 			listaAux.remove(pos);
 		}
+	
 		
 		//Calcular corte en orden
-		pos = rand.nextInt(par.getC1().getNumGenes());
+		pos = rand.nextInt(lista.size());
 		
 		//Combinar ordenes
-		ListIterator<Integer> it1 = orden1.listIterator(), it2 = orden2.listIterator();
-		
-		while(it1.hasNext() && it1.nextIndex() <= pos) {
-			aux = it1.next();
-			it1.set(it2.next());
-			it2.set(aux);
+		for(int i = 0; i < pos; i++) {
+			aux = orden1.get(i);
+			orden1.set(i, orden2.get(i));
+			orden2.set(i, aux);
 		}
-
+		
 		//Insertar genes combinados en cromosomas
 		listaAux = new ArrayList<>(lista);
 		
-		ListIterator<Gen> itG1 = h1.getGenes().listIterator(), itG2 = h2.getGenes().listIterator();
-		it1 = orden1.listIterator();
-		
-		while(itG1.hasNext()) {
-			itG1.next(); 
-			
-			itG1.set(listaAux.get(it1.next()));	
-			listaAux.remove(it1.previousIndex());
+		for(int i = 0; i < lista.size(); i++) {	
+			h1.setGen(listaAux.remove((int)orden1.get(i)), i);
 		}
 		
 		listaAux = new ArrayList<>(lista);
-		it2 = orden2.listIterator();
 		
-		while(itG2.hasNext()) {
-			itG2.next(); 
-			
-			itG2.set(listaAux.get(it2.next()));	
-			listaAux.remove(it2.previousIndex());
+		for(int i = 0; i < lista.size(); i++) {
+			h2.setGen(listaAux.remove((int)orden2.get(i)), i);
 		}
 		
 		return new ParCromosoma(h1, h2);

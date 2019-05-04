@@ -89,13 +89,11 @@ public class Practica2 extends Problema<Integer>{
 	@Override
 	public double evalua(Cromosoma<Integer> crom) {
 		double aptitud=0;
-		System.out.println(crom);
+
 		for(int i = 0; i < CIUDADES.length-1; i++) {
 			if(crom.getGen(i).getCaracteristica() > crom.getGen(i+1).getCaracteristica())
 				aptitud += _DIST[crom.getGen(i).getCaracteristica()][crom.getGen(i+1).getCaracteristica()];
 			else {	
-				if(crom.getGen(i).getCaracteristica() == crom.getGen(i+1).getCaracteristica())
-				System.out.println(i);
 				aptitud += _DIST[crom.getGen(i+1).getCaracteristica()][crom.getGen(i).getCaracteristica()];
 			}
 		}

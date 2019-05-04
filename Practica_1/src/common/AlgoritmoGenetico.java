@@ -36,7 +36,7 @@ public class AlgoritmoGenetico {
 	private Mutacion mutacion;		
 	/**Número de generaciones*/
 	private int generaciones;		
-	private boolean flag_print = true;
+	private boolean flag_print = false;
 	/**Tamaño de la élite*/
 	private int elite;	
 	/**Prob. de mutación*/
@@ -163,11 +163,6 @@ public class AlgoritmoGenetico {
 
 	@Override
 	public String toString() {
-		/*String rtn = "";
-		for(int i = 0; i<poblPrincipal.getTpobl();i++) {
-			rtn += (poblPrincipal.getIndividuos(i).toString() + "\n");
-		}
-		return rtn;*/
 		return "Ag";
 	}
 	
@@ -182,39 +177,15 @@ public class AlgoritmoGenetico {
 	
 	public void evalua() {
 		double suma_aptitud = 0;
-		/*for(int i = 0; i<poblPrincipal.getTpobl();i++) {
-			poblPrincipal.getIndividuos(i).setApt(funcion.Evalua(poblPrincipal.getIndividuos(i)));
-			
-			if(poblPrincipal.getIndividuos(i).compareTo(this.mejor) > 1) {
-				this.mejor = new Cromosoma(poblPrincipal.getIndividuos(i));
-			}*/
-			
-			/*if(!Function_main.MAX_MIN) {
-				if(poblPrincipal.getIndividuos(i).getApt() > this.mejor.getApt()) {
-					this.mejor = new Cromosoma(poblPrincipal.getIndividuos(i));
-				}
-			} else {
-				if(poblPrincipal.getIndividuos(i).getApt() < this.mejor.getApt()) {
-					this.mejor = new Cromosoma(poblPrincipal.getIndividuos(i));
-				}
-			}*/
-		//	suma_aptitud += poblPrincipal.getIndividuos(i).getApt();
-	//	}
 		
 		for(Cromosoma crom : poblPrincipal.getIndividuos()) {
-			/*if(crom.compareTo(this.mejor) >= 1) {
-				this.mejor = new Cromosoma(crom);
-			}*/
-
 			suma_aptitud += Evaluacion.evaluar(crom);
 		}
 		
 		poblPrincipal.calcularMejorMedia();
 		
-		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1) {
-			
+		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1) {			
 			this.mejor = poblPrincipal.getMejor();
-			System.out.println("Mejor que el otro: " + this.mejor);
 		}
 		
 		for(int i = 0; i<poblPrincipal.getTpobl();i++) {
@@ -229,8 +200,7 @@ public class AlgoritmoGenetico {
 		poblPrincipal = seleccion.execute(poblPrincipal);
 		if(flag_print == true) {
 			System.out.println("\n POST-SELECCION: ----------------------- generacion:  -----------------------\n\n");
-			System.out.println(mostrarPoblacion());
-			
+			System.out.println(mostrarPoblacion());		
 		}
 		
 		reproduccion.ejecutar(poblPrincipal, this.pCruce);
@@ -255,7 +225,7 @@ public class AlgoritmoGenetico {
 				
 	
 	public boolean terminado() {
-		return this.generaciones < poblPrincipal.getGeneracion();
+		return this.generaciones <= poblPrincipal.getGeneracion();
 	}
 	
 	/**
@@ -267,7 +237,8 @@ public class AlgoritmoGenetico {
 			this.mutacion = new MutacionBinaria();
 			this.reproduccion = new ReproduccionBinaria();
 		}
-		if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
+		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
+		else if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
 			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
 				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
 		}
@@ -295,23 +266,28 @@ public class AlgoritmoGenetico {
 			System.out.println(mostrarPoblacion());			
 		}
 		
-		for(int i = 0 ; i<this.generaciones ; i++) {
+		while(!terminado()) {
+			
 			if(this.elite > 0) {
 				eliteP = poblPrincipal.separaMejores(this.elite);
 				if(flag_print == true) {
-					System.out.println("\n ELITE: ----------------------- generacion: " + i + " -----------------------\n\n");
+					System.out.println("\n ELITE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 					for(Cromosoma c : eliteP)
 						System.out.println(c.toString());			
 				}
 			}
+			
 			selecciona_cruza();
+			
 			if(flag_print == true) {
-				System.out.println("\n POST-CRUCE: ----------------------- generacion: " + i + " -----------------------\n\n");
+				System.out.println("\n POST-CRUCE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 				System.out.println(mostrarPoblacion());			
 			}
+			
 			muta();
+
 			if(flag_print == true) {
-				System.out.println("\n POST-MUTACION: ----------------------- generacion: " + i + " -----------------------\n\n");
+				System.out.println("\n POST-MUTACION: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 				System.out.println(mostrarPoblacion());	
 			}
 			
@@ -320,7 +296,7 @@ public class AlgoritmoGenetico {
 			
 			evalua();
 			if(flag_print == true) {
-				System.out.println("\n POST-EVALUACION: ----------------------- generacion: " + i + " -----------------------\n\n");
+				System.out.println("\n POST-EVALUACION: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 				System.out.println(mostrarPoblacion());			
 			}
 			
