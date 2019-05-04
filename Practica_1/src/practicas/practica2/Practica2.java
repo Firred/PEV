@@ -119,6 +119,19 @@ public class Practica2 extends Problema<Integer>{
 		return "Practica 2";
 	}
 	
+	public String cromToString(Cromosoma<Integer> crom) {
+		String s = "";
+		
+		for(int i = 0; i < crom.getNumGenes()-1; i++) {
+			s += CIUDADES[crom.getGen(i).getCaracteristica()] + " -> ";
+		}
+		
+		s += CIUDADES[crom.getGen(crom.getNumGenes()-1).getCaracteristica()];
+		
+		return s;
+	}
+	
+	
 	private ArrayList<GenInt> crearLista() {
 		ArrayList<GenInt> genes = new ArrayList<GenInt>(CIUDADES.length);
 		
@@ -126,7 +139,7 @@ public class Practica2 extends Problema<Integer>{
 			genes.add(new GenInt(i));
 		
 		return genes;
-	}	
+	}
 	
 	
 	/**

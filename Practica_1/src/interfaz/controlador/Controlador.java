@@ -14,9 +14,10 @@ public abstract class Controlador {
 		return ctrl;
 	}
 	
-	
+	public abstract void start(int generaciones, int variables);
 	public abstract void execute();	
 	public abstract void addObservador(Observador obs);	
 	public abstract void update(Poblacion pobl, Cromosoma mejorG);
+	public abstract void finish(Cromosoma mejor, String texto);
 	public abstract AlgoritmoGenetico getAG();
 }

@@ -87,4 +87,6 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 		}
 	}
 
+	@Override
+	public void finish(Cromosoma mejor, String texto) {}
 }

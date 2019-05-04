@@ -16,6 +16,7 @@ import common.mutacion.MutacionBinaria;
 import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
+import interfaz.controlador.Controlador;
 import interfaz.controlador.ControladorImp;
 import practicas.Problema;
 import practicas.practica1.Funcion;
@@ -244,7 +245,7 @@ public class AlgoritmoGenetico {
 		}
 	}
 	
-	public String exe(ControladorImp ctrl) {
+	public String exe(Controlador ctrl) {
 		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
 		
@@ -302,6 +303,14 @@ public class AlgoritmoGenetico {
 			
 			ctrl.update(this.poblPrincipal, this.mejor);
 		}
+		
+		String texto = "";
+		
+		if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
+			texto = ((Practica2)this.funcion).cromToString(this.mejor);
+		}
+		
+		ctrl.finish(this.mejor, texto);
 		
 		System.out.println("El mejor es: " + mejor.toString());
 		return "EL MEJOR ES:" + this.mejor.toString();

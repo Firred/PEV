@@ -7,6 +7,11 @@ import interfaz.controlador.Controlador;
 import interfaz.controlador.Observador;
 
 public abstract class TableModel<T> extends DefaultTableModel implements Observador {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected String[] columnIds;
 	protected List<T> list;
 	

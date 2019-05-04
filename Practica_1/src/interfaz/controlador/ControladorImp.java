@@ -35,9 +35,16 @@ public class ControladorImp extends Controlador {
 			o.start(generaciones, variables);
 		}
 	}
+	
+	@Override
+	public void finish(Cromosoma mejor, String texto) {
+		for (Observador o : this.obs) {
+			o.finish(mejor, texto);
+		}
+	}
 
 	@Override
 	public AlgoritmoGenetico getAG() {
 		return this.aG;
-	}
+	}	
 }

@@ -33,14 +33,6 @@ public class CromosomaTableModel extends TableModel<Cromosoma> {
 				i++;
 			}
 		}
-		
-			
-/*		switch (indiceCol) {
-			case 0: s = this.list.get(indiceFil).getApt(); break;
-			case 1: s = this.list.get(indiceFil).getGreenRoad(); break;
-			case 2: s = this.list.get(indiceFil).getRedRoads(); break;
-			default: assert (false);
-		}*/
 		 
 		return s;
 	}
@@ -61,13 +53,25 @@ public class CromosomaTableModel extends TableModel<Cromosoma> {
 	
 	@Override
 	public void update(Poblacion pobl, Cromosoma mejorG) {
-		if(pobl.getGeneracion() == 100) {
+/*		if(pobl.getGeneracion() == 100) {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					list.add(pobl.getMejor());
 					fireTableStructureChanged();	
 				}
 			});	
+		}*/
+	}
+
+	@Override
+	public void finish(Cromosoma mejor, String texto) {
+		if(texto.isEmpty()) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					list.add(mejor);
+					fireTableStructureChanged();	
+				}
+			});		
 		}
 	}
 
