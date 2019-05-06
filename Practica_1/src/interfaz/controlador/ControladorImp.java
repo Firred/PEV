@@ -15,21 +15,25 @@ public class ControladorImp extends Controlador {
 		this.aG = new AlgoritmoGenetico();
 	}
 	
+	@Override
 	public void execute() {
 		System.out.println(this.aG.exe(this));
 		System.gc();
 	}
 	
+	@Override
 	public void addObservador(Observador obs) {
 		this.obs.add(obs);
 	}
 	
+	@Override
 	public void update(Poblacion pobl, Cromosoma mejorG) {
 		for (Observador o : this.obs) {
 			o.update(pobl, mejorG);
 		}
 	}
 	
+	@Override
 	public void start(int generaciones, int variables) {
 		for (Observador o : this.obs) {
 			o.start(generaciones, variables);

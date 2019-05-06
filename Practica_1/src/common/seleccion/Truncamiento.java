@@ -5,13 +5,12 @@ import java.util.Collections;
 import common.Poblacion;
 
 public class Truncamiento extends Seleccion {
-	private Poblacion newPobl;
 	
 	public Truncamiento() {
-		newPobl = new Poblacion();
 	}
 	
 	public Poblacion execute(Poblacion pobl) {
+		Poblacion newPobl = new Poblacion();
 		//trunc debería ser una variable global introducida en la interfaz
 		double trunc = 0.2;
 		int repeticiones = (int)(1/trunc);

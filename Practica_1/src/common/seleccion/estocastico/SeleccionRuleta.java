@@ -6,11 +6,9 @@ import common.Poblacion;
 import common.seleccion.Seleccion;
 
 public class SeleccionRuleta extends Seleccion {
-	//private Poblacion newPobl;
 	private Random rand;
 	
 	public SeleccionRuleta() {
-		//newPobl = new Poblacion();
 		rand = new Random();		
 	}
 	
