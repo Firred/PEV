@@ -120,7 +120,8 @@ public class Practica2 extends Problema<Integer>{
 	}
 	
 	public String cromToString(Cromosoma<Integer> crom) {
-		String s = "";
+		String s = "El recorrido más corto tiene: " + crom.getApt() + "km." +
+				System.lineSeparator() + "El recorrido es:" + System.lineSeparator();
 		
 		for(int i = 0; i < crom.getNumGenes()-1; i++) {
 			s += CIUDADES[crom.getGen(i).getCaracteristica()] + " -> ";
