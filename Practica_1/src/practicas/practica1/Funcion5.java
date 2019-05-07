@@ -1,7 +1,6 @@
 package practicas.practica1;
 
 import common.Cromosoma;
-import common.evaluacion.Function_main;
 
 public class Funcion5  {
 

@@ -2,12 +2,9 @@ package common;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import common.Cromosoma;
-import common.evaluacion.Function_main;
 import practicas.Problema;
-import practicas.practica1.Funcion;
 
 public class Poblacion {
 	private ArrayList<Cromosoma> individuos = new ArrayList();

@@ -1,23 +1,15 @@
 package common;
 
-import java.io.IOException;
-
 import common.cruce.CodificacionOrdinal;
-import common.cruce.CruceCiclos;
 import common.cruce.Reproduccion;
 import common.cruce.ReproduccionBinaria;
 import common.evaluacion.Evaluacion;
-import common.evaluacion.Function_Controller;
-import common.evaluacion.Function_main;
-import common.mutacion.FactoriaMutacion;
-import common.mutacion.Heuristica;
 import common.mutacion.Mutacion;
 import common.mutacion.MutacionBinaria;
 import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
-import interfaz.controlador.ControladorImp;
 import practicas.Problema;
 import practicas.practica1.Funcion;
 import practicas.practica1.Funcion1;
@@ -36,8 +28,7 @@ public class AlgoritmoGenetico {
 	/**Método de mutación*/
 	private Mutacion mutacion;		
 	/**Número de generaciones*/
-	private int generaciones;		
-	private boolean flag_print = false;
+	private int generaciones;
 	/**Tamaño de la élite*/
 	private int elite;	
 	/**Prob. de mutación*/
@@ -48,6 +39,12 @@ public class AlgoritmoGenetico {
 	private int pCruce;
 	/**Método de reproducion*/
 	private Reproduccion reproduccion;
+	
+	/**
+	 * Variable para pruebas.
+	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generación
+	 */
+	private boolean flag_print = false;
 	
 	public AlgoritmoGenetico() {
 		this.poblacion = 100;
@@ -64,7 +61,6 @@ public class AlgoritmoGenetico {
 	
 	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
 //		Function_Controller.setF_actual(0); // permite seleccionar la funcion pasandole un indice
-		this.funcion = Function_Controller.getF_actual();
 //		this.funcion.Set_Function();
 		this.poblPrincipal = new Poblacion(tipo, tpobl, 0, this.funcion, this.precision);
 		this.generaciones = generaciones;

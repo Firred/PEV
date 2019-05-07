@@ -86,6 +86,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	public ArrayList<? extends Gen<T>> getGenes() {
 		return this.genes;
 	}
+	
 	/**
 	 * @param n1 desde que posicion recibes del gen booleano[]
 	 * @return boolean[n1-end]
@@ -93,6 +94,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	public Boolean getGenes_Bool(int n1, int pos) {
 		return ((GenBi) this.genes.get(pos)).getGenes_Bool(n1);
 	}
+	
 	/**
 	 * @param n1 desde que posicion recibes del gen booleano[]
 	 * @param n2 hasta que posicion recibes del gen booleano[]

@@ -20,10 +20,10 @@ import common.seleccion.estocastico.MuestreoEstocasticoUniversal;
 import common.seleccion.estocastico.SeleccionRuleta;
 import common.seleccion.torneo.TorneoDeterministico;
 import common.seleccion.torneo.TorneoProbabilistico;
-
 import interfaz.ConfigPanel.ChoiceOption;
 import interfaz.ConfigPanel.DoubleOption;
 import interfaz.ConfigPanel.IntegerOption;
+import interfaz.ConfigPanel.InnerOption;
 import practicas.Problema;
 import practicas.practica1.*;
 import practicas.practica2.Practica2;
@@ -110,6 +110,14 @@ public class FactoriaOpciones {
 				"seleccion",
 				selecciones
 				))
+		.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
+			  	"Truncamiento",							
+			  	"Numero de genes a recombinar",				 
+			  	"seleccion",							
+			  	Truncamiento.class))						
+		  		  .addInner(new DoubleOption<Heuristica>(
+		  		     "P. Cromosomas", "Porcentaje de cromosomas a seleccionar", "trunc", 0, 1))
+		  		  .endInner()
 		.addOption(new ChoiceOption<>(
 				"Funcion", 
 				"Funcion a optimizar",
@@ -120,6 +128,14 @@ public class FactoriaOpciones {
 				"Metodo de mutacion",
 				"mutacion",
 				mutaciones))
+		.beginInner(new InnerOption<AlgoritmoGenetico,Mutacion>(  
+			  	"Heuristica",							
+			  	"Numero de genes a recombinar",				 
+			  	"mutacion",							
+			  	Heuristica.class))						
+		  		  .addInner(new IntegerOption<Heuristica>(
+		  		     "Numero Genes", "Numero de genes a recombinar", "NGenes", 0, Integer.MAX_VALUE))
+		  		  .endInner()
 		.addOption(new ChoiceOption<>(
 				"Reproduccion", 
 				"Metodo de reproduccion",

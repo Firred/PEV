@@ -1,10 +1,6 @@
 package practicas.practica1;
 
-import java.util.ArrayList;
-
 import common.Cromosoma;
-import common.evaluacion.Function_main;
-import common.genes.Gen;
 
 public class Funcion2 extends Funcion{
 	

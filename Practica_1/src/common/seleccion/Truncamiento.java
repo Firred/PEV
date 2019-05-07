@@ -6,22 +6,26 @@ import common.Poblacion;
 
 public class Truncamiento extends Seleccion {
 	
-	public Truncamiento() {
+	private double trunc = 0.2;
+	
+	public double getTrunc() {
+		return this.trunc;
+	}
+	
+	public void setTrunc(double trunc) {
+		this.trunc = trunc;
 	}
 	
 	public Poblacion execute(Poblacion pobl) {
 		Poblacion newPobl = new Poblacion();
-		//trunc debería ser una variable global introducida en la interfaz
-		double trunc = 0.2;
-		int repeticiones = (int)(1/trunc);
-		int corte = (int)(trunc*pobl.getTpobl());
+		int repeticiones = (int)(1/this.trunc);
+		int corte = (int)(this.trunc*pobl.getTpobl());
 
-		//Arrays.sort(pobl.getIndividuos(), Collections.reverseOrder());
 		Collections.sort(pobl.getIndividuos(), Collections.reverseOrder());
+		
 		for(int i = 0; i < corte; i++) {
 			for(int j = 0; j < repeticiones; j++) {
 				newPobl.addIndividuo(pobl.getIndividuos(i));
-				//newPobl.setIndividuos(pobl.getIndividuos(i), j);
 			}
 		}
 		

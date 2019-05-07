@@ -1,9 +1,7 @@
 package common.mutacion;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 import common.Cromosoma;
@@ -13,14 +11,19 @@ import common.genes.Gen;
 public class Heuristica extends Mutacion {
 
 	private Cromosoma mejor;
+	private int nGenes = 3;
 	
-	/**
-	 * Realiza la mutación heurística por defecto (n = 3)
-	 * 
-	 */
 	@Override
 	Cromosoma mutacion(Cromosoma crom) {
-		return mutacion(crom, 3);
+		return mutacion(crom, nGenes);
+	}
+	
+	public int getNGenes() {
+		return this.nGenes;
+	}
+	
+	public void setNGenes(int nGenes) {
+		this.nGenes = nGenes;
 	}
 	
 	Cromosoma mutacion(Cromosoma crom, int n) {
@@ -41,7 +44,7 @@ public class Heuristica extends Mutacion {
 		
 		Evaluacion.evaluar(crom);
 		vueltaAtras(crom, pos, marcas, new Stack<Gen<?>>());
-		
+
 		return mejor;
 	}
 	
@@ -50,11 +53,11 @@ public class Heuristica extends Mutacion {
 		Cromosoma c = null;
 		
 		while(i < pos.size()) {
-			
 			if (!marcas[i]) {
 				marcas[i] = true;
 				genes.push(crom.getGen(pos.get(i)));
-				if(genes.size() == pos.size()) {
+				
+				if(genes.size() == pos.size()) {	//Todos los genes colocados
 					c = new Cromosoma(crom);
 					Stack<Gen<?>> aux = new Stack<Gen<?>>();
 				
@@ -67,7 +70,7 @@ public class Heuristica extends Mutacion {
 					if(Evaluacion.evaluar(c) > mejor.getApt()) {
 						mejor = c;
 					}
-					
+
 					for(int j = 0; j < pos.size(); j++) {
 						genes.push(aux.pop());
 					}
