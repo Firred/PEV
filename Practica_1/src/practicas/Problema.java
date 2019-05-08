@@ -15,6 +15,10 @@ public abstract class Problema<T> {
 		this.genes = genes;
 	}
 	
+	public int getNumGenes() {
+		return this.genes;
+	}
+	
 	public abstract double evalua(Cromosoma<T> crom);
 	public abstract ArrayList<? extends Gen<T>> crearGenes(double... args);
 }

@@ -115,7 +115,7 @@ public class FactoriaOpciones {
 			  	"Numero de genes a recombinar",				 
 			  	"seleccion",							
 			  	Truncamiento.class))						
-		  		  .addInner(new DoubleOption<Heuristica>(
+		  		  .addInner(new DoubleOption<Truncamiento>(
 		  		     "P. Cromosomas", "Porcentaje de cromosomas a seleccionar", "trunc", 0, 1))
 		  		  .endInner()
 		.addOption(new ChoiceOption<>(
@@ -123,6 +123,14 @@ public class FactoriaOpciones {
 				"Funcion a optimizar",
 				"funcion",
 				funciones))
+		.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
+			  	"Funcion 4",							
+			  	"Numero de genes a recombinar",				 
+			  	"funcion",							
+			  	Funcion4.class))						
+		  		  .addInner(new IntegerOption<Funcion4>(
+		  		     "Num. Variables", "Numero de variables de la funcion", "n", 1, Integer.MAX_VALUE))
+		  		  .endInner()
 		.addOption(new ChoiceOption<>(
 				"Mutacion", 
 				"Metodo de mutacion",

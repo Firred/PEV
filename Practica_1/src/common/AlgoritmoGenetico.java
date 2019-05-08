@@ -247,7 +247,7 @@ public class AlgoritmoGenetico {
 		
 		configCheck();
 		
-		ctrl.start(this.generaciones, this.funcion.genes);		
+		ctrl.start(this.generaciones, this.funcion.getNumGenes());		
 		
 		Cromosoma[] eliteP = new Cromosoma[0];
 		

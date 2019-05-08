@@ -12,9 +12,9 @@ public class Funcion1 extends Funcion{
 	}
 	
 	@Override
-	public double evalua(Cromosoma<Double> ind_evaluar) {
-		double g0 = (double) ind_evaluar.getGen(0).getCaracteristica();
-		double g1 = (double) ind_evaluar.getGen(1).getCaracteristica();	
+	public double evalua(Cromosoma<Double> crom) {
+		double g0 = (double) crom.getGen(0).getCaracteristica();
+		double g1 = (double) crom.getGen(1).getCaracteristica();	
 		return 21.5+g0*Math.sin(4*Math.PI*g0)+g1*Math.sin(20*Math.PI*g1);
 	}
 

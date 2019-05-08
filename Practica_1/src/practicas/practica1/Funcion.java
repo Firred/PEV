@@ -18,6 +18,12 @@ public abstract class Funcion extends Problema<Double> {
 		this.MIN = max;
 	}
 	
+	public Funcion(double[] min, double[] max, boolean minimizar, int length) {
+		super(minimizar, length);
+		this.MAX = min;
+		this.MIN = max;
+	}
+	
 	@Override
 	public ArrayList<? extends Gen<Double>> crearGenes(double... args) {
 		if(args.length != 1)
