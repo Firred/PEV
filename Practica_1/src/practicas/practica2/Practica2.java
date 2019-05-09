@@ -7,7 +7,6 @@ import java.util.List;
 import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenInt;
-import common.genes.GenString;
 import practicas.Problema;
 
 public class Practica2 extends Problema<Integer>{
@@ -120,8 +119,9 @@ public class Practica2 extends Problema<Integer>{
 	}
 	
 	public String cromToString(Cromosoma<Integer> crom) {
-		String s = "El recorrido m·s corto tiene: " + crom.getApt() + "km." +
-				System.lineSeparator() + "El recorrido es:" + System.lineSeparator();
+		String s = "El recorrido m√°s corto es de: " + crom.getApt() + "km." 
+				+ System.lineSeparator() + "Recorrido:"
+				+ System.lineSeparator();
 		
 		for(int i = 0; i < crom.getNumGenes()-1; i++) {
 			s += CIUDADES[crom.getGen(i).getCaracteristica()] + " -> ";

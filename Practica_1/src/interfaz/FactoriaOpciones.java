@@ -3,6 +3,8 @@ package interfaz;
 import common.AlgoritmoGenetico;
 import common.cruce.CodificacionOrdinal;
 import common.cruce.CruceCiclos;
+import common.cruce.DiscretoUniforme;
+import common.cruce.Monopunto;
 import common.cruce.OX;
 import common.cruce.PMX;
 import common.cruce.RecombinacionRutas;
@@ -42,7 +44,9 @@ public class FactoriaOpciones {
 		new CruceCiclos(),
 		new OX(),
 		new PMX(),
-		new RecombinacionRutas()
+		new RecombinacionRutas(),
+		new Monopunto(),
+		new DiscretoUniforme()
 	};
 	
 	final public static Problema<?>[] funciones = new Problema<?>[] { 
@@ -50,7 +54,7 @@ public class FactoriaOpciones {
 		new Funcion2(), 
 		new Funcion3(), 
 		new Funcion4(),
-		//new Funcion5() 
+		new Funcion5(), 
 		new Practica2()
 	};
 	final public static Seleccion[] selecciones = new Seleccion[] {
@@ -61,10 +65,6 @@ public class FactoriaOpciones {
 		new Ranking(),
 		new Truncamiento()
 	};
-	
-	public FactoriaOpciones() {
-
-	}
 	
 	public static ConfigPanel<AlgoritmoGenetico> getConfigPanel() {
 		ConfigPanel<AlgoritmoGenetico> panel = new ConfigPanel<AlgoritmoGenetico>();
@@ -149,6 +149,14 @@ public class FactoriaOpciones {
 				"Metodo de reproduccion",
 				"reproduccion",
 				reproducciones))
+		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+			  	"Discreto uniforme",							
+			  	"",				 
+			  	"reproduccion",							
+			  	DiscretoUniforme.class))						
+		  		  .addInner(new DoubleOption<DiscretoUniforme>(
+		  		     "p", "P", "p", 0, 1))
+		  		  .endInner()
 		.endOptions();
 
 		return panel;

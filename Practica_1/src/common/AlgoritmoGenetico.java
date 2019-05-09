@@ -13,36 +13,37 @@ import interfaz.controlador.Controlador;
 import practicas.Problema;
 import practicas.practica1.Funcion;
 import practicas.practica1.Funcion1;
+import practicas.practica1.Funcion5;
 import practicas.practica2.Practica2;
 
 public class AlgoritmoGenetico {
-	/**Tamaño de la población*/
+	/**Tamaï¿½o de la poblaciï¿½n*/
 	private int poblacion;
 	private Poblacion poblPrincipal;
-	/**Función a optimizar*/
+	/**Funciï¿½n a optimizar*/
 	private Problema<?> funcion;	
 	/**Mejor individuo*/
 	private Cromosoma mejor;
-	/**Método de selección*/
+	/**Mï¿½todo de selecciï¿½n*/
 	private Seleccion seleccion;	
-	/**Método de mutación*/
+	/**Mï¿½todo de mutaciï¿½n*/
 	private Mutacion mutacion;		
-	/**Número de generaciones*/
+	/**Nï¿½mero de generaciones*/
 	private int generaciones;
-	/**Tamaño de la élite*/
+	/**Tamaï¿½o de la ï¿½lite*/
 	private int elite;	
-	/**Prob. de mutación*/
+	/**Prob. de mutaciï¿½n*/
 	private int pMut;
-	/**Precisión*/
+	/**Precisiï¿½n*/
 	private double precision;
 	/**Prob. cruce*/
 	private int pCruce;
-	/**Método de reproducion*/
+	/**Mï¿½todo de reproducion*/
 	private Reproduccion reproduccion;
 	
 	/**
 	 * Variable para pruebas.
-	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generación
+	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generaciï¿½n
 	 */
 	private boolean flag_print = false;
 	
@@ -205,19 +206,6 @@ public class AlgoritmoGenetico {
 	
 	public void muta() {
 		mutacion.execute(poblPrincipal, this.pMut);
-		
-		
-	/*	
-		int j2 = poblPrincipal.getIndividuos(0).getNumGenes();
-		for(int i = 0; i<poblPrincipal.getTpobl(); i++) {		
-				for(int z=0; z < poblPrincipal.getIndividuos(i).getNumGenes() ; z++) {
-					if(Main.tipo == 0) {
-						mutacion.execute(poblPrincipal);	//Mutacion.mutacion.mutacionBasica(poblPrincipal.getIndividuos(i), z);
-					}else {
-					//Mutacion.mutacion.mutacion_real_NOuniforme(poblPrincipal.getIndividuos(i), z);
-					}
-				}
-			}*/
 	}
 				
 	
@@ -230,7 +218,7 @@ public class AlgoritmoGenetico {
 	 */
 	private void configCheck() {
 		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
-		if(Funcion.class.isAssignableFrom(this.funcion.getClass())) {
+		if(Funcion.class.isAssignableFrom(this.funcion.getClass()) && !Funcion5.class.isAssignableFrom(this.funcion.getClass())) {
 			this.mutacion = new MutacionBinaria();
 			this.reproduccion = new ReproduccionBinaria();
 		}
@@ -280,7 +268,7 @@ public class AlgoritmoGenetico {
 				System.out.println("\n POST-CRUCE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 				System.out.println(mostrarPoblacion());			
 			}
-			
+
 			muta();
 
 			if(flag_print == true) {
