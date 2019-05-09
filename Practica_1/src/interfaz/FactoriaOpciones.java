@@ -1,6 +1,7 @@
 package interfaz;
 
 import common.AlgoritmoGenetico;
+import common.cruce.Aritmetico;
 import common.cruce.CodificacionOrdinal;
 import common.cruce.CruceCiclos;
 import common.cruce.DiscretoUniforme;
@@ -9,6 +10,7 @@ import common.cruce.OX;
 import common.cruce.PMX;
 import common.cruce.RecombinacionRutas;
 import common.cruce.Reproduccion;
+import common.cruce.SLX;
 import common.mutacion.Heuristica;
 import common.mutacion.Insercion;
 import common.mutacion.Intercambio;
@@ -45,8 +47,11 @@ public class FactoriaOpciones {
 		new OX(),
 		new PMX(),
 		new RecombinacionRutas(),
+		//P1
 		new Monopunto(),
-		new DiscretoUniforme()
+		new DiscretoUniforme(),
+		new Aritmetico(),
+		new SLX()
 	};
 	
 	final public static Problema<?>[] funciones = new Problema<?>[] { 
@@ -156,6 +161,22 @@ public class FactoriaOpciones {
 			  	DiscretoUniforme.class))						
 		  		  .addInner(new DoubleOption<DiscretoUniforme>(
 		  		     "p", "P", "p", 0, 1))
+		  		  .endInner()
+  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+			  	"Aritmetico",							
+			  	"",				 
+			  	"reproduccion",							
+			  	Aritmetico.class))						
+		  		  .addInner(new DoubleOption<DiscretoUniforme>(
+		  		     "alfa", "Alfa", "alfa", 0, 1))
+		  		  .endInner()
+  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+			  	"SLX",							
+			  	"",				 
+			  	"reproduccion",							
+			  	SLX.class))						
+		  		  .addInner(new DoubleOption<DiscretoUniforme>(
+		  		     "alfa", "Alfa", "alfa", 0, 1))
 		  		  .endInner()
 		.endOptions();
 

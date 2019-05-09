@@ -2,7 +2,6 @@ package practicas.practica1;
 
 import java.util.ArrayList;
 
-import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenBi;
 import practicas.Problema;

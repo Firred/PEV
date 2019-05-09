@@ -3,7 +3,6 @@ package practicas.practica1;
 import java.util.ArrayList;
 import java.util.Random;
 
-import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenReal;
 

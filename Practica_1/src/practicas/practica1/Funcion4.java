@@ -43,20 +43,6 @@ public class Funcion4 extends Funcion{
 		
 		return -y;
 	}
-	
-	private double prueba() {
-		double[] lista = {1.5646, 1.3059, 1.9219, 1.724, 2};
-		
-		double y = 0, paramSeno, aux;
-		
-		for(int i = 1; i <= lista.length; i++) {
-			paramSeno = ((i+1)*Math.pow(lista[i-1],2))/Math.PI;
-			aux = Math.sin(lista[i-1])*Math.pow(Math.sin(paramSeno), 20);
-			y += aux;
-		}
-		
-		return -y;
-	}
 
 	@Override
 	public String toString() {

@@ -2,6 +2,8 @@ package common.genes;
 
 public class GenReal extends Gen<Double> {
 
+	public GenReal() {}
+	
 	public GenReal(double alelo, double min, double max) {
 		this.setCarateristica(alelo);
 	}
