@@ -22,7 +22,7 @@ public class CromosomaTableModel extends TableModel<Cromosoma> {
 		Object s = null;
 		
 		if(indiceCol == 0)
-			s = this.list.get(indiceFil).getApt();
+			s = this.list.get(indiceFil).getX();
 		else {
 			int i = 1, max = this.list.get(indiceFil).getNumGenes();
 			

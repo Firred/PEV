@@ -10,6 +10,7 @@ import common.cruce.OX;
 import common.cruce.PMX;
 import common.cruce.RecombinacionRutas;
 import common.cruce.Reproduccion;
+import common.cruce.SBX;
 import common.cruce.SLX;
 import common.mutacion.Heuristica;
 import common.mutacion.Insercion;
@@ -17,6 +18,7 @@ import common.mutacion.Intercambio;
 import common.mutacion.Inversion;
 import common.mutacion.Mutacion;
 import common.mutacion.MutacionBinaria;
+import common.mutacion.NoUniforme;
 import common.seleccion.Ranking;
 import common.seleccion.Seleccion;
 import common.seleccion.Truncamiento;
@@ -35,6 +37,7 @@ import practicas.practica2.Practica2;
 public class FactoriaOpciones {
 	
 	final public static Mutacion[] mutaciones = new Mutacion[] {
+		new NoUniforme(),
 		new Heuristica(),
 		new Insercion(),
 		new Intercambio(),
@@ -51,6 +54,7 @@ public class FactoriaOpciones {
 		new Monopunto(),
 		new DiscretoUniforme(),
 		new Aritmetico(),
+		new SBX(),
 		new SLX()
 	};
 	
@@ -115,69 +119,92 @@ public class FactoriaOpciones {
 				"seleccion",
 				selecciones
 				))
-		.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
-			  	"Truncamiento",							
-			  	"Numero de genes a recombinar",				 
-			  	"seleccion",							
-			  	Truncamiento.class))						
-		  		  .addInner(new DoubleOption<Truncamiento>(
-		  		     "P. Cromosomas", "Porcentaje de cromosomas a seleccionar", "trunc", 0, 1))
-		  		  .endInner()
+		
+				.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
+					  	"Truncamiento",							
+					  	"Numero de genes a recombinar",				 
+					  	"seleccion",							
+					  	Truncamiento.class))						
+				  		  .addInner(new DoubleOption<Truncamiento>(
+				  		     "P. Cromosomas", "Porcentaje de cromosomas a seleccionar", "trunc", 0, 1))
+				  		  .endInner()
+		  		  
 		.addOption(new ChoiceOption<>(
 				"Funcion", 
 				"Funcion a optimizar",
 				"funcion",
 				funciones))
-		.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
-			  	"Funcion 4",							
-			  	"Numero de genes a recombinar",				 
-			  	"funcion",							
-			  	Funcion4.class))						
-		  		  .addInner(new IntegerOption<Funcion4>(
-		  		     "Num. Variables", "Numero de variables de la funcion", "n", 1, Integer.MAX_VALUE))
-		  		  .endInner()
+		
+				.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
+					  	"Funcion 4",							
+					  	"Numero de genes a recombinar",				 
+					  	"funcion",							
+					  	Funcion4.class))						
+				  		  .addInner(new IntegerOption<Funcion4>(
+				  		     "Num. Variables", "Numero de variables de la funcion", "n", 1, Integer.MAX_VALUE))
+				  		  .endInner()
+		  		  
 		.addOption(new ChoiceOption<>(
 				"Mutacion", 
 				"Metodo de mutacion",
 				"mutacion",
 				mutaciones))
-		.beginInner(new InnerOption<AlgoritmoGenetico,Mutacion>(  
-			  	"Heuristica",							
-			  	"Numero de genes a recombinar",				 
-			  	"mutacion",							
-			  	Heuristica.class))						
-		  		  .addInner(new IntegerOption<Heuristica>(
-		  		     "Numero Genes", "Numero de genes a recombinar", "NGenes", 0, Integer.MAX_VALUE))
-		  		  .endInner()
+		
+				.beginInner(new InnerOption<AlgoritmoGenetico,Mutacion>(  
+					  	"No Uniforme",							
+					  	"",				 
+					  	"mutacion",							
+					  	NoUniforme.class))						
+				  		  .addInner(new DoubleOption<NoUniforme>(
+				  		     "Sigma", "Desviacion estandar", "sigma", Double.MIN_VALUE, Double.MAX_VALUE))
+				  		  .endInner()
+				.beginInner(new InnerOption<AlgoritmoGenetico,Mutacion>(  
+					  	"Heuristica",							
+					  	"Numero de genes a recombinar",				 
+					  	"mutacion",							
+					  	Heuristica.class))						
+				  		  .addInner(new IntegerOption<Heuristica>(
+				  		     "Numero Genes", "Numero de genes a recombinar", "NGenes", 0, Integer.MAX_VALUE))
+				  		  .endInner()
+		  		  
 		.addOption(new ChoiceOption<>(
 				"Reproduccion", 
 				"Metodo de reproduccion",
 				"reproduccion",
 				reproducciones))
-		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
-			  	"Discreto uniforme",							
-			  	"",				 
-			  	"reproduccion",							
-			  	DiscretoUniforme.class))						
-		  		  .addInner(new DoubleOption<DiscretoUniforme>(
-		  		     "p", "P", "p", 0, 1))
-		  		  .endInner()
-  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
-			  	"Aritmetico",							
-			  	"",				 
-			  	"reproduccion",							
-			  	Aritmetico.class))						
-		  		  .addInner(new DoubleOption<DiscretoUniforme>(
-		  		     "alfa", "Alfa", "alfa", 0, 1))
-		  		  .endInner()
-  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
-			  	"SLX",							
-			  	"",				 
-			  	"reproduccion",							
-			  	SLX.class))						
-		  		  .addInner(new DoubleOption<DiscretoUniforme>(
-		  		     "alfa", "Alfa", "alfa", 0, 1))
-		  		  .endInner()
+		
+				.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+					  	"Discreto uniforme",							
+					  	"",				 
+					  	"reproduccion",							
+					  	DiscretoUniforme.class))						
+				  		  .addInner(new DoubleOption<DiscretoUniforme>(
+				  		     "p", "P", "p", 0, 1))
+				  		  .endInner()
+		  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+					  	"Aritmetico",							
+					  	"",				 
+					  	"reproduccion",							
+					  	Aritmetico.class))						
+				  		  .addInner(new DoubleOption<Aritmetico>(
+				  		     "Alfa", "Alfa", "alfa", 0, 1))
+				  		  .endInner()
+		  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+					  	"SLX",							
+					  	"",				 
+					  	"reproduccion",							
+					  	SLX.class))						
+				  		  .addInner(new DoubleOption<SLX>(
+				  		     "Alfa", "Alfa", "alfa", 0, 1))
+				  		  .endInner()
+		  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  
+					  	"SBX",							
+					  	"",				 
+					  	"reproduccion",							
+					  	SBX.class))						
+				  		  .addInner(new DoubleOption<SBX>(
+				  		     "Beta", "Beta", "beta", 0, Double.MAX_VALUE))
+				  		  .endInner()
 		.endOptions();
 
 		return panel;

@@ -176,22 +176,11 @@ public class AlgoritmoGenetico {
 	public void evalua() {
 		double suma_aptitud = 0;
 		
-		for(Cromosoma crom : poblPrincipal.getIndividuos()) {
-			suma_aptitud += Evaluacion.evaluar(crom);
-		}
-		
-		poblPrincipal.calcularMejorMedia();
+		this.funcion.calcularPuntuacion(poblPrincipal);
 		
 		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1) {			
 			this.mejor = poblPrincipal.getMejor();
 		}
-		
-		for(int i = 0; i<poblPrincipal.getTpobl();i++) {
-			poblPrincipal.getIndividuos(i).setPunt(poblPrincipal.getIndividuos(i).getApt()/suma_aptitud);
-		}
-		
-		poblPrincipal.calcularMejorMedia();
-		poblPrincipal.calcularPuntAcum();
 	}
 	
 	public void selecciona_cruza() {

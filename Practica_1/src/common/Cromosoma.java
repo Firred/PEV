@@ -10,10 +10,10 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	private ArrayList<Gen<T>> genes; //cadena de bits (genotipo)
 	private int longitud; // Cantidad de genes del cromosma
-	private double aptitud;//funcion de evaluacion fitness adaptacion);
+	private double aptitud;//funcion de evaluacion fitness (adaptacion);
 	private double puntuacion; //puntuacion relativa(aptitud/suma)
 	private double punt_acum; //puntuacion acumulada para selecci�n
-//	private int tipo;
+	private double x;
 	private boolean minimizar;
 
 	
@@ -128,6 +128,10 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		return this.puntuacion;
 	}
 	
+	public double getX() {
+		return x;
+	}
+	
 	public <M extends Gen<T>> void setGen(M gen, int pos) {
 		this.genes.set(pos, gen);
 	}
@@ -154,6 +158,10 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		this.punt_acum = punt;
 	}
 	
+	public void setX(double x) {
+		this.x = x;
+	}
+	
 	/**
 	 *  Compara dos aptitudes para saber cual es mayor
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -163,7 +171,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		if(this.aptitud == o.aptitud)
 			return 0;
 		
-		if (this.minimizar) {
+/*		if (this.minimizar) {
 			if (this.aptitud < o.aptitud)
 				return 1;
 			
@@ -174,7 +182,12 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 				return -1;
 
 			return 1;
-		}
+		}*/
+		
+		if (this.aptitud < o.aptitud)
+			return -1;
+
+		return 1;
 	}
 	
 	/** 

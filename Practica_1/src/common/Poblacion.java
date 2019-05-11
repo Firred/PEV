@@ -154,7 +154,7 @@ public class Poblacion {
 			this.mejor = this.individuos.get(0);
 		
 		for(Cromosoma c : this.individuos) {
-			m += c.getApt();
+			m += c.getX();
 			
 			if(c.compareTo(this.mejor) >= 1)
 				this.mejor = c;
