@@ -13,7 +13,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	private double aptitud;//funcion de evaluacion fitness (adaptacion);
 	private double puntuacion; //puntuacion relativa(aptitud/suma)
 	private double punt_acum; //puntuacion acumulada para selecci�n
-	private double x;
+	private double x; //Valor de adaptacion real
 	private boolean minimizar;
 
 	

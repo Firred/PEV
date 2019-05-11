@@ -41,4 +41,8 @@ public class NoUniforme extends Mutacion {
 		return crom;
 	}
 
+	@Override
+	public String toString() {
+		return "No Uniforme";
+	}
 }

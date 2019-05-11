@@ -6,7 +6,7 @@ import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenBi;
 
-public class Funcion4 extends Funcion{
+public class Funcion4 extends Funcion {
 	
 	private static double[] min = new double[] {0};
 	private static double[] max = new double[] {Math.PI};
@@ -32,8 +32,6 @@ public class Funcion4 extends Funcion{
 	@Override
 	public double evalua(Cromosoma<Double> crom) {	
 		double y = 0, paramSeno, aux;
-
-//		System.out.println(prueba());
 		
 		for(int i = 1; i <= this.n; i++) {
 			paramSeno = ((i+1)*Math.pow(crom.getGen(i-1).getCaracteristica(),2))/Math.PI;

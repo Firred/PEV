@@ -67,7 +67,7 @@ public class Heuristica extends Mutacion {
 						c.getGenes().set(pos.get(j), genes.pop());
 					}						
 					
-					if(Evaluacion.evaluar(c) > mejor.getApt()) {
+					if(Evaluacion.evaluar(c) > mejor.getX()) {
 						mejor = c;
 					}
 

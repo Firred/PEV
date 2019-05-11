@@ -6,11 +6,11 @@ import common.cruce.ReproduccionBinaria;
 import common.evaluacion.Evaluacion;
 import common.mutacion.Mutacion;
 import common.mutacion.MutacionBinaria;
-import common.seleccion.FactoriaSeleccion;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
 import practicas.Problema;
+import practicas.ProblemaNoBinario;
 import practicas.practica1.Funcion;
 import practicas.practica1.Funcion1;
 import practicas.practica1.Funcion5;
@@ -67,7 +67,6 @@ public class AlgoritmoGenetico {
 		this.generaciones = generaciones;
 		this.mejor = poblPrincipal.getIndividuos(0);
 		this.elite = (int)(tpobl*elite/100);
-		this.seleccion = FactoriaSeleccion.getAlgoritmoDeSeleccion(selec);
 		this.pMut = pMut;
 		Object[] args = new Object[1];
 		args[0] = pMut;
@@ -212,7 +211,9 @@ public class AlgoritmoGenetico {
 			this.reproduccion = new ReproduccionBinaria();
 		}
 		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
-		else if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
+		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
+			this.reproduccion = ((ProblemaNoBinario)this.funcion).getReproduccion();
+			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
 			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
 				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
 		}
@@ -285,7 +286,13 @@ public class AlgoritmoGenetico {
 		
 		ctrl.finish(this.mejor, texto);
 		
-		System.out.println("El mejor es: " + mejor.toString());
-		return "EL MEJOR ES:" + this.mejor.toString();
+		if(flag_print == true) {
+			System.out.println("El mejor es: " + mejor.toString());
+			texto = "EL MEJOR ES:" + this.mejor.toString();
+		}
+		else
+			texto = "";
+		
+		return texto;
 	}
 }

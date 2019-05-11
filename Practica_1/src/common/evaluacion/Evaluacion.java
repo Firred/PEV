@@ -1,6 +1,7 @@
 package common.evaluacion;
 
 import common.Cromosoma;
+import common.Poblacion;
 import practicas.Problema;
 
 public class Evaluacion {

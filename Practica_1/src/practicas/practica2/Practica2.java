@@ -8,8 +8,9 @@ import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenInt;
 import practicas.Problema;
+import practicas.ProblemaNoBinario;
 
-public class Practica2 extends Problema<Integer>{
+public class Practica2 extends ProblemaNoBinario<Integer>{
 	private final static int[][] _DIST = {
 			
             {},
@@ -119,7 +120,7 @@ public class Practica2 extends Problema<Integer>{
 	}
 	
 	public String cromToString(Cromosoma<Integer> crom) {
-		String s = "El recorrido más corto es de: " + crom.getApt() + "km." 
+		String s = "El recorrido más corto es de: " + crom.getX() + "km." 
 				+ System.lineSeparator() + "Recorrido:"
 				+ System.lineSeparator();
 		

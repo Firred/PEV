@@ -44,4 +44,9 @@ public class SBX extends Reproduccion {
 		
 		return new ParCromosoma(h1,h2);
 	}
+	
+	@Override
+	public String toString() {
+		return "SBX";
+	}
 }
