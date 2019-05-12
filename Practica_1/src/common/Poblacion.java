@@ -12,6 +12,7 @@ public class Poblacion {
 	private int generacion;
 	private Cromosoma mejor;
 	private double media;
+	private double aptMedia;
 	
 	/**
 	 * CONSTRUCTORES
@@ -76,6 +77,10 @@ public class Poblacion {
 	
 	public double getMedia() {
 		return this.media;
+	}
+	
+	public double getAptMedia() {
+		return aptMedia;
 	}
 	
 	
@@ -148,18 +153,20 @@ public class Poblacion {
 	}
 	
 	public void calcularMejorMedia() {
-		double m = 0;
+		double m = 0, apt = 0;
 		
 		if(this.mejor == null)
 			this.mejor = this.individuos.get(0);
 		
 		for(Cromosoma c : this.individuos) {
 			m += c.getX();
+			apt += c.getApt();
 			
 			if(c.compareTo(this.mejor) >= 1)
 				this.mejor = c;
 		}
 		
 		this.media = m/getTpobl();
+		this.aptMedia = apt/getTpobl();
 	}
 }

@@ -17,33 +17,35 @@ import practicas.practica1.Funcion5;
 import practicas.practica2.Practica2;
 
 public class AlgoritmoGenetico {
-	/**Tama�o de la poblaci�n*/
+	/**Tamano de la poblacion*/
 	private int poblacion;
 	private Poblacion poblPrincipal;
-	/**Funci�n a optimizar*/
+	/**Funcion a optimizar*/
 	private Problema<?> funcion;	
 	/**Mejor individuo*/
 	private Cromosoma mejor;
-	/**M�todo de selecci�n*/
+	/**Metodo de seleccion*/
 	private Seleccion seleccion;	
-	/**M�todo de mutaci�n*/
+	/**Metodo de mutaci�n*/
 	private Mutacion mutacion;		
-	/**N�mero de generaciones*/
+	/**Numero de generaciones*/
 	private int generaciones;
-	/**Tama�o de la �lite*/
+	/**Tamano de la �lite*/
 	private int elite;	
-	/**Prob. de mutaci�n*/
+	/**Prob. de mutacion*/
 	private int pMut;
-	/**Precisi�n*/
+	/**Precision*/
 	private double precision;
 	/**Prob. cruce*/
 	private int pCruce;
-	/**M�todo de reproducion*/
+	/**Metodo de reproducion*/
 	private Reproduccion reproduccion;
+	/**Contractividad*/
+	private boolean contractividad;
 	
 	/**
 	 * Variable para pruebas.
-	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generaci�n
+	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generacion
 	 */
 	private boolean flag_print = false;
 	
@@ -58,6 +60,7 @@ public class AlgoritmoGenetico {
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
 		this.reproduccion = new ReproduccionBinaria();
+		this.contractividad = false;
 	}
 	
 	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
@@ -115,6 +118,10 @@ public class AlgoritmoGenetico {
 		this.reproduccion = reproduccion;
 	}
 	
+	public void setContractividad(boolean contractividad) {
+		this.contractividad = contractividad;
+	}
+	
 	public Seleccion getSeleccion() {
 		return this.seleccion;
 	}
@@ -158,6 +165,10 @@ public class AlgoritmoGenetico {
 		return this.reproduccion;
 	}
 
+	public boolean getContractividad() {
+		return this.contractividad;
+	}
+	
 	@Override
 	public String toString() {
 		return "Ag";
@@ -184,10 +195,8 @@ public class AlgoritmoGenetico {
 	
 	public void selecciona_cruza() {
 		poblPrincipal = seleccion.execute(poblPrincipal);
-		if(flag_print == true) {
-			System.out.println("\n POST-SELECCION: ----------------------- generacion:  -----------------------\n\n");
-			System.out.println(mostrarPoblacion());		
-		}
+		
+		mensajeDebug("POST-SELECCION");
 		
 		reproduccion.ejecutar(poblPrincipal, this.pCruce);
 	}
@@ -220,6 +229,7 @@ public class AlgoritmoGenetico {
 	}
 	
 	public String exe(Controlador ctrl) {
+		double aptitud;
 		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
 		
@@ -229,22 +239,21 @@ public class AlgoritmoGenetico {
 		
 		Cromosoma[] eliteP = new Cromosoma[0];
 		
-		if(flag_print == true) {
-			System.out.println("\n PRIMERA GENERACION: ----------------------- generacion:  -----------------------\n\n");
-			System.out.println(mostrarPoblacion());			
-		}
+		mensajeDebug("PRIMERA GENERACION");
 		
 		evalua();
-		ctrl.update(this.poblPrincipal, this.mejor);
-		if(flag_print == true) {
-			System.out.println("\n POST-EVALUACION: ----------------------- generacion: 0 -----------------------\n\n");
-			System.out.println(mostrarPoblacion());			
-		}
+		ctrl.update(this.poblPrincipal, this.mejor);		
+		mensajeDebug("POST-EVALUACION");
 		
+		int intentos = 0;
+		aptitud = poblPrincipal.getAptMedia();
+		
+		//Inicia bucle		
 		while(!terminado()) {
 			
 			if(this.elite > 0) {
 				eliteP = poblPrincipal.separaMejores(this.elite);
+							
 				if(flag_print == true) {
 					System.out.println("\n ELITE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 					for(Cromosoma c : eliteP)
@@ -253,29 +262,31 @@ public class AlgoritmoGenetico {
 			}
 			
 			selecciona_cruza();
-			
-			if(flag_print == true) {
-				System.out.println("\n POST-CRUCE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
-				System.out.println(mostrarPoblacion());			
-			}
+			mensajeDebug("POST-CRUCE");		
 
 			muta();
-
-			if(flag_print == true) {
-				System.out.println("\n POST-MUTACION: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
-				System.out.println(mostrarPoblacion());	
-			}
+			mensajeDebug("POST-MUTACION");
 			
 			if(this.elite > 0)
 				poblPrincipal.incluye(eliteP);
 			
 			evalua();
-			if(flag_print == true) {
-				System.out.println("\n POST-EVALUACION: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
-				System.out.println(mostrarPoblacion());			
-			}
+			mensajeDebug("POST-EVALUACION");
 			
-			ctrl.update(this.poblPrincipal, this.mejor);
+			if(this.contractividad) {
+				if(aptitud >= poblPrincipal.getAptMedia() && intentos < 1000) {
+					poblPrincipal.setGeneracion(poblPrincipal.getGeneracion()-1);
+					intentos++;
+				}
+				else {
+					ctrl.update(this.poblPrincipal, this.mejor);
+					aptitud = poblPrincipal.getAptMedia();
+					intentos = 0;
+				}
+			}
+			else {
+				ctrl.update(this.poblPrincipal, this.mejor);
+			}
 		}
 		
 		String texto = "";
@@ -294,5 +305,12 @@ public class AlgoritmoGenetico {
 			texto = "";
 		
 		return texto;
+	}
+	
+	private void mensajeDebug(String mensaje) {
+		if(flag_print) {
+			System.out.println("\n " + mensaje + ": ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
+			System.out.println(mostrarPoblacion());	
+		}
 	}
 }

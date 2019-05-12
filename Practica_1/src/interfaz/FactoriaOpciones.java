@@ -6,10 +6,7 @@ import common.mutacion.*;
 import common.seleccion.*;
 import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
-import interfaz.ConfigPanel.ChoiceOption;
-import interfaz.ConfigPanel.DoubleOption;
-import interfaz.ConfigPanel.IntegerOption;
-import interfaz.ConfigPanel.InnerOption;
+import interfaz.ConfigPanel.*;
 import practicas.Problema;
 import practicas.practica1.*;
 import practicas.practica2.Practica2;
@@ -32,12 +29,17 @@ public class FactoriaOpciones {
 	};
 	
 	final public static Reproduccion[] repP2 = new Reproduccion[] {
-			new CodificacionOrdinal(),
-			new CruceCiclos(),
-			new OX(),
-			new PMX(),
-			new RecombinacionRutas()
-		};
+		new CodificacionOrdinal(),
+		new CruceCiclos(),
+		new OX(),
+		new PMX(),
+		new RecombinacionRutas()
+	};
+	
+	final public static Boolean[] contractividad = new Boolean[] {
+		true,
+		false
+	};
 	
 	final public static Problema<?>[] funciones = new Problema<?>[] { 
 		new Funcion1(), 
@@ -94,6 +96,12 @@ public class FactoriaOpciones {
 				"elite",
 				0, 
 				100))
+		.addOption(new ChoiceOption<>(
+  				"Contractividad",
+				"Metodo de reproduccion",
+				"contractividad",
+				contractividad
+				))
 		.addOption(new ChoiceOption<>(
 				"Seleccion",
 				"Metodo de seleccion",
@@ -181,6 +189,7 @@ public class FactoriaOpciones {
 					  	"",				 
 					  	"funcion",							
 					  	Practica2.class))
+		  						  		
 				  		.addInner(new ChoiceOption<Practica2>(
 				  				"Reproduccion",
 								"Metodo de reproduccion",
@@ -216,6 +225,5 @@ public class FactoriaOpciones {
 		.endOptions();
 
 		return panel;
-	}
-
+	}	
 }
