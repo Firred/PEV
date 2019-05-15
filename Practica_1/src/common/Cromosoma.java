@@ -171,28 +171,12 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		if(this.aptitud == o.aptitud)
 			return 0;
 		
-/*		if (this.minimizar) {
-			if (this.aptitud < o.aptitud)
-				return 1;
-			
-			return -1;
-		}
-		else {
-			if (this.aptitud < o.aptitud)
-				return -1;
-
-			return 1;
-		}*/
-		
 		if (this.aptitud < o.aptitud)
 			return -1;
 
 		return 1;
 	}
 	
-	/** 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		String string =  "Cromosoma: Aptitud: " + aptitud + " [genes= ";

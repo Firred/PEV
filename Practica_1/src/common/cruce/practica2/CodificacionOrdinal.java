@@ -1,9 +1,11 @@
-package common.cruce;
+package common.cruce.practica2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 
 public class CodificacionOrdinal extends Reproduccion {
@@ -11,6 +13,7 @@ public class CodificacionOrdinal extends Reproduccion {
 	private List<? extends Gen<?>> lista;
 
 	@Override
+	protected
 	ParCromosoma cruce(ParCromosoma par) {
 		int pos = 0, aux;
 		

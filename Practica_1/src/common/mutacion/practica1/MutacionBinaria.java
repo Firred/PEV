@@ -1,9 +1,10 @@
-package common.mutacion;
+package common.mutacion.practica1;
 
 import common.Cromosoma;
 import common.Poblacion;
 import common.genes.Gen;
 import common.genes.GenBi;
+import common.mutacion.Mutacion;
 
 public class MutacionBinaria extends Mutacion {
 
@@ -24,6 +25,7 @@ public class MutacionBinaria extends Mutacion {
 	}
 
 	@Override
+	protected
 	Cromosoma mutacion(Cromosoma crom) {return null;}	
 	
 	@Override

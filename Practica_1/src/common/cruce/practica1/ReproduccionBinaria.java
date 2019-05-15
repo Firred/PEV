@@ -1,9 +1,11 @@
-package common.cruce;
+package common.cruce.practica1;
 
 import java.util.Random;
 
 import common.Cromosoma;
 import common.Poblacion;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 import common.genes.GenBi;
 
@@ -112,7 +114,8 @@ public class ReproduccionBinaria extends Reproduccion {
 		}
 	}*/
 
-	@Override 
+	@Override
+	protected 
 	ParCromosoma cruce(ParCromosoma par) {
 		Cromosoma h1 =  new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
 		int n = par.getC1().getGenes_long();

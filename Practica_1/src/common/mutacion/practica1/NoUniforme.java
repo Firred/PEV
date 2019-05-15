@@ -1,10 +1,11 @@
-package common.mutacion;
+package common.mutacion.practica1;
 
 import java.util.ArrayList;
 
 import common.Cromosoma;
 import common.genes.Gen;
 import common.genes.GenReal;
+import common.mutacion.Mutacion;
 
 public class NoUniforme extends Mutacion {
 
@@ -19,6 +20,7 @@ public class NoUniforme extends Mutacion {
 	}
 	
 	@Override
+	protected
 	Cromosoma mutacion(Cromosoma crom) {
 		double valor = rand.nextGaussian()*sigma;
 		int multi;

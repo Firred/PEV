@@ -1,6 +1,8 @@
-package common.cruce;
+package common.cruce.practica1;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.GenReal;
 
 public class SLX extends Reproduccion {
@@ -16,6 +18,7 @@ public class SLX extends Reproduccion {
 	}
 	
 	@Override
+	protected
 	ParCromosoma cruce(ParCromosoma par) {
 		Cromosoma<Double> h1 = new Cromosoma<Double>(par.getC1()), h2 = new Cromosoma<>(par.getC2());
 		Cromosoma<Double> p1 = (Cromosoma<Double>)par.getC1(), p2 = (Cromosoma<Double>)par.getC2();

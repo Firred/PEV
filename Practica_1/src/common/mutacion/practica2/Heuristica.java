@@ -1,4 +1,4 @@
-package common.mutacion;
+package common.mutacion.practica2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Stack;
 import common.Cromosoma;
 import common.evaluacion.Evaluacion;
 import common.genes.Gen;
+import common.mutacion.Mutacion;
 
 public class Heuristica extends Mutacion {
 
@@ -14,6 +15,7 @@ public class Heuristica extends Mutacion {
 	private int nGenes = 3;
 	
 	@Override
+	protected
 	Cromosoma mutacion(Cromosoma crom) {
 		return mutacion(crom, nGenes);
 	}

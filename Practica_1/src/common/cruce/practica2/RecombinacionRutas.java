@@ -1,4 +1,4 @@
-package common.cruce;
+package common.cruce.practica2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,11 +6,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 
 public class RecombinacionRutas extends Reproduccion {
 
-	@Override 
+	@Override
+	protected 
 	ParCromosoma cruce(ParCromosoma par) {
 		HashMap<Gen<?>, HashSet<Gen<?>>> map = generarMapa(par);		
 

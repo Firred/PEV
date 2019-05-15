@@ -5,8 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import common.Cromosoma;
+import common.cruce.practica2.CodificacionOrdinal;
+import common.cruce.practica2.CruceCiclos;
 import common.genes.Gen;
 import common.genes.GenInt;
+import common.mutacion.practica2.Heuristica;
+import common.mutacion.practica2.Inversion;
 import practicas.Problema;
 import practicas.ProblemaNoBinario;
 
@@ -84,6 +88,8 @@ public class Practica2 extends ProblemaNoBinario<Integer>{
 	public Practica2() {
 		super(true, CIUDADES.length);
 		lista = crearLista();
+		super.setMutacion(new Inversion());
+		super.setReproduccion(new CruceCiclos());
 	}
 
 	@Override

@@ -24,5 +24,5 @@ public abstract class Mutacion {
 		}		
 	}
 	
-	abstract <T extends Cromosoma> T mutacion(T crom);
+	protected abstract Cromosoma mutacion(Cromosoma crom);
 }

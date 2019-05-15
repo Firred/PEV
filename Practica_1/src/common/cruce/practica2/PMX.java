@@ -1,15 +1,18 @@
-package common.cruce;
+package common.cruce.practica2;
 
 import java.util.HashMap;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 import common.genes.GenInt;
 
 public class PMX extends Reproduccion {
 
 	@SuppressWarnings("unchecked")
-	@Override ParCromosoma cruce(ParCromosoma par) {
+	@Override
+	protected ParCromosoma cruce(ParCromosoma par) {
 		int ini = rand.nextInt(par.getC1().getNumGenes()-1);
 		int fin = rand.nextInt(par.getC1().getNumGenes()-ini)+ini;
 		

@@ -2,7 +2,22 @@ package interfaz;
 
 import common.AlgoritmoGenetico;
 import common.cruce.*;
+import common.cruce.practica1.Aritmetico;
+import common.cruce.practica1.DiscretoUniforme;
+import common.cruce.practica1.Monopunto;
+import common.cruce.practica1.SBX;
+import common.cruce.practica1.SLX;
+import common.cruce.practica2.CodificacionOrdinal;
+import common.cruce.practica2.CruceCiclos;
+import common.cruce.practica2.OX;
+import common.cruce.practica2.PMX;
+import common.cruce.practica2.RecombinacionRutas;
 import common.mutacion.*;
+import common.mutacion.practica1.NoUniforme;
+import common.mutacion.practica2.Heuristica;
+import common.mutacion.practica2.Insercion;
+import common.mutacion.practica2.Intercambio;
+import common.mutacion.practica2.Inversion;
 import common.seleccion.*;
 import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
@@ -49,6 +64,7 @@ public class FactoriaOpciones {
 		new Funcion5(), 
 		new Practica2()
 	};
+	
 	final public static Seleccion[] selecciones = new Seleccion[] {
 		new SeleccionRuleta(),
 		new MuestreoEstocasticoUniversal(),

@@ -1,10 +1,11 @@
-package common.mutacion;
+package common.mutacion.practica2;
 
 import common.Cromosoma;
+import common.mutacion.Mutacion;
 
 public class Inversion extends Mutacion {
 	
-	Cromosoma mutacion (Cromosoma crom) {
+	protected Cromosoma mutacion (Cromosoma crom) {
 		int nGenes = crom.getNumGenes();
 		int ini = rand.nextInt(nGenes-1);
 		int fin = rand.nextInt(nGenes-ini)+ini;

@@ -1,15 +1,18 @@
-package common.cruce;
+package common.cruce.practica2;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 
 public class OX extends Reproduccion {
 
-	@Override ParCromosoma cruce(ParCromosoma par) {
+	@Override
+	protected ParCromosoma cruce(ParCromosoma par) {
 		int nGenes = par.getC1().getNumGenes();
 		int ini = rand.nextInt(nGenes-1);
 		int fin = rand.nextInt(nGenes-ini)+ini;

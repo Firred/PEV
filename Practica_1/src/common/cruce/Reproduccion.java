@@ -36,5 +36,5 @@ public abstract class Reproduccion {
 		}
 	}
 	
-	abstract ParCromosoma cruce(ParCromosoma par);
+	protected abstract ParCromosoma cruce(ParCromosoma par);
 }

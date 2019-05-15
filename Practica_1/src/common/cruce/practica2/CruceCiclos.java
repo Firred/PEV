@@ -1,10 +1,13 @@
-package common.cruce;
+package common.cruce.practica2;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 
 public class CruceCiclos extends Reproduccion {
 	
-	@Override ParCromosoma cruce(ParCromosoma par) {
+	@Override
+	protected ParCromosoma cruce(ParCromosoma par) {
 		int pos = 0;
 
 		Cromosoma h1 = new Cromosoma(par.getC2()), h2 = new Cromosoma(par.getC1());

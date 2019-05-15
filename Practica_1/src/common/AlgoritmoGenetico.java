@@ -1,11 +1,11 @@
 package common;
 
-import common.cruce.CodificacionOrdinal;
 import common.cruce.Reproduccion;
-import common.cruce.ReproduccionBinaria;
+import common.cruce.practica1.ReproduccionBinaria;
+import common.cruce.practica2.CodificacionOrdinal;
 import common.evaluacion.Evaluacion;
 import common.mutacion.Mutacion;
-import common.mutacion.MutacionBinaria;
+import common.mutacion.practica1.MutacionBinaria;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
@@ -246,7 +246,7 @@ public class AlgoritmoGenetico {
 		mensajeDebug("POST-EVALUACION");
 		
 		int intentos = 0;
-		aptitud = poblPrincipal.getAptMedia();
+		aptitud = poblPrincipal.getAptMedia();		
 		
 		//Inicia bucle		
 		while(!terminado()) {

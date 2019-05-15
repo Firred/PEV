@@ -1,10 +1,12 @@
-package common.mutacion;
+package common.mutacion.practica2;
 
 import common.Cromosoma;
+import common.mutacion.Mutacion;
 
 public class Intercambio extends Mutacion {
 
 	@Override
+	protected
 	Cromosoma mutacion (Cromosoma crom) {
 		if(crom.getNumGenes() == 1)
 			return crom;

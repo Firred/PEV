@@ -1,6 +1,8 @@
-package common.cruce;
+package common.cruce.practica1;
 
 import common.Cromosoma;
+import common.cruce.ParCromosoma;
+import common.cruce.Reproduccion;
 
 public class DiscretoUniforme extends Reproduccion {
 
@@ -15,6 +17,7 @@ public class DiscretoUniforme extends Reproduccion {
 	}
 	
 	@Override
+	protected
 	ParCromosoma cruce(ParCromosoma par) {
 		Cromosoma<?> h1 = new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
 	

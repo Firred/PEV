@@ -1,10 +1,12 @@
-package common.mutacion;
+package common.mutacion.practica2;
 
 import common.Cromosoma;
+import common.mutacion.Mutacion;
 
 public class Insercion extends Mutacion {
 	
 	@Override
+	protected
 	Cromosoma mutacion(Cromosoma crom) {
 		int posGen = rand.nextInt(crom.getNumGenes());
 		int posInsert = rand.nextInt(crom.getNumGenes());

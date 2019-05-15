@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import common.Cromosoma;
-import common.cruce.Monopunto;
+import common.cruce.practica1.Monopunto;
 import common.genes.Gen;
 import common.genes.GenReal;
-import common.mutacion.NoUniforme;
+import common.mutacion.practica1.NoUniforme;
 import practicas.ProblemaNoBinario;
 
 public class Funcion5 extends ProblemaNoBinario<Double> {
