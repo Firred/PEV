@@ -22,6 +22,7 @@ import common.seleccion.*;
 import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
 import interfaz.ConfigPanel.*;
+import practica3.Practica3;
 import practicas.Problema;
 import practicas.practica1.*;
 import practicas.practica2.Practica2;
@@ -62,7 +63,8 @@ public class FactoriaOpciones {
 		new Funcion3(), 
 		new Funcion4(),
 		new Funcion5(), 
-		new Practica2()
+		new Practica2(),
+		new Practica3()
 	};
 	
 	final public static Seleccion[] selecciones = new Seleccion[] {

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import common.genes.Gen;
 import common.genes.GenBi;
+import practica3.Practica3;
 import practicas.Problema;
 
 
@@ -17,7 +18,9 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	private boolean minimizar;
 
 	
-	public Cromosoma() {};
+	public Cromosoma() {
+		this.genes = new ArrayList<>();
+	};
 	
 	/**
 	 * Constructor por defecto para los genes
@@ -29,8 +32,11 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 //		this.tipo = tipo;
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
-
-		genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
+		
+		if(Practica3.class.isAssignableFrom(func.getClass()))
+			genes = (ArrayList<Gen<T>>) func.crearGenes(1,3);
+		else
+			genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
 		
 		if(tipo == 0) {
 			this.longitud = genes.size();

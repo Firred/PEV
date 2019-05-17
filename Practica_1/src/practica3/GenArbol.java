@@ -10,6 +10,15 @@ public class GenArbol extends Gen<Tipo> {
 	private int numNodos;
 	private int profundidad;
 	private ArrayList<GenArbol> hijos;
+	private GenArbol padre;
+	
+	public GenArbol() {}
+	
+	public GenArbol(Tipo tipo) {
+		super.setCarateristica(tipo);
+		this.numNodos = 1;
+		this.profundidad = 1;
+	}
 	
 	public GenArbol(GenArbol gen) {
 		super((GenArbol)gen);
@@ -28,6 +37,10 @@ public class GenArbol extends Gen<Tipo> {
 	}
 
 	public void setNumNodos(int numNodos) {
+		if(padre != null) {
+			padre.setNumNodos(padre.getNumNodos()-this.numNodos+numNodos);
+		}
+		
 		this.numNodos = numNodos;
 	}
 
@@ -36,19 +49,43 @@ public class GenArbol extends Gen<Tipo> {
 	}
 
 	public void setProfundidad(int profundidad) {
+		if(padre != null) {
+			padre.setProfundidad(padre.getProfundidad()-this.profundidad+profundidad);
+		}
+		
 		this.profundidad = profundidad;
 	}
 
 	public ArrayList<GenArbol> getHijos() {
 		return hijos;
 	}
+	
+	public GenArbol getHijo(int pos) {
+		return this.hijos.get(pos);
+	}
 
 	public void setHijos(ArrayList<GenArbol> hijos) {
 		this.hijos = hijos;
 	}
 	
-	public void setHijo(GenArbol hijo, int pos) {
-		this.hijos.set(pos, hijo);
+	public <T extends Gen<Tipo>> void setHijo(T hijo, int pos) {
+		this.hijos.set(pos, (GenArbol)hijo);
+	}
+	
+	public <T extends Gen<Tipo>> void addHijo(T hijo) {
+		GenArbol gArb = (GenArbol)hijo;
+		this.hijos.add(gArb);
+		this.numNodos += gArb.getNumNodos();
+		this.profundidad += gArb.getProfundidad();
+		gArb.setPadre(this);
+	}
+
+	public GenArbol getPadre() {
+		return padre;
+	}
+
+	public void setPadre(GenArbol padre) {
+		this.padre = padre;
 	}
 	
 	@Override
@@ -86,6 +123,19 @@ public class GenArbol extends Gen<Tipo> {
 		}
 
 		return this;
+	}
+	
+	public void insertarNodo(GenArbol nodoAntiguo, GenArbol nodoNuevo) {		
+		for(int i = 0; i < this.hijos.size(); i++) {
+			if(this.hijos.get(i).equals(nodoAntiguo)) {
+				this.hijos.set(i, nodoNuevo);
+				this.setNumNodos(this.numNodos-nodoAntiguo.getNumNodos()+nodoNuevo.getNumNodos());
+				this.setProfundidad(this.profundidad-nodoAntiguo.getProfundidad()+nodoNuevo.getProfundidad());
+				
+				nodoAntiguo.setPadre(null);
+				nodoNuevo.setPadre(this);
+			}
+		}
 	}
 }
 

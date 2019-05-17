@@ -126,7 +126,7 @@ public class Practica2 extends ProblemaNoBinario<Integer>{
 	}
 	
 	public String cromToString(Cromosoma<Integer> crom) {
-		String s = "El recorrido más corto es de: " + crom.getX() + "km." 
+		String s = "El recorrido mas corto es de: " + crom.getX() + "km." 
 				+ System.lineSeparator() + "Recorrido:"
 				+ System.lineSeparator();
 		
