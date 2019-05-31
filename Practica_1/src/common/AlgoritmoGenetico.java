@@ -9,6 +9,8 @@ import common.mutacion.practica1.MutacionBinaria;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
+import practica3.CromosomaArbol;
+import practica3.Practica3;
 import practicas.Problema;
 import practicas.ProblemaNoBinario;
 import practicas.practica1.Funcion;
@@ -169,6 +171,10 @@ public class AlgoritmoGenetico {
 		return this.contractividad;
 	}
 	
+	public Cromosoma getMejor() {
+		return this.mejor;
+	}
+	
 	@Override
 	public String toString() {
 		return "Ag";
@@ -294,6 +300,9 @@ public class AlgoritmoGenetico {
 		if(Practica2.class.isAssignableFrom(this.funcion.getClass())) {
 			texto = ((Practica2)this.funcion).cromToString(this.mejor);
 		}
+		else if (Practica3.class.isAssignableFrom(this.funcion.getClass())) {
+			texto = ((Practica3)this.funcion).cromToString(this.mejor);
+		}
 		
 		ctrl.finish(this.mejor, texto);
 		
@@ -304,6 +313,8 @@ public class AlgoritmoGenetico {
 		else
 			texto = "";
 		
+		//System.out.println(mejor);
+		this.funcion.evalua(mejor);
 		return texto;
 	}
 	

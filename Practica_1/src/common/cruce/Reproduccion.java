@@ -31,8 +31,7 @@ public abstract class Reproduccion {
 					
 					seleccionado = false;
 				}
-			}
-			
+			}	
 		}
 	}
 	

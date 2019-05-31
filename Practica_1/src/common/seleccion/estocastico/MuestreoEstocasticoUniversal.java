@@ -6,11 +6,9 @@ import common.Poblacion;
 import common.seleccion.Seleccion;
 
 public class MuestreoEstocasticoUniversal extends Seleccion {
-	//private Poblacion newPobl;
 	private Random rand;
 	
 	public MuestreoEstocasticoUniversal() {
-		//newPobl = new Poblacion();
 		rand = new Random();
 	}
 	
@@ -26,7 +24,6 @@ public class MuestreoEstocasticoUniversal extends Seleccion {
 			}
 			
 			newPobl.addIndividuo(pobl.getIndividuos(pos_super));
-			//newPobl.setIndividuos(pobl.getIndividuos(pos_super), i);
 		}	
 		
 		newPobl.setGeneracion(pobl.getGeneracion()+1);

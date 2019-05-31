@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import common.Cromosoma;
+import practica3.CromosomaArbol;
+import practica3.Practica3;
 import practicas.Problema;
 
 public class Poblacion {
@@ -30,9 +32,17 @@ public class Poblacion {
 	 * @param precision
 	 */
 	public Poblacion(int tipo, int tPobl, int generacion, Problema<?> func, double prec) {
-		for(int i = 0; i < tPobl; i++) {
-			individuos.add(new Cromosoma(tipo, func, prec));
+		if(Practica3.class.isAssignableFrom(func.getClass())) {
+			for(int i = 0; i < tPobl; i++) {
+				individuos.add(new CromosomaArbol((Practica3)func));
+			}
 		}
+		else {
+			for(int i = 0; i < tPobl; i++) {
+				individuos.add(new Cromosoma(tipo, func, prec));
+			}
+		}
+		
 		//Tpobl = tpobl;
 		this.generacion = generacion;
 		this.mejor = this.individuos.get(0);
@@ -58,7 +68,7 @@ public class Poblacion {
 	 * Devuelve el array de Cromosomas de la población
 	 * @return individuos
 	 */
-	public ArrayList<Cromosoma> getIndividuos() {
+	public ArrayList<? extends Cromosoma> getIndividuos() {
 		return this.individuos;
 	}
 	

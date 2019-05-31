@@ -12,16 +12,32 @@ public class GenArbol extends Gen<Tipo> {
 	private ArrayList<GenArbol> hijos;
 	private GenArbol padre;
 	
-	public GenArbol() {}
+	public GenArbol() {
+		this.hijos = new ArrayList<>();
+	}
 	
 	public GenArbol(Tipo tipo) {
 		super.setCarateristica(tipo);
 		this.numNodos = 1;
 		this.profundidad = 1;
+		this.hijos = new ArrayList<>();
 	}
 	
-	public GenArbol(GenArbol gen) {
+	public GenArbol(GenArbol gen, GenArbol padre) {
 		super((GenArbol)gen);
+		this.setCarateristica(Tipo.valueOf(gen.getCaracteristica().toString()));
+		this.numNodos = gen.getNumNodos();
+		this.profundidad = gen.getProfundidad();
+
+		this.hijos = new ArrayList<>();
+		
+		for(GenArbol g : gen.getHijos()) {
+			this.hijos.add(new GenArbol(g, this));
+		}
+		
+		this.actualizarNodo();
+		
+		this.padre = padre;
 	}
 	
 	public String getDato() {
@@ -37,10 +53,6 @@ public class GenArbol extends Gen<Tipo> {
 	}
 
 	public void setNumNodos(int numNodos) {
-		if(padre != null) {
-			padre.setNumNodos(padre.getNumNodos()-this.numNodos+numNodos);
-		}
-		
 		this.numNodos = numNodos;
 	}
 
@@ -48,11 +60,7 @@ public class GenArbol extends Gen<Tipo> {
 		return profundidad;
 	}
 
-	public void setProfundidad(int profundidad) {
-		if(padre != null) {
-			padre.setProfundidad(padre.getProfundidad()-this.profundidad+profundidad);
-		}
-		
+	public void setProfundidad(int profundidad) {		
 		this.profundidad = profundidad;
 	}
 
@@ -65,19 +73,21 @@ public class GenArbol extends Gen<Tipo> {
 	}
 
 	public void setHijos(ArrayList<GenArbol> hijos) {
-		this.hijos = hijos;
+		for(GenArbol g : hijos) {
+			addHijo(g);
+		}
 	}
 	
 	public <T extends Gen<Tipo>> void setHijo(T hijo, int pos) {
-		this.hijos.set(pos, (GenArbol)hijo);
+		this.hijos.set(pos, new GenArbol((GenArbol)hijo, this));
+		this.actualizarNodo();
 	}
 	
 	public <T extends Gen<Tipo>> void addHijo(T hijo) {
-		GenArbol gArb = (GenArbol)hijo;
+		GenArbol gArb = new GenArbol((GenArbol) hijo, this);
+
 		this.hijos.add(gArb);
-		this.numNodos += gArb.getNumNodos();
-		this.profundidad += gArb.getProfundidad();
-		gArb.setPadre(this);
+		this.actualizarNodo();
 	}
 
 	public GenArbol getPadre() {
@@ -86,11 +96,6 @@ public class GenArbol extends Gen<Tipo> {
 
 	public void setPadre(GenArbol padre) {
 		this.padre = padre;
-	}
-	
-	@Override
-	public String toString() {
-		return "String GenArbol: Nada";
 	}
 	
 	/**
@@ -124,18 +129,52 @@ public class GenArbol extends Gen<Tipo> {
 
 		return this;
 	}
-	
-	public void insertarNodo(GenArbol nodoAntiguo, GenArbol nodoNuevo) {		
+
+	public void insertarNodo(GenArbol nodoAntiguo, GenArbol nodoNuevo) {
 		for(int i = 0; i < this.hijos.size(); i++) {
-			if(this.hijos.get(i).equals(nodoAntiguo)) {
-				this.hijos.set(i, nodoNuevo);
-				this.setNumNodos(this.numNodos-nodoAntiguo.getNumNodos()+nodoNuevo.getNumNodos());
-				this.setProfundidad(this.profundidad-nodoAntiguo.getProfundidad()+nodoNuevo.getProfundidad());
-				
+			if(this.hijos.get(i) == nodoAntiguo) {
+				GenArbol nodo = new GenArbol(nodoNuevo, this);
+				this.hijos.set(i, nodo);
 				nodoAntiguo.setPadre(null);
-				nodoNuevo.setPadre(this);
+				
+				this.actualizarNodo();
 			}
 		}
+	}
+	
+	private void actualizarNodo() {
+		int sumNod = 0, maxP = 0;
+		
+		for(GenArbol g : this.hijos) {
+			sumNod += g.getNumNodos();
+			
+			if(g.getProfundidad() > maxP)
+				maxP = g.getProfundidad();
+		}
+		
+		this.numNodos = sumNod+1;
+		this.profundidad = maxP+1;
+		
+		if(this.padre != null) {
+			padre.actualizarNodo();
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String s = "Nodos: " + this.numNodos + ", Profundidad: " + this.profundidad;
+/*		
+		if(hijos.size() == 3) 
+			s += " => ";
+		else if (hijos.size() == 2) {
+			s += " -> ";
+		}
+		
+		for(GenArbol h : hijos) {
+			s += System.lineSeparator() + "Hijo__: " + h.toString();
+		}
+		*/
+		return s;
 	}
 }
 

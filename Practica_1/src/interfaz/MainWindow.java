@@ -22,6 +22,7 @@ public class MainWindow {
 	private JFrame frame;
 	
 	private PanelCentral panelCentral;
+	private PanelTablero tablero;
 
 	/**
 	 * Launch the application.
@@ -72,12 +73,24 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panelCentral.setVisible(false);
+				tablero.setVisible(false);
 				panelCentral = new PanelCentral(ctrl);
 				frame.getContentPane().add(panelCentral, BorderLayout.CENTER);
 				ctrl.execute();
 			}
 		});
-		panel_1.add(startButton);
+		panel_1.add(startButton);	
+		
+		tablero = new PanelTablero();
+		JButton viewButton = new JButton("View");
+		viewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ctrl.actualizarTablero(tablero);
+			}
+		});
+		panel_1.add(viewButton);
 		
 		panelCentral = new PanelCentral(ctrl);
 		frame.getContentPane().add(panelCentral, BorderLayout.CENTER);

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import common.Poblacion;
 import common.seleccion.Seleccion;
+import practica3.CromosomaArbol;
 
 public class SeleccionRuleta extends Seleccion {
 	private Random rand;
@@ -29,7 +30,6 @@ public class SeleccionRuleta extends Seleccion {
 			}	
 			
 			newPobl.addIndividuo(pobl.getIndividuos(pos_super));
-			//newPobl.setIndividuos(pobl.getIndividuos(pos_super), i);
 		}
 		
 		newPobl.setGeneracion(pobl.getGeneracion()+1);

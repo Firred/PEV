@@ -34,13 +34,13 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		this.minimizar = func.MINIMIZAR;
 		
 		if(Practica3.class.isAssignableFrom(func.getClass()))
-			genes = (ArrayList<Gen<T>>) func.crearGenes(1,3);
+			genes = (ArrayList<Gen<T>>) func.crearGenes(((Practica3)func).getNMin(),((Practica3)func).getNMax());
 		else
 			genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
 		
-		if(tipo == 0) {
+/*		if(tipo == 0) {
 			this.longitud = genes.size();
-		}
+		}*/
 	}
 	
 	/**

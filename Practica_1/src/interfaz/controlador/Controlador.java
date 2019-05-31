@@ -3,6 +3,7 @@ package interfaz.controlador;
 import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
+import interfaz.PanelTablero;
 
 public abstract class Controlador {
 	private static ControladorImp ctrl;
@@ -20,4 +21,5 @@ public abstract class Controlador {
 	public abstract void update(Poblacion pobl, Cromosoma mejorG);
 	public abstract void finish(Cromosoma mejor, String texto);
 	public abstract AlgoritmoGenetico getAG();
+	public abstract void actualizarTablero(PanelTablero tablero);
 }

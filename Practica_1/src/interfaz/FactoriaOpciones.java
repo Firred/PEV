@@ -238,8 +238,21 @@ public class FactoriaOpciones {
 								  		  .addInner(new IntegerOption<Heuristica>(
 								  		     "Numero Genes", "Numero de genes a recombinar", "NGenes", 0, Integer.MAX_VALUE))
 								  		  .endInner()		
+				.endInner()
 				
-		  						
+		  		.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  
+					  	"Practica 3",							
+					  	"",				 
+					  	"funcion",							
+					  	Practica3.class))
+		  		
+	  					.addInner(new IntegerOption<Practica3>(
+	  							"Minimo", "Profundidad minima de la solucion", "NMin", 0, 50))
+	  						  		
+	  					.addInner(new IntegerOption<Practica3>(
+	  							"Maximo", "Profundidad maxima de la solucion", "NMax", 1, 60))
+				  		.endInner()
+		  		
 		.endOptions();
 
 		return panel;

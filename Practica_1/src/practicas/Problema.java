@@ -32,10 +32,13 @@ public abstract class Problema<T> {
 		revisarAdaptacion(pobl);
 		
 		for(Cromosoma crom : pobl.getIndividuos()) {	
-			suma_aptitud += crom.getApt();
-			crom.setPunt(crom.getApt()/suma_aptitud);
+			suma_aptitud += crom.getApt();	
 		}
 		
+		for(Cromosoma crom : pobl.getIndividuos()) {	
+			crom.setPunt(crom.getApt()/suma_aptitud);
+			
+		}
 		
 		pobl.calcularMejorMedia();	
 		pobl.calcularPuntAcum();
