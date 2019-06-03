@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import common.genes.Gen;
 import common.genes.GenBi;
+import practica3.GenArbol;
 import practica3.Practica3;
 import practicas.Problema;
 
@@ -24,18 +25,17 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	/**
 	 * Constructor por defecto para los genes
-	 * @param tipo de genes
 	 * @param min
 	 * @param max
 	 */
-	public Cromosoma(int tipo, Problema<T> func, double prec) {
+	public Cromosoma(Problema<T> func, double prec) {
 //		this.tipo = tipo;
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 		
-		if(Practica3.class.isAssignableFrom(func.getClass()))
+/*		if(Practica3.class.isAssignableFrom(func.getClass()))
 			genes = (ArrayList<Gen<T>>) func.crearGenes(((Practica3)func).getNMin(),((Practica3)func).getNMax());
-		else
+		else*/
 			genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
 		
 /*		if(tipo == 0) {
@@ -51,11 +51,16 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	public Cromosoma (Cromosoma<T> crom) {
 		this.genes = new ArrayList<>(crom.genes);
 		
+		this.x = crom.x;
 		this.minimizar = crom.minimizar;
 		this.longitud = crom.longitud;	
 		this.aptitud = crom.aptitud;
 		this.puntuacion = crom.puntuacion;
 		this.punt_acum = crom.punt_acum;
+
+		if(crom.getNumGenes() > 0 && GenArbol.class.isAssignableFrom(crom.getGen(0).getClass())) {
+			this.genes.set(0, (Gen<T>) new GenArbol((GenArbol)crom.getGen(0), null));
+		}
 	}
 	
 	/**
@@ -168,6 +173,13 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 		this.x = x;
 	}
 	
+	public int compararX(Cromosoma<T> o) {		
+		if(this.minimizar) 
+			return this.x < o.x ? 1 : (this.x == o.x ? 0 : -1);	
+		else
+			return this.x > o.x ? 1 : (this.x == o.x ? 0 : -1);
+	}
+	
 	/**
 	 *  Compara dos aptitudes para saber cual es mayor
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -185,7 +197,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	@Override
 	public String toString() {
-		String string =  "Cromosoma: Aptitud: " + aptitud + " [genes= ";
+		String string =  "Cromosoma: Aptitud: " + aptitud + " NGenes: " + this.getNumGenes() + " [genes= ";
 		
 		for(int i = 0; i < genes.size() ; i++) {
 			string += this.genes.get(i).toString();

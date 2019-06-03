@@ -8,7 +8,6 @@ import common.Poblacion;
 import common.seleccion.Seleccion;
 
 public abstract class Torneo extends Seleccion {
-	private Poblacion newPobl = new Poblacion();
 	Random rand;
 	
 	public Torneo() {
@@ -17,23 +16,23 @@ public abstract class Torneo extends Seleccion {
 	}
 	
 	public Poblacion execute(Poblacion pobl) {
-		Poblacion newPobl = new Poblacion();
+		ArrayList<Cromosoma> lista = new ArrayList<>();
+		
 		//Cambiar el tam por un parametro o atributo externo (en Function_main?)
 		int tam = 2;
 		Cromosoma[] individuos = new Cromosoma[tam];
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
+		for(int i = 0; i < pobl.getTPobl(); i++) {
 			for(int j = 0; j < tam; j++) {
-				individuos[j] = pobl.getIndividuos(rand.nextInt(pobl.getTpobl()));
+				individuos[j] = pobl.getIndividuos(rand.nextInt(pobl.getTPoblacion()));
 			}
 			
-			newPobl.addIndividuo(seleccion(individuos));
-			//newPobl.setIndividuos(seleccion(individuos), i);			
+			lista.add(seleccion(individuos));		
 		}
 		
-		newPobl.setGeneracion(pobl.getGeneracion()+1);
+		pobl.setGeneracion(pobl.getGeneracion()+1);
 		
-		return newPobl;
+		return pobl;
 	}
 	
 	abstract Cromosoma seleccion(Cromosoma[] individuos);

@@ -11,8 +11,8 @@ public class CruceSubarboles extends Reproduccion {
 		GenArbol p1 = (GenArbol) par.getC1().getGen(0), p2 = (GenArbol) par.getC2().getGen(0);
 		GenArbol subArb1, subArb2;
 		Cromosoma h1 = new Cromosoma(par.getC1()), h2 = new Cromosoma(par.getC2());
-		int ale1 = this.rand.nextInt(p1.getNumNodos()), ale2 = this.rand.nextInt(p2.getNumNodos());
-
+		int ale1 = this.rand.nextInt(p1.getNumNodos()-2) + 2, ale2 = this.rand.nextInt(p2.getNumNodos()-2) + 2;
+		
 		subArb1 = p1.buscarNodo(ale1);
 		subArb2 = p2.buscarNodo(ale2);
 

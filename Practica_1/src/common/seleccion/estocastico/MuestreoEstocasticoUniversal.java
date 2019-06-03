@@ -1,7 +1,9 @@
 package common.seleccion.estocastico;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import common.Cromosoma;
 import common.Poblacion;
 import common.seleccion.Seleccion;
 
@@ -13,22 +15,23 @@ public class MuestreoEstocasticoUniversal extends Seleccion {
 	}
 	
 	public Poblacion execute(Poblacion pobl) {
-		Poblacion newPobl = new Poblacion();
-		double intervalo = 1.0/pobl.getTpobl();
+		double intervalo = 1.0/pobl.getTPoblacion();
 		double r = rand.nextDouble()*(intervalo);
 		int pos_super = 0;
+		ArrayList<Cromosoma> lista = new ArrayList<>();
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
-			while(pos_super < pobl.getTpobl()-1 && r*i > pobl.getIndividuos(pos_super).getPunt_Acum()) {
+		for(int i = 0; i < pobl.getTPobl(); i++) {
+			while(pos_super < pobl.getTPoblacion()-1 && r*i > pobl.getIndividuos(pos_super).getPunt_Acum()) {
 				pos_super++;
 			}
 			
-			newPobl.addIndividuo(pobl.getIndividuos(pos_super));
+			lista.add(pobl.getIndividuos(pos_super));
 		}	
 		
-		newPobl.setGeneracion(pobl.getGeneracion()+1);
+		pobl.setIndividuos(lista);
+		pobl.setGeneracion(pobl.getGeneracion()+1);
 		
-		return newPobl;
+		return pobl;
 	}
 
 	@Override

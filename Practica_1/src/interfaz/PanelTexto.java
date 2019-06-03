@@ -3,6 +3,7 @@ package interfaz;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import common.Cromosoma;
@@ -23,6 +24,7 @@ public class PanelTexto extends JPanel implements Observador {
 		this.area.setEditable(false);
 		this.area.setLineWrap(true);
 		this.area.setWrapStyleWord(true);
+		this.add(new JScrollPane(this.area, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		ctrl.addObservador(this);
 	}
 	

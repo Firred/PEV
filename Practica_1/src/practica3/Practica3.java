@@ -7,9 +7,8 @@ import common.Cromosoma;
 import common.cruce.practica3.CruceSubarboles;
 import common.genes.Gen;
 import common.mutacion.practica3.TerminalSimple;
-import practicas.ProblemaNoBinario;
 
-public class Practica3 extends ProblemaNoBinario<Tipo> {
+public class Practica3 extends ProblemaArbol<Tipo> {
 
 	private final static char[][] mapa = {
 			{ '@', '#', '#', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
@@ -50,19 +49,28 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 	private Posicion pos;
 	private Direccion dir;
 	private Random rand;
-	private int nMin, nMax;
 	
 	private class Posicion {
 		public int x = 0;
 		public int y = 0;
 	
 		public void suma(Direccion dir) {
-			if((this.x + dir.x) < mapa.length && (this.x + dir.x) >= 0) {
-				if((this.y + dir.y) < mapa.length && (this.y + dir.y) >= 0) {
-					this.x += dir.x;
-					this.y += dir.y;
-				}
-			}		
+			if(this.x + dir.x >= mapa.length) {
+				this.x = 0;
+			}
+			else if (this.y + dir.y >= mapa.length) {
+				this.y = 0;
+			}
+			else if (this.x + dir.x < 0) {
+				this.x = mapa[0].length-1;
+			}
+			else if (this.y + dir.y < 0) {
+				this.y = mapa.length-1;
+			}
+			else {
+				this.x += dir.x;
+				this.y += dir.y;
+			}				
 		}
 	}
 	
@@ -115,28 +123,10 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 	}
 	
 	public Practica3() {
-		super(false, 1);
+		super(false);
 		super.setMutacion(new TerminalSimple());
 		super.setReproduccion(new CruceSubarboles());
 		this.rand = new Random();
-		this.nMin = 2;
-		this.nMax = 10;
-	}
-
-	public int getNMin() {
-		return nMin;
-	}
-
-	public void setNMin(int nMin) {
-		this.nMin = nMin;
-	}
-
-	public int getNMax() {
-		return nMax;
-	}
-
-	public void setNMax(int nMax) {
-		this.nMax = nMax;
 	}
 
 	@Override
@@ -158,61 +148,12 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 		
 		int bonTiempo = 400-this.pasos;
 		
-//		System.out.println(this.punt + ", " + this.pasos);
-		
 		return this.punt + bonTiempo;
 	}
 	
-	@Override
-	public ArrayList<? extends Gen<Tipo>> crearGenes(double... args) {
-//		if(args.length != 2)
-//			return null;
-//		double[] arg = {1,1};
-
-		ArrayList<Gen<Tipo>> lista = new ArrayList<>();
-		
-		int pMin = (int)args[0], pMax = (int)args[1];
-		GenArbol gen = new GenArbol();
-		
-		if(pMin > 0) {
-			gen.setCarateristica(Tipo.getFunciones()[rand.nextInt(Tipo.getFunciones().length)]);
-			
-			gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-			gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-			
-			if(gen.getCaracteristica() == Tipo.PROGN3) {
-				gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-			}
-		}
-		else {
-			if(pMax == 0) {
-				gen = new GenArbol(Tipo.getTerminales()[rand.nextInt(Tipo.getTerminales().length)]);
-			}
-			else {
-				if(rand.nextBoolean()) {	//Elige funcion
-					gen.setCarateristica(Tipo.getFunciones()[rand.nextInt(Tipo.getFunciones().length)]);
-					
-					gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-					gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-					
-					if(gen.getCaracteristica() == Tipo.PROGN3) {
-						gen.addHijo(crearGenes(pMin-1, pMax-1).get(0));
-					}
-				}
-				else { 		//Elige terminal
-					gen = new GenArbol(Tipo.getTerminales()[rand.nextInt(Tipo.getTerminales().length)]);
-				}
-			}
-		}
-		
-		lista.add(gen);
-		
-		return lista;
-	}	
-	
-	private void ejecutarArbol(GenArbol gen, char[][] tablero) {				
-		if(this.pasos < 400 && this.punt < 90) {
-			this.pasos++;
+	private void ejecutarArbol(GenArbol gen, char[][] tablero) {
+		if(this.pasos < 400 && this.punt < 89) {
+			//this.pasos++;
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;
@@ -234,28 +175,26 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 				break;
 				
 			case SIC:
-				if(!fueraLimites(pos.x + dir.x, pos.y + dir.y)) {
-					if(tablero[pos.y + dir.y][pos.x + dir.x] == '#') 	
-						ejecutarArbol(gen.getHijo(0), tablero);			
-				}
-				else
+				if(!fueraLimites(pos.x + dir.x, pos.y + dir.y) && tablero[pos.y + dir.y][pos.x + dir.x] == '#') 
+						ejecutarArbol(gen.getHijo(0), tablero);		
+				else 
 					ejecutarArbol(gen.getHijo(1), tablero);
 				
 				break;
 				
 			case AVANZA:
 				this.pos.suma(dir);
-				
+				this.pasos++;
 				break;
 				
 			case GIRA_DERECHA:
 				this.dir.giroDer();
-				
+				this.pasos++;
 				break;
 				
 			case GIRA_IZQUIERDA:
 				this.dir.giroIzq();
-				
+				this.pasos++;
 				break;
 				
 			default:
@@ -282,22 +221,12 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 		while(this.pasos < 400 && this.punt < 90)
 			rellenarTablero((GenArbol)crom.getGen(0), tablero);
 		
-/*		s = "";
-		for(int i = 0; i < mapa.length; i++) {
-			for(int j = 0; j < mapa[i].length; j++) {
-				s += tablero[i][j] + " ";
-			}
-			s += System.lineSeparator();
-		}
-		
-		System.out.println(s);*/
-		
 		return tablero;
 	}
 	
 	private void rellenarTablero(GenArbol gen, char[][] tablero) {
 		if(this.pasos < 400 && this.punt < 90) {
-			this.pasos++;
+//			this.pasos++;
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;
@@ -325,10 +254,8 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 				break;
 				
 			case SIC:
-				if(!fueraLimites(pos.x + dir.x, pos.y + dir.y)) {
-					if(tablero[pos.y + dir.y][pos.x + dir.x] == '#')
+				if(!fueraLimites(pos.x + dir.x, pos.y + dir.y) && tablero[pos.y + dir.y][pos.x + dir.x] == '#') 
 						rellenarTablero(gen.getHijo(0), tablero);			
-				}	
 				else
 					rellenarTablero(gen.getHijo(1), tablero);
 				
@@ -336,17 +263,17 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 				
 			case AVANZA:
 				this.pos.suma(dir);
-				
+				this.pasos++;
 				break;
 				
 			case GIRA_DERECHA:
 				this.dir.giroDer();
-				
+				this.pasos++;
 				break;
 				
 			case GIRA_IZQUIERDA:
 				this.dir.giroIzq();
-				
+				this.pasos++;
 				break;
 				
 			default:
@@ -367,8 +294,51 @@ public class Practica3 extends ProblemaNoBinario<Tipo> {
 	
 	public String cromToString(Cromosoma crom) {
 		evalua(crom);
-		String s = "El mejor recorrido obtiene " + this.punt + "uds. de comida en " + this.pasos + " pasos.";
+		String s = "El mejor recorrido obtiene " + this.punt + "uds. de comida en " + this.pasos + " pasos." + System.lineSeparator();
+		
+		s += ((GenArbol)crom.getGen(0)).caracteristicaString(0);
 		
 		return s;
+	}
+
+	@Override
+	public Tipo obtenerTerminal() {
+		return Tipo.getTerminales()[rand.nextInt(Tipo.getTerminales().length)];
+	}
+
+	@Override
+	public Tipo obtenerFuncion() {
+		return Tipo.getFunciones()[rand.nextInt(Tipo.getFunciones().length)];
+	}
+
+	@Override
+	public Tipo obtenerTodos() {
+		return Tipo.values()[rand.nextInt(Tipo.values().length)];
+	}
+
+	@Override
+	public int ramificacionesFuncion(Tipo tipo) {
+		switch (tipo) {
+		case PROGN2:
+			return 2;
+
+		case PROGN3:
+			return 3;
+			
+		case SIC:
+			return 2;
+			
+		case AVANZA:
+			return 0;
+			
+		case GIRA_DERECHA:
+			return 0;
+			
+		case GIRA_IZQUIERDA:
+			return 0;
+			
+		default:
+			return 0;
+		}
 	}
 }

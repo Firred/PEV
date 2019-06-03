@@ -1,7 +1,9 @@
 package common.seleccion;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
+import common.Cromosoma;
 import common.Poblacion;
 
 public class Truncamiento extends Seleccion {
@@ -17,21 +19,21 @@ public class Truncamiento extends Seleccion {
 	}
 	
 	public Poblacion execute(Poblacion pobl) {
-		Poblacion newPobl = new Poblacion();
+		ArrayList<Cromosoma> lista = new ArrayList<>();
 		int repeticiones = (int)(1/this.trunc);
-		int corte = (int)(this.trunc*pobl.getTpobl());
+		int corte = (int)(this.trunc*pobl.getTPoblacion());
 
 		Collections.sort(pobl.getIndividuos(), Collections.reverseOrder());
 		
 		for(int i = 0; i < corte; i++) {
 			for(int j = 0; j < repeticiones; j++) {
-				newPobl.addIndividuo(pobl.getIndividuos(i));
+				lista.add(pobl.getIndividuos(i));
 			}
 		}
 		
-		newPobl.setGeneracion(pobl.getGeneracion()+1);
-		
-		return newPobl;
+		pobl.setGeneracion(pobl.getGeneracion()+1);
+//		System.out.println(pobl.getTPoblacion());
+		return pobl;
 	}
 
 	@Override

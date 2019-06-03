@@ -17,7 +17,7 @@ public class TerminalSimple extends Mutacion {
 			
 			aux = aux.getHijo(aleatorio);
 		}
-
+		
 		aux.setCarateristica(Tipo.getTerminales()[this.rand.nextInt(Tipo.getTerminales().length)]);
 		
 		return crom;

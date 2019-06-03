@@ -14,7 +14,7 @@ public class CromosomaArbol extends Cromosoma<Tipo>{
 	}
 	
 	public CromosomaArbol (ProblemaNoBinario func) {
-		super(0, func, 0);
+		super(func, 0);
 	}
 	
 	public CromosomaArbol (CromosomaArbol crom) {

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
+import common.Cromosoma;
 import common.Poblacion;
 
 public class Ranking extends Seleccion {
@@ -18,7 +19,7 @@ public class Ranking extends Seleccion {
 	
 	
 	public Poblacion execute(Poblacion pobl) {
-		Poblacion newPobl = new Poblacion();
+		ArrayList<Cromosoma> lista = new ArrayList<>();
 		double x;
 //		int suma = (pobl.getTpobl()/2)*(pobl.getTpobl()+1);
 		int pos_super;
@@ -34,16 +35,17 @@ public class Ranking extends Seleccion {
 		
 		HashMap<Integer, Integer> repeticiones = new HashMap<>();
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
+		for(int i = 0; i < pobl.getTPoblacion(); i++) {
 			repeticiones.put(i, 0);
 		}
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
+		for(int i = 0; i < pobl.getTPoblacion(); i++) {
 			x = (double)(rand.nextDouble()*seg);
 			pos_super = 0;
 			
 			if(x <= probL.get(0)) {
-				newPobl.addIndividuo(pobl.getIndividuos(0));
+				lista.add(pobl.getIndividuos(0));
+//				newPobl.addIndividuo(pobl.getIndividuos(0));
 				
 				repeticiones.put(0, repeticiones.get(0)+1);
 			}
@@ -52,26 +54,27 @@ public class Ranking extends Seleccion {
 					pos_super++;
 				}
 				
-				newPobl.addIndividuo(pobl.getIndividuos(pos_super));
+				lista.add(pobl.getIndividuos(pos_super));
+//				newPobl.addIndividuo(pobl.getIndividuos(pos_super));
 				
 				repeticiones.put(pos_super, repeticiones.get(pos_super)+1);
 			}
 		}
 
-		newPobl.setGeneracion(pobl.getGeneracion()+1);
+		pobl.setGeneracion(pobl.getGeneracion()+1);
 		
-		return newPobl;
+		return pobl;
 	}
 	
 	private ArrayList<Double> rankingPobl(Poblacion pobl) {
-		ArrayList<Double> lista = new ArrayList<>(pobl.getTpobl());
+		ArrayList<Double> lista = new ArrayList<>(pobl.getTPoblacion());
 		double prob;
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
-			prob = (double)((i-1)/(pobl.getTpobl()-1));
+		for(int i = 0; i < pobl.getTPoblacion(); i++) {
+			prob = (double)((i-1)/(pobl.getTPoblacion()-1));
 			prob = prob*2*(BETA-1);
 			prob = BETA - prob;
-			prob = (double)prob*((double)1/pobl.getTpobl());
+			prob = (double)prob*((double)1/pobl.getTPoblacion());
 			
 			if(i != 0)
 				lista.add(i, lista.get(i-1)+prob);

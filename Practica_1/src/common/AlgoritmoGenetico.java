@@ -9,8 +9,10 @@ import common.mutacion.practica1.MutacionBinaria;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
+import practica3.BloatingTarpeian;
 import practica3.CromosomaArbol;
 import practica3.Practica3;
+import practica3.ProblemaArbol;
 import practicas.Problema;
 import practicas.ProblemaNoBinario;
 import practicas.practica1.Funcion;
@@ -44,12 +46,20 @@ public class AlgoritmoGenetico {
 	private Reproduccion reproduccion;
 	/**Contractividad*/
 	private boolean contractividad;
+	/**Criterio de terminacion (solo de contenido)*/
+	private boolean critTerminacion;
+	/**Metodo para controlar el bloating*/
+	private BloatingTarpeian bloating = new BloatingTarpeian();
 	
 	/**
 	 * Variable para pruebas.
 	 * Poner a true para que se muestre en consola la lista de cromosomas en cada paso de la generacion
 	 */
 	private boolean flag_print = false;
+	
+	/**Numero de generaciones sin obtener un individuo mejor*/
+	private int genSinMejora;
+	
 	
 	public AlgoritmoGenetico() {
 		this.poblacion = 100;
@@ -63,12 +73,13 @@ public class AlgoritmoGenetico {
 		this.mutacion = new MutacionBinaria();
 		this.reproduccion = new ReproduccionBinaria();
 		this.contractividad = false;
+		this.genSinMejora = 0;
 	}
 	
 	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
 //		Function_Controller.setF_actual(0); // permite seleccionar la funcion pasandole un indice
 //		this.funcion.Set_Function();
-		this.poblPrincipal = new Poblacion(tipo, tpobl, 0, this.funcion, this.precision);
+		this.poblPrincipal = new Poblacion(tpobl, 0, this.funcion, this.precision);
 		this.generaciones = generaciones;
 		this.mejor = poblPrincipal.getIndividuos(0);
 		this.elite = (int)(tpobl*elite/100);
@@ -77,6 +88,7 @@ public class AlgoritmoGenetico {
 		args[0] = pMut;
 		//this.mutacion = FactoriaMutacion.getMutacion(mut, args);
 		this.mutacion = new MutacionBinaria();
+		this.genSinMejora = 0;
 	}
 	
 	public void setSeleccion(Seleccion sel) {
@@ -123,7 +135,11 @@ public class AlgoritmoGenetico {
 	public void setContractividad(boolean contractividad) {
 		this.contractividad = contractividad;
 	}
-	
+
+	public void setCritTerminacion(boolean critTerminacion) {
+		this.critTerminacion = critTerminacion;
+	}
+
 	public Seleccion getSeleccion() {
 		return this.seleccion;
 	}
@@ -171,6 +187,10 @@ public class AlgoritmoGenetico {
 		return this.contractividad;
 	}
 	
+	public boolean getCritTerminacion() {
+		return critTerminacion;
+	}
+	
 	public Cromosoma getMejor() {
 		return this.mejor;
 	}
@@ -194,9 +214,13 @@ public class AlgoritmoGenetico {
 		
 		this.funcion.calcularPuntuacion(poblPrincipal);
 		
-		if(poblPrincipal.getMejor().compareTo(this.mejor) >= 1) {			
+		if(poblPrincipal.getMejor().compararX(this.mejor) >= 1) {
+//			System.out.println("Cambia: " + mejor.getApt() + ", nuevo: " + poblPrincipal.getMejor().getApt());
 			this.mejor = poblPrincipal.getMejor();
+			this.genSinMejora = 0;
 		}
+		else
+			this.genSinMejora++;
 	}
 	
 	public void selecciona_cruza() {
@@ -213,7 +237,7 @@ public class AlgoritmoGenetico {
 				
 	
 	public boolean terminado() {
-		return this.generaciones <= poblPrincipal.getGeneracion();
+		return (this.generaciones <= poblPrincipal.getGeneracion()) || (critTerminacion && (this.generaciones/5) < this.genSinMejora);
 	}
 	
 	/**
@@ -229,15 +253,25 @@ public class AlgoritmoGenetico {
 		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
 			this.reproduccion = ((ProblemaNoBinario)this.funcion).getReproduccion();
 			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
+			
 			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
 				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
+		}
+		
+		if(ProblemaArbol.class.isAssignableFrom(this.funcion.getClass())) {
+			this.bloating = new BloatingTarpeian();
+		}
+		else {
+			this.bloating = null;
 		}
 	}
 	
 	public String exe(Controlador ctrl) {
 		double aptitud;
-		this.poblPrincipal = new Poblacion(0, this.poblacion, 0, this.funcion, this.precision);
+		this.poblPrincipal = new Poblacion(this.poblacion, 0, this.funcion, this.precision);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
+
+		this.poblPrincipal.setTPobl(this.poblPrincipal.getTPoblacion()-this.elite);
 		
 		configCheck();
 		
@@ -252,14 +286,13 @@ public class AlgoritmoGenetico {
 		mensajeDebug("POST-EVALUACION");
 		
 		int intentos = 0;
-		aptitud = poblPrincipal.getAptMedia();		
+		aptitud = poblPrincipal.getAptMedia();	
 		
 		//Inicia bucle		
 		while(!terminado()) {
-			
 			if(this.elite > 0) {
-				eliteP = poblPrincipal.separaMejores(this.elite);
-							
+				eliteP = poblPrincipal.separaMejores(elite);		
+				
 				if(flag_print == true) {
 					System.out.println("\n ELITE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 					for(Cromosoma c : eliteP)
@@ -293,6 +326,9 @@ public class AlgoritmoGenetico {
 			else {
 				ctrl.update(this.poblPrincipal, this.mejor);
 			}
+			
+			if(bloating != null)
+				bloating.ejecutar(this.poblPrincipal);
 		}
 		
 		String texto = "";
@@ -313,7 +349,6 @@ public class AlgoritmoGenetico {
 		else
 			texto = "";
 		
-		//System.out.println(mejor);
 		this.funcion.evalua(mejor);
 		return texto;
 	}

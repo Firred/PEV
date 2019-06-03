@@ -1,5 +1,7 @@
 package interfaz;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 //import org.eclipse.swt.awt.SWT_AWT;
@@ -14,6 +16,7 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 
 	private double[] x;
 	private double[] yMejor, yMedia, yMejorG;
+	private ArrayList<Double> yMej, yMed, yMejG, xA;
 	private int generaciones;
 	
 	/**
@@ -26,50 +29,19 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 	 */
 	public PanelGrafica(/*int generaciones*/) {
 		super();
-/*		this.generaciones = generaciones;
-		
-		x = new double[this.generaciones];
-		yMejor = new double[this.generaciones];
-		yMedia = new double[this.generaciones];
-		yMejorG = new double[this.generaciones];
-		
-		for(int i = 0; i < this.generaciones; i++) {
-			x[i] = i;
-		}*/
-		
-	//	double[] x = { 1, 2, 3, 4, 5, 6 };
-		//double[] y = { 45, 89, 6, 32, 63, 12 };
-		
-		// create your PlotPanel (you can use it as a JPanel)
-		//Plot2DPanel plot = new Plot2DPanel();
 		
 		// define the legend position
 		this.addLegend("SOUTH");
-		
-		// add a line plot to the PlotPanel
-//		this.addLinePlot("my plot", x, y);
-		
-		// put the PlotPanel in a JFrame like a JPanel
-		//JFrame frame = new JFrame("a plot panel");
-		//frame.setSize(600, 600);
-		//frame.setContentPane(plot);
-		//frame.setVisible(true);
-		
+				
 		Controlador.getInstance().addObservador(this);
 	}
 
 	@Override
 	public void update(Poblacion pobl, Cromosoma mejorG/*Cromosoma mejorG, Cromosoma mejorP, int gen*/) {
 		if(pobl.getGeneracion() < this.generaciones) {
-			yMejor[pobl.getGeneracion()] = pobl.getMejor().getX();
-			yMedia[pobl.getGeneracion()] = pobl.getMedia();
-			yMejorG[pobl.getGeneracion()] = mejorG.getX();
-		}
-		else {
-			this.removeAllPlotables();
-			this.addLinePlot("Mejor Generacion", x, yMejor);
-			this.addLinePlot("Media", x, yMedia);
-			this.addLinePlot("Mejor Global", x, yMejorG);
+			yMej.add(pobl.getMejor().getX());
+			yMed.add(pobl.getMedia());
+			yMejG.add(mejorG.getX());
 		}
 	}
 
@@ -77,16 +49,31 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 	public void start(int generaciones, int variables) {
 		this.generaciones = generaciones;
 		
+		yMej = new ArrayList<>();
+		yMed = new ArrayList<>();
+		yMejG = new ArrayList<>();
+		
 		x = new double[this.generaciones];
 		yMejor = new double[this.generaciones];
 		yMedia = new double[this.generaciones];
 		yMejorG = new double[this.generaciones];
-		
-		for(int i = 0; i < this.generaciones; i++) {
-			x[i] = i;
-		}
 	}
 
 	@Override
-	public void finish(Cromosoma mejor, String texto) {}
+	public void finish(Cromosoma mejor, String texto) {
+		yMejor = yMej.stream().mapToDouble(Double::doubleValue).toArray();
+		yMedia = yMed.stream().mapToDouble(Double::doubleValue).toArray();
+		yMejorG = yMejG.stream().mapToDouble(Double::doubleValue).toArray();
+		
+		x = new double[yMej.size()];
+		
+		for(int i = 0; i < yMej.size(); i++) {
+			x[i] = i;
+		}
+		
+		this.removeAllPlotables();
+		this.addLinePlot("Mejor Generacion", x, yMejor);
+		this.addLinePlot("Media", x, yMedia);
+		this.addLinePlot("Mejor Global", x, yMejorG);	
+	}
 }

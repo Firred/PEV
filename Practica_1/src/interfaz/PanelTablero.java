@@ -73,7 +73,7 @@ public class PanelTablero extends JFrame {
 					break;
 					
 				case '2':
-					g.setColor(new Color(82, 0, 0));
+					g.setColor(Color.green);
 					break;
 					
 				case '#':

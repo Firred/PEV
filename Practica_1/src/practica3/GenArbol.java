@@ -135,7 +135,7 @@ public class GenArbol extends Gen<Tipo> {
 			if(this.hijos.get(i) == nodoAntiguo) {
 				GenArbol nodo = new GenArbol(nodoNuevo, this);
 				this.hijos.set(i, nodo);
-				nodoAntiguo.setPadre(null);
+//				nodoAntiguo.setPadre(null);
 				
 				this.actualizarNodo();
 			}
@@ -162,8 +162,8 @@ public class GenArbol extends Gen<Tipo> {
 	
 	@Override
 	public String toString() {
-		String s = "Nodos: " + this.numNodos + ", Profundidad: " + this.profundidad;
-/*		
+		String s = this.getCaracteristica().toString() + "Nodos: " + this.numNodos + ", Profundidad: " + this.profundidad + " ";
+		
 		if(hijos.size() == 3) 
 			s += " => ";
 		else if (hijos.size() == 2) {
@@ -173,7 +173,57 @@ public class GenArbol extends Gen<Tipo> {
 		for(GenArbol h : hijos) {
 			s += System.lineSeparator() + "Hijo__: " + h.toString();
 		}
-		*/
+		
+		return s;
+	}
+	
+	public String caracteristicaString(int prof) {
+/*		String s = this.getCaracteristica().toString();
+		
+		for(GenArbol g : this.hijos)
+			s += ", " + g.caracteristicaString();*/
+		String espacio = generarEspacio(prof);
+		
+/*		for (int i = 0; i < prof; i++) {
+			espacio += "    ";
+		}*/
+		
+		String s = "";
+//		String.format("%1$"+prof, "");
+		switch (this.getCaracteristica()) {
+		case PROGN2:
+			s += espacio + "Prog2:" + System.lineSeparator();
+			for(GenArbol g : this.hijos)
+				s += espacio + g.caracteristicaString(prof+1);
+			break;
+		case PROGN3:
+			s += espacio + "Prog3:" + System.lineSeparator();
+			for(GenArbol g : this.hijos)
+				s += espacio + g.caracteristicaString(prof+1);
+			break;
+		case SIC:
+			s += espacio + "SIC: {" + System.lineSeparator();	
+			s += espacio + this.getHijo(0).caracteristicaString(prof+1) + generarEspacio(prof-1);
+			s += espacio + '}' + System.lineSeparator() + generarEspacio(prof-1);
+			s += espacio + "ELSE: {" + System.lineSeparator();
+			s += espacio + this.getHijo(1).caracteristicaString(prof+1) + generarEspacio(prof-1);
+			s += espacio + '}' + System.lineSeparator();
+			break;
+		default:
+			s += espacio + this.getCaracteristica().toString() + System.lineSeparator();
+			break;
+		}
+		
+		return s;
+	}
+	
+	private String generarEspacio(int espacio) {
+		String s = "";
+		
+		for (int i = 0; i < espacio; i++) {
+			s += "    ";
+		}
+		
 		return s;
 	}
 }

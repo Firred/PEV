@@ -15,11 +15,11 @@ public abstract class Mutacion {
 		if(prob == 0)
 			return;
 		
-		for (int i = 0; i < pobl.getTpobl(); i++) {
+		for (int i = 0; i < pobl.getTPoblacion(); i++) {
 			if (prob >= rand.nextDouble()) {
 					crom = mutacion(pobl.getIndividuos(i));
 					
-					pobl.setIndividuos(crom, i);
+					pobl.setIndividuo(crom, i);
 			}
 		}		
 	}

@@ -5,12 +5,14 @@ import java.util.Collections;
 
 import common.Cromosoma;
 import practica3.CromosomaArbol;
+import practica3.InicializacionPoblacion;
 import practica3.Practica3;
+import practica3.ProblemaArbol;
 import practicas.Problema;
 
 public class Poblacion {
-	private ArrayList<Cromosoma> individuos = new ArrayList();
-	//private int Tpobl;
+	private ArrayList<Cromosoma> individuos;
+	private int tPobl;
 	private int generacion;
 	private Cromosoma mejor;
 	private double media;
@@ -20,7 +22,7 @@ public class Poblacion {
 	 * CONSTRUCTORES
 	 * Constructor por defecto
 	 */
-	public Poblacion() {
+	public Poblacion(int i) {
 		individuos = new ArrayList();
 	}
 	
@@ -31,28 +33,29 @@ public class Poblacion {
 	 * @param mejor
 	 * @param precision
 	 */
-	public Poblacion(int tipo, int tPobl, int generacion, Problema<?> func, double prec) {
-		if(Practica3.class.isAssignableFrom(func.getClass())) {
-			for(int i = 0; i < tPobl; i++) {
-				individuos.add(new CromosomaArbol((Practica3)func));
-			}
+	public Poblacion(int tPobl, int generacion, Problema<?> func, double prec) {
+		this.individuos = new ArrayList<>();
+		
+		if(ProblemaArbol.class.isAssignableFrom(func.getClass())) {
+			this.individuos = InicializacionPoblacion.inicializarPoblacion(tPobl, (ProblemaArbol) func);
 		}
 		else {
 			for(int i = 0; i < tPobl; i++) {
-				individuos.add(new Cromosoma(tipo, func, prec));
+				individuos.add(new Cromosoma(func, prec));
 			}
 		}
 		
-		//Tpobl = tpobl;
+		this.tPobl = tPobl;
 		this.generacion = generacion;
 		this.mejor = this.individuos.get(0);
 	}
 	
-	/** GETTERS
+	//GETTERS
+	/** 
 	 *  get Tamaño poblacion
 	 * @return 
 	 */
-	public int getTpobl() {
+	public int getTPoblacion() {
 		return this.individuos.size();
 	}
 
@@ -72,6 +75,13 @@ public class Poblacion {
 		return this.individuos;
 	}
 	
+	/**
+	 * Devuelve el tamano original de la poblacion
+	 * @return
+	 */
+	public int getTPobl() {
+		return this.tPobl;
+	}
 	
 	/**
 	 * Devuelve la generación actual de la población
@@ -94,13 +104,22 @@ public class Poblacion {
 	}
 	
 	
-	/** SETTERS
+	// SETTERS
+	/** 
 	 * set individuo en i
 	 * @param individuos a introducir
 	 * @param i posicion del individuo a tomar
 	 */
-	public void setIndividuos(Cromosoma individuos, int i) {
+	public void setIndividuo(Cromosoma individuos, int i) {
 		this.individuos.set(i, new Cromosoma(individuos));
+	}
+	
+	public void setIndividuos(ArrayList<Cromosoma> individuos) {
+		this.individuos = individuos;
+	}
+	
+	public void setTPobl(int tPobl) {
+		this.tPobl = tPobl;
 	}
 	
 	/**
@@ -176,7 +195,7 @@ public class Poblacion {
 				this.mejor = c;
 		}
 		
-		this.media = m/getTpobl();
-		this.aptMedia = apt/getTpobl();
+		this.media = m/getTPoblacion();
+		this.aptMedia = apt/getTPoblacion();
 	}
 }

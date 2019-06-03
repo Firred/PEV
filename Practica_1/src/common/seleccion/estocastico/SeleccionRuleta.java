@@ -1,7 +1,9 @@
 package common.seleccion.estocastico;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import common.Cromosoma;
 import common.Poblacion;
 import common.seleccion.Seleccion;
 import practica3.CromosomaArbol;
@@ -17,24 +19,25 @@ public class SeleccionRuleta extends Seleccion {
 	 * @see common.seleccion.Seleccion#execute(common.Poblacion)
 	 */
 	public Poblacion execute(Poblacion pobl) {
-		Poblacion newPobl = new Poblacion();
 		double prob;	
 		int pos_super;
+		ArrayList<Cromosoma> lista = new ArrayList<>();
 		
-		for(int i = 0; i < pobl.getTpobl(); i++) {
+		for(int i = 0; i < pobl.getTPobl(); i++) {
 			prob = rand.nextDouble();
 			pos_super = 0;
 			
-			while(pos_super < pobl.getTpobl()-1 && prob > pobl.getIndividuos(pos_super).getPunt_Acum()) {
+			while(pos_super < pobl.getTPoblacion()-1 && prob > pobl.getIndividuos(pos_super).getPunt_Acum()) {
 				pos_super++;
 			}	
 			
-			newPobl.addIndividuo(pobl.getIndividuos(pos_super));
+			lista.add(pobl.getIndividuos(pos_super));
 		}
 		
-		newPobl.setGeneracion(pobl.getGeneracion()+1);
+		pobl.setIndividuos(lista);
+		pobl.setGeneracion(pobl.getGeneracion()+1);
 		
-		return newPobl;
+		return pobl;
 	}
 
 	@Override

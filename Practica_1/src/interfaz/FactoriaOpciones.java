@@ -23,6 +23,7 @@ import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
 import interfaz.ConfigPanel.*;
 import practica3.Practica3;
+import practica3.ProblemaArbol;
 import practicas.Problema;
 import practicas.practica1.*;
 import practicas.practica2.Practica2;
@@ -52,7 +53,7 @@ public class FactoriaOpciones {
 		new RecombinacionRutas()
 	};
 	
-	final public static Boolean[] contractividad = new Boolean[] {
+	final public static Boolean[] booleano = new Boolean[] {
 		true,
 		false
 	};
@@ -118,7 +119,13 @@ public class FactoriaOpciones {
   				"Contractividad",
 				"Metodo de reproduccion",
 				"contractividad",
-				contractividad
+				booleano
+				))
+		.addOption(new ChoiceOption<>(
+  				"Terminacion",
+				"Usar criterio de terminacion",
+				"critTerminacion",
+				booleano
 				))
 		.addOption(new ChoiceOption<>(
 				"Seleccion",
@@ -244,12 +251,9 @@ public class FactoriaOpciones {
 					  	"Practica 3",							
 					  	"",				 
 					  	"funcion",							
-					  	Practica3.class))
+					  	ProblemaArbol.class))
 		  		
-	  					.addInner(new IntegerOption<Practica3>(
-	  							"Minimo", "Profundidad minima de la solucion", "NMin", 0, 50))
-	  						  		
-	  					.addInner(new IntegerOption<Practica3>(
+	  					.addInner(new IntegerOption<ProblemaArbol>(
 	  							"Maximo", "Profundidad maxima de la solucion", "NMax", 1, 60))
 				  		.endInner()
 		  		

@@ -15,7 +15,7 @@ public abstract class Reproduccion {
 		if(probCruce == 0)
 			return;
 		
-		for (int i = 0; i < pobl.getTpobl(); i++) {
+		for (int i = 0; i < pobl.getTPoblacion(); i++) {
 			if (probCruce >= rand.nextDouble()) {
 				if(!seleccionado) {
 					h1 = i;
@@ -26,8 +26,8 @@ public abstract class Reproduccion {
 					
 					hijos = cruce(par);
 					
-					pobl.setIndividuos(hijos.getC1(), h1);
-					pobl.setIndividuos(hijos.getC2(), i);
+					pobl.setIndividuo(hijos.getC1(), h1);
+					pobl.setIndividuo(hijos.getC2(), i);
 					
 					seleccionado = false;
 				}
