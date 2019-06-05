@@ -6,7 +6,6 @@ import common.genes.Gen;
 
 public class GenArbol extends Gen<Tipo> {
 
-	private String dato;
 	private int numNodos;
 	private int profundidad;
 	private ArrayList<GenArbol> hijos;
@@ -38,14 +37,6 @@ public class GenArbol extends Gen<Tipo> {
 		this.actualizarNodo();
 		
 		this.padre = padre;
-	}
-	
-	public String getDato() {
-		return dato;
-	}
-
-	public void setDato(String dato) {
-		this.dato = dato;
 	}
 
 	public int getNumNodos() {
@@ -135,7 +126,6 @@ public class GenArbol extends Gen<Tipo> {
 			if(this.hijos.get(i) == nodoAntiguo) {
 				GenArbol nodo = new GenArbol(nodoNuevo, this);
 				this.hijos.set(i, nodo);
-//				nodoAntiguo.setPadre(null);
 				
 				this.actualizarNodo();
 			}

@@ -5,13 +5,20 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-public class PanelTablero extends JFrame {
+import common.Cromosoma;
+import common.Poblacion;
+import interfaz.controlador.Controlador;
+import interfaz.controlador.Observador;
+import practica3.Practica3;
+
+public class PanelTablero extends JFrame implements Observador {
 	
 	private char[][] tablero;
 	
 	public PanelTablero() {
 		setSize(450, 450);
         setTitle("Tablero");
+        Controlador.getInstance().addObservador(this);
 	}
 	
 	public void setTablero(char[][] tablero) {
@@ -89,5 +96,25 @@ public class PanelTablero extends JFrame {
                 g.fillRect(x, y, tamC, tamF);
             }
         }		
+	}
+
+	@Override
+	public void start(int generaciones, int variables) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Poblacion pobl, Cromosoma mejorG) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finish(Cromosoma mejor, String texto) {
+		if(Practica3.class.isAssignableFrom(Controlador.getInstance().getAG().getFuncion().getClass())) {
+			this.setTablero(((Practica3)Controlador.getInstance().getAG().getFuncion()).pintarTablero(Controlador.getInstance().getAG().getMejor()));
+			this.setVisible(true);
+		}
 	}
 }

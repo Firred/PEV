@@ -162,8 +162,7 @@ public class Poblacion {
 		Collections.sort(this.individuos, Collections.reverseOrder());
 		
 		for (int i = 0; i < tamElite; i++) {
-			elite[i] = this.individuos.get(0);
-			this.individuos.remove(0);
+			elite[i] = new Cromosoma(this.individuos.remove(0));
 		}
 		
 		this.calcularPuntAcum();

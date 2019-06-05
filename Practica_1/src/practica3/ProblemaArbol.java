@@ -1,16 +1,21 @@
 package practica3;
 
 import java.util.ArrayList;
+
+import common.Cromosoma;
+import common.Poblacion;
 import common.genes.Gen;
 import practicas.ProblemaNoBinario;
 
 public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 
 	private int nMax;
+	private Bloating bloating;
 	
 	public ProblemaArbol(boolean minimizar) {
 		super(minimizar, 1);
 		this.nMax = 5;
+		this.bloating = new BloatingTarpeian();
 	}
 
 	public int getNMax() {
@@ -20,9 +25,75 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	public void setNMax(int nMax) {
 		this.nMax = nMax;
 	}
+	
+	public Bloating getBloating() {
+		return bloating;
+	}
+
+	public void setBloating(Bloating bloating) {
+		this.bloating = bloating;
+	}
 
 	@Override
 	public ArrayList<? extends Gen<T>> crearGenes(double... args) {return null;}
+	
+	@Override
+	public void calcularPuntuacion(Poblacion pobl) {
+		double suma_aptitud = 0;
+
+		for(Cromosoma crom : pobl.getIndividuos()) {
+			crom.setApt(this.evalua(crom));
+			crom.setX(crom.getApt());
+		}
+		
+		if(this.bloating != null) {
+			this.bloating.ejecutar(pobl, this);
+		}
+		
+		revisarAdaptacion(pobl);
+		
+		for(Cromosoma crom : pobl.getIndividuos()) {	
+			suma_aptitud += crom.getApt();	
+		}
+		
+		for(Cromosoma crom : pobl.getIndividuos()) {	
+			crom.setPunt(crom.getApt()/suma_aptitud);
+			
+		}
+		
+		pobl.calcularMejorMedia();	
+		pobl.calcularPuntAcum();
+		
+		return;
+	}
+	
+	public void calcularPuntuacionNormal(Poblacion pobl) {
+		double suma_aptitud = 0;
+		
+		if(this.bloating == null)
+			return;
+		
+		for(Cromosoma crom : pobl.getIndividuos()) {
+			crom.setApt(this.evalua(crom));
+			crom.setX(crom.getApt());
+		}
+		
+		revisarAdaptacion(pobl);
+		
+		for(Cromosoma crom : pobl.getIndividuos()) {	
+			suma_aptitud += crom.getApt();	
+		}
+		
+		for(Cromosoma crom : pobl.getIndividuos()) {	
+			crom.setPunt(crom.getApt()/suma_aptitud);
+			
+		}
+		
+		pobl.calcularMejorMedia();	
+		pobl.calcularPuntAcum();
+		
+		return;
+	}
 	
 	/**
 	 * Devuelve un enum Tipo aleatorio de terminal
@@ -48,4 +119,17 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	 * @return Numero de ramificaciones del Tipo
 	 */
 	public abstract int ramificacionesFuncion(Tipo tipo);
+	/**
+	 * Reduce el fitness del cromosoma introducido
+	 * @param crom
+	 * @return
+	 */
+	public abstract void bajoFitness(Cromosoma crom);
+	/**
+	 * Devuelve el maximo de nodos que la funcion permite.
+	 * Se usa para eliminar automaticamente los arboles 
+	 * con mas de ese numero de nodos.
+	 * @return
+	 */
+	public abstract int maximoNodos();
 }

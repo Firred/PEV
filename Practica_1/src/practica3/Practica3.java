@@ -136,24 +136,23 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 		this.pos = new Posicion();
 		this.dir = new Direccion();
 		char[][] tablero = new char[mapa.length][mapa[0].length];
-		
+
 		for(int i = 0; i < mapa.length; i++) {
 			for(int j = 0; j < mapa[i].length; j++) {
 				tablero[i][j] = mapa[i][j];
 			}
 		}
-		
+
 		while(this.pasos < 400 && this.punt < 90)
 			ejecutarArbol((GenArbol)crom.getGen(0), tablero);
 		
 		int bonTiempo = 400-this.pasos;
-		
+
 		return this.punt + bonTiempo;
 	}
 	
 	private void ejecutarArbol(GenArbol gen, char[][] tablero) {
 		if(this.pasos < 400 && this.punt < 89) {
-			//this.pasos++;
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;
@@ -226,7 +225,6 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 	
 	private void rellenarTablero(GenArbol gen, char[][] tablero) {
 		if(this.pasos < 400 && this.punt < 90) {
-//			this.pasos++;
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;
@@ -340,5 +338,18 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 		default:
 			return 0;
 		}
+	}
+
+	@Override
+	public void bajoFitness(Cromosoma crom) {
+		if(crom.getApt() > 30)
+			crom.setApt(crom.getApt()-30);
+		else
+			crom.setApt(0);
+	}
+	
+	@Override
+	public int maximoNodos() {
+		return 100;
 	}
 }

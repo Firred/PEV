@@ -49,7 +49,7 @@ public class AlgoritmoGenetico {
 	/**Criterio de terminacion (solo de contenido)*/
 	private boolean critTerminacion;
 	/**Metodo para controlar el bloating*/
-	private BloatingTarpeian bloating = new BloatingTarpeian();
+//	private BloatingTarpeian bloating = new BloatingTarpeian();
 	
 	/**
 	 * Variable para pruebas.
@@ -200,7 +200,7 @@ public class AlgoritmoGenetico {
 		return "Ag";
 	}
 	
-	public String mostrarPoblacion() {
+	private String mostrarPoblacion() {
 		String rtn = "";
 		
 		for (Cromosoma crom : this.poblPrincipal.getIndividuos()) 
@@ -209,34 +209,33 @@ public class AlgoritmoGenetico {
 		return rtn;
 	}
 	
-	public void evalua() {
+	private void evalua() {
 		double suma_aptitud = 0;
 		
 		this.funcion.calcularPuntuacion(poblPrincipal);
 		
 		if(poblPrincipal.getMejor().compararX(this.mejor) >= 1) {
 //			System.out.println("Cambia: " + mejor.getApt() + ", nuevo: " + poblPrincipal.getMejor().getApt());
-			this.mejor = poblPrincipal.getMejor();
+			this.mejor = new Cromosoma(poblPrincipal.getMejor());
 			this.genSinMejora = 0;
 		}
 		else
 			this.genSinMejora++;
 	}
 	
-	public void selecciona_cruza() {
+	private void selecciona() {
 		poblPrincipal = seleccion.execute(poblPrincipal);
-		
-		mensajeDebug("POST-SELECCION");
-		
+	}
+	
+	private void cruza() {		
 		reproduccion.ejecutar(poblPrincipal, this.pCruce);
 	}
 	
-	public void muta() {
+	private void muta() {
 		mutacion.execute(poblPrincipal, this.pMut);
 	}
 				
-	
-	public boolean terminado() {
+	private boolean terminado() {
 		return (this.generaciones <= poblPrincipal.getGeneracion()) || (critTerminacion && (this.generaciones/5) < this.genSinMejora);
 	}
 	
@@ -256,13 +255,6 @@ public class AlgoritmoGenetico {
 			
 			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
 				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
-		}
-		
-		if(ProblemaArbol.class.isAssignableFrom(this.funcion.getClass())) {
-			this.bloating = new BloatingTarpeian();
-		}
-		else {
-			this.bloating = null;
 		}
 	}
 	
@@ -291,6 +283,9 @@ public class AlgoritmoGenetico {
 		//Inicia bucle		
 		while(!terminado()) {
 			if(this.elite > 0) {
+				if(ProblemaArbol.class.isAssignableFrom(this.funcion.getClass()))
+					((ProblemaArbol)this.funcion).calcularPuntuacionNormal(poblPrincipal);
+				
 				eliteP = poblPrincipal.separaMejores(elite);		
 				
 				if(flag_print == true) {
@@ -300,7 +295,10 @@ public class AlgoritmoGenetico {
 				}
 			}
 			
-			selecciona_cruza();
+			selecciona();
+			mensajeDebug("POST-SELECCION");
+			
+			cruza();
 			mensajeDebug("POST-CRUCE");		
 
 			muta();
@@ -326,9 +324,6 @@ public class AlgoritmoGenetico {
 			else {
 				ctrl.update(this.poblPrincipal, this.mejor);
 			}
-			
-			if(bloating != null)
-				bloating.ejecutar(this.poblPrincipal);
 		}
 		
 		String texto = "";

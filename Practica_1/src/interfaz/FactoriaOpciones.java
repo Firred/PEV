@@ -18,10 +18,15 @@ import common.mutacion.practica2.Heuristica;
 import common.mutacion.practica2.Insercion;
 import common.mutacion.practica2.Intercambio;
 import common.mutacion.practica2.Inversion;
+import common.mutacion.practica3.FuncionalSimple;
+import common.mutacion.practica3.TerminalSimple;
 import common.seleccion.*;
 import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
 import interfaz.ConfigPanel.*;
+import practica3.Bloating;
+import practica3.BloatingPenalizacion;
+import practica3.BloatingTarpeian;
 import practica3.Practica3;
 import practica3.ProblemaArbol;
 import practicas.Problema;
@@ -36,6 +41,11 @@ public class FactoriaOpciones {
 		new Intercambio(),
 		new Inversion()
 	};
+	
+	final public static Mutacion[] mut3 = new Mutacion[] {
+			new TerminalSimple(),
+			new FuncionalSimple()			
+		};
 	
 	final public static Reproduccion[] repP1 = new Reproduccion[] {
 		new Monopunto(),
@@ -76,6 +86,11 @@ public class FactoriaOpciones {
 		new Ranking(),
 		new Truncamiento()
 	};
+	
+	final public static Bloating[] bloatings = new Bloating[] {
+			new BloatingTarpeian(),
+			new BloatingPenalizacion()
+		};
 	
 	public static ConfigPanel<AlgoritmoGenetico> getConfigPanel() {
 		ConfigPanel<AlgoritmoGenetico> panel = new ConfigPanel<AlgoritmoGenetico>();
@@ -252,6 +267,19 @@ public class FactoriaOpciones {
 					  	"",				 
 					  	"funcion",							
 					  	ProblemaArbol.class))
+		  		
+				  		.addInner(new ChoiceOption<Practica3>(
+				  				"Mutacion",
+								"Metodo de mutacion",
+								"mutacion",
+								mut3
+								))
+				  		.addInner(new ChoiceOption<Practica3>(
+				  				"Bloating",
+								"Metodo de controlar el bloating",
+								"bloating",
+								bloatings
+								))
 		  		
 	  					.addInner(new IntegerOption<ProblemaArbol>(
 	  							"Maximo", "Profundidad maxima de la solucion", "NMax", 1, 60))
