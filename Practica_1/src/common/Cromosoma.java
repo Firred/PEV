@@ -66,7 +66,7 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	
 	/** GETTERS
-	 * devuelve el tama�o de un gen booleano[]
+	 * devuelve el tama�o de la suma de los genes booleanos
 	 * @return int
 	 */
 	public int getGenes_long() {

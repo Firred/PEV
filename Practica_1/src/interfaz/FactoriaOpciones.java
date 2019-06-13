@@ -9,6 +9,7 @@ import common.cruce.practica1.Aritmetico;
 import common.cruce.practica1.DiscretoUniforme;
 import common.cruce.practica1.Monopunto;
 import common.cruce.practica1.ReproduccionBinariaMonopunto;
+import common.cruce.practica1.ReproduccionBinariaMultipunto;
 import common.cruce.practica1.ReproduccionBinariaUniforme;
 import common.cruce.practica1.SBX;
 import common.cruce.practica1.SLX;
@@ -53,7 +54,8 @@ public class FactoriaOpciones {
 	
 	final public static Reproduccion[] repBinaria = new Reproduccion[] {
 			new ReproduccionBinariaMonopunto(),
-			new ReproduccionBinariaUniforme()
+			new ReproduccionBinariaUniforme(),
+			new ReproduccionBinariaMultipunto()
 		};
 	
 	final public static Reproduccion[] repP1 = new Reproduccion[] {
