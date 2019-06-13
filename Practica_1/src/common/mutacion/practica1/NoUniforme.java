@@ -1,9 +1,6 @@
 package common.mutacion.practica1;
 
-import java.util.ArrayList;
-
 import common.Cromosoma;
-import common.genes.Gen;
 import common.genes.GenReal;
 import common.mutacion.Mutacion;
 

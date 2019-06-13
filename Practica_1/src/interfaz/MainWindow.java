@@ -6,10 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import common.AlgoritmoGenetico;
-import common.Cromosoma;
 import interfaz.controlador.Controlador;
-import interfaz.tablas.CromosomaTableModel;
-import interfaz.tablas.TablePanel;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
@@ -29,7 +26,6 @@ public class MainWindow {
 	 */
 	public static void main(String[] args) {
 		Controlador ctrl = Controlador.getInstance();
-//		AlgoritmoGenetico aG= new AlgoritmoGenetico();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -67,7 +63,7 @@ public class MainWindow {
 		frame.getContentPane().add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton startButton = new JButton("Start");
+		JButton startButton = new JButton("Iniciar");
 		startButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -82,7 +78,7 @@ public class MainWindow {
 		panel_1.add(startButton);	
 		
 		tablero = new PanelTablero();
-		JButton viewButton = new JButton("View");
+		JButton viewButton = new JButton("Ver Tablero");
 		viewButton.addActionListener(new ActionListener() {
 			
 			@Override

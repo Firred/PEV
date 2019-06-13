@@ -40,6 +40,6 @@ public class ReproduccionBinariaMonopunto extends Reproduccion {
 	
 	@Override
 	public String toString() {
-		return "Reproduccion binaria";
+		return "Monopunto";
 	}
 }

@@ -207,8 +207,6 @@ public class AlgoritmoGenetico {
 	}
 	
 	private void evalua() {
-		double suma_aptitud = 0;
-		
 		this.funcion.calcularPuntuacion(poblPrincipal);
 		
 		if(poblPrincipal.getMejor().compararX(this.mejor) >= 1) {

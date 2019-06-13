@@ -19,7 +19,7 @@ public class ControladorImp extends Controlador {
 	
 	@Override
 	public void execute() {
-		System.out.println(this.aG.exe(this));
+		this.aG.exe(this);
 		System.gc();
 	}
 	
