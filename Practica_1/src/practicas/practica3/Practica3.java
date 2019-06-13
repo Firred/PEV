@@ -1,12 +1,12 @@
-package practica3;
+package practicas.practica3;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import common.Cromosoma;
 import common.cruce.practica3.CruceSubarboles;
-import common.genes.Gen;
+import common.genes.GenArbol;
 import common.mutacion.practica3.TerminalSimple;
+import practicas.ProblemaArbol;
 
 public class Practica3 extends ProblemaArbol<Tipo> {
 
@@ -342,10 +342,10 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 
 	@Override
 	public void bajoFitness(Cromosoma crom) {
-		if(crom.getApt() > 30)
+		if(crom.getApt() > 31)
 			crom.setApt(crom.getApt()-30);
 		else
-			crom.setApt(0);
+			crom.setApt(0.0125);
 	}
 	
 	@Override

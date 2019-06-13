@@ -1,9 +1,9 @@
 package common.mutacion.practica3;
 
 import common.Cromosoma;
+import common.genes.GenArbol;
 import common.mutacion.Mutacion;
-import practica3.GenArbol;
-import practica3.Tipo;
+import practicas.practica3.Tipo;
 
 public class FuncionalSimple extends Mutacion {
 
@@ -12,8 +12,9 @@ public class FuncionalSimple extends Mutacion {
 		GenArbol aux = (GenArbol)crom.getGen(0);
 		int aleatorio;			
 		
-		while((aux.getCaracteristica().operandos() > 0 && Tipo.getConOperandos(aux.getCaracteristica().operandos()).length == 1) || 
-				(1.0/(aux.getProfundidad()-1) < rand.nextDouble())) {
+		while((aux.getProfundidad() > 1 && Tipo.getConOperandos(aux.getCaracteristica().operandos()).length == 1) && 
+				(1.0/(aux.getProfundidad()-1) > rand.nextDouble())) {
+			
 			aleatorio = this.rand.nextInt(aux.getHijos().size());
 			
 			aux = aux.getHijo(aleatorio);

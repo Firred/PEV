@@ -1,4 +1,4 @@
-package practica3;
+package practicas.practica3;
 
 public enum Tipo {
 	AVANZA("Terminal"), GIRA_DERECHA("Terminal"), GIRA_IZQUIERDA("Terminal"),

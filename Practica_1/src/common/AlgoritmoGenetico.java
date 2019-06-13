@@ -9,16 +9,14 @@ import common.mutacion.practica1.MutacionBinaria;
 import common.seleccion.Seleccion;
 import common.seleccion.estocastico.SeleccionRuleta;
 import interfaz.controlador.Controlador;
-import practica3.BloatingTarpeian;
-import practica3.CromosomaArbol;
-import practica3.Practica3;
-import practica3.ProblemaArbol;
 import practicas.Problema;
+import practicas.ProblemaArbol;
 import practicas.ProblemaNoBinario;
 import practicas.practica1.Funcion;
 import practicas.practica1.Funcion1;
 import practicas.practica1.Funcion5;
 import practicas.practica2.Practica2;
+import practicas.practica3.Practica3;
 
 public class AlgoritmoGenetico {
 	/**Tamano de la poblacion*/

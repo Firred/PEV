@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import common.Cromosoma;
-import practica3.CromosomaArbol;
-import practica3.InicializacionPoblacion;
-import practica3.Practica3;
-import practica3.ProblemaArbol;
 import practicas.Problema;
+import practicas.ProblemaArbol;
+import practicas.practica3.Practica3;
 
 public class Poblacion {
 	private ArrayList<Cromosoma> individuos;

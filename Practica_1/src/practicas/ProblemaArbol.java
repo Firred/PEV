@@ -1,11 +1,13 @@
-package practica3;
+package practicas;
 
 import java.util.ArrayList;
 
 import common.Cromosoma;
 import common.Poblacion;
+import common.bloating.Bloating;
+import common.bloating.BloatingTarpeian;
 import common.genes.Gen;
-import practicas.ProblemaNoBinario;
+import practicas.practica3.Tipo;
 
 public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 

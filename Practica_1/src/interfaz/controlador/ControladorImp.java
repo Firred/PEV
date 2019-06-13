@@ -6,7 +6,7 @@ import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
 import interfaz.PanelTablero;
-import practica3.Practica3;
+import practicas.practica3.Practica3;
 
 public class ControladorImp extends Controlador {
 	

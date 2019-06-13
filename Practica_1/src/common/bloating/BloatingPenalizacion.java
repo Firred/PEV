@@ -1,7 +1,9 @@
-package practica3;
+package common.bloating;
 
 import common.Cromosoma;
 import common.Poblacion;
+import common.genes.GenArbol;
+import practicas.ProblemaArbol;
 
 public class BloatingPenalizacion implements Bloating {
 	public void ejecutar(Poblacion pobl, ProblemaArbol func) {

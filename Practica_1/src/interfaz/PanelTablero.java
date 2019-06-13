@@ -9,7 +9,7 @@ import common.Cromosoma;
 import common.Poblacion;
 import interfaz.controlador.Controlador;
 import interfaz.controlador.Observador;
-import practica3.Practica3;
+import practicas.practica3.Practica3;
 
 public class PanelTablero extends JFrame implements Observador {
 	

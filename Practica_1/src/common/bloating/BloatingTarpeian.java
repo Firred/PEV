@@ -1,9 +1,11 @@
-package practica3;
+package common.bloating;
 
 import java.util.Random;
 
 import common.Cromosoma;
 import common.Poblacion;
+import common.genes.GenArbol;
+import practicas.ProblemaArbol;
 
 public class BloatingTarpeian implements Bloating {
 
@@ -38,7 +40,6 @@ public class BloatingTarpeian implements Bloating {
 		
 		for(Cromosoma crom : pobl.getIndividuos()) {			
 			if(((GenArbol)crom.getGen(0)).getNumNodos() > tam && (double)1.0/n > rand.nextDouble()) {
-//				System.out.println("TAM: " + tam + ", " + ((GenArbol)crom.getGen(0)).getNumNodos());
 				func.bajoFitness(crom);
 			}
 		}

@@ -1,6 +1,9 @@
 package interfaz;
 
 import common.AlgoritmoGenetico;
+import common.bloating.Bloating;
+import common.bloating.BloatingPenalizacion;
+import common.bloating.BloatingTarpeian;
 import common.cruce.*;
 import common.cruce.practica1.Aritmetico;
 import common.cruce.practica1.DiscretoUniforme;
@@ -19,19 +22,17 @@ import common.mutacion.practica2.Insercion;
 import common.mutacion.practica2.Intercambio;
 import common.mutacion.practica2.Inversion;
 import common.mutacion.practica3.FuncionalSimple;
+import common.mutacion.practica3.MutacionInicializacion;
 import common.mutacion.practica3.TerminalSimple;
 import common.seleccion.*;
 import common.seleccion.estocastico.*;
 import common.seleccion.torneo.*;
 import interfaz.ConfigPanel.*;
-import practica3.Bloating;
-import practica3.BloatingPenalizacion;
-import practica3.BloatingTarpeian;
-import practica3.Practica3;
-import practica3.ProblemaArbol;
 import practicas.Problema;
+import practicas.ProblemaArbol;
 import practicas.practica1.*;
 import practicas.practica2.Practica2;
+import practicas.practica3.Practica3;
 
 public class FactoriaOpciones {
 	
@@ -44,7 +45,8 @@ public class FactoriaOpciones {
 	
 	final public static Mutacion[] mut3 = new Mutacion[] {
 			new TerminalSimple(),
-			new FuncionalSimple()			
+			new FuncionalSimple(),
+			new MutacionInicializacion()
 		};
 	
 	final public static Reproduccion[] repP1 = new Reproduccion[] {

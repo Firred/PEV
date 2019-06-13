@@ -1,9 +1,10 @@
-package practica3;
+package common;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import common.Cromosoma;
+import common.genes.GenArbol;
+import practicas.ProblemaArbol;
 
 public class InicializacionPoblacion {
 	
@@ -72,6 +73,15 @@ public class InicializacionPoblacion {
 		}
 		
 		return lista;
+	}
+	
+	public static GenArbol inicializarArbol(int profundidad, ProblemaArbol func) {
+		if(rand.nextBoolean()) {
+			return inicializacionCreciente(profundidad, func, false);
+		}
+		else {
+			return inicializacionCompleta(profundidad, func);
+		}
 	}
 	
 	private static GenArbol inicializacionCreciente(int profundidad, ProblemaArbol func, boolean primero) {

@@ -6,7 +6,6 @@ import java.util.Random;
 import common.Cromosoma;
 import common.Poblacion;
 import common.seleccion.Seleccion;
-import practica3.CromosomaArbol;
 
 public class SeleccionRuleta extends Seleccion {
 	private Random rand;

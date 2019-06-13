@@ -1,9 +1,9 @@
 package common.mutacion.practica3;
 
 import common.Cromosoma;
+import common.genes.GenArbol;
 import common.mutacion.Mutacion;
-import practica3.GenArbol;
-import practica3.Tipo;
+import practicas.practica3.Tipo;
 
 public class TerminalSimple extends Mutacion {
 

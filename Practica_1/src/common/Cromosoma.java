@@ -2,10 +2,10 @@ package common;
 import java.util.ArrayList;
 
 import common.genes.Gen;
+import common.genes.GenArbol;
 import common.genes.GenBi;
-import practica3.GenArbol;
-import practica3.Practica3;
 import practicas.Problema;
+import practicas.practica3.Practica3;
 
 
 public class Cromosoma<T> implements Comparable<Cromosoma<T>>{

@@ -3,7 +3,7 @@ package common.cruce.practica3;
 import common.Cromosoma;
 import common.cruce.ParCromosoma;
 import common.cruce.Reproduccion;
-import practica3.GenArbol;
+import common.genes.GenArbol;
 
 public class CruceSubarboles extends Reproduccion {
 

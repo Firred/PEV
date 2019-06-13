@@ -1,8 +1,8 @@
-package practica3;
+package common.genes;
 
 import java.util.ArrayList;
 
-import common.genes.Gen;
+import practicas.practica3.Tipo;
 
 public class GenArbol extends Gen<Tipo> {
 
