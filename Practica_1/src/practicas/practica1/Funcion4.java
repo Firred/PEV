@@ -3,6 +3,7 @@ package practicas.practica1;
 import java.util.ArrayList;
 
 import common.Cromosoma;
+import common.cruce.practica1.ReproduccionBinariaMonopunto;
 import common.genes.Gen;
 import common.genes.GenBi;
 
@@ -13,7 +14,7 @@ public class Funcion4 extends Funcion {
 	private int n = 7;
 	
 	public Funcion4() {
-		super(min, max, true);
+		super(min, max, true, new ReproduccionBinariaMonopunto());
 	}
 	
 	public int getN() {

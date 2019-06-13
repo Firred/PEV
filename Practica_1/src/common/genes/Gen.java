@@ -40,13 +40,6 @@ public abstract class Gen<T> {
 	public void setCarateristica(T c) {
 		caracteristica = c;
 	}
-/*	public void setAlelo(double valor) {
-		controller.setAlelo(valor);
-	}*/
-	
-	/*public double getAlelo() {
-		return controller.getAlelo();
-	}*/
 	
 	@Override
 	public abstract String toString();
@@ -62,7 +55,4 @@ public abstract class Gen<T> {
 		
 		return false;
 	}
-	
-//	public abstract void calcularCaracteristica();
-
 }

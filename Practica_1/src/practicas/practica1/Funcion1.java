@@ -1,6 +1,7 @@
 package practicas.practica1;
 
 import common.Cromosoma;
+import common.cruce.practica1.ReproduccionBinariaMonopunto;
 
 public class Funcion1 extends Funcion{
 
@@ -8,7 +9,7 @@ public class Funcion1 extends Funcion{
 	private static double[] max = new double[] {12.1, 5.8};		
 	
 	public Funcion1() {
-		super(min, max, false);
+		super(min, max, false, new ReproduccionBinariaMonopunto());
 	}
 	
 	@Override

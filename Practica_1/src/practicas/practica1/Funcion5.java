@@ -16,9 +16,8 @@ public class Funcion5 extends ProblemaNoBinario<Double> {
 	private Random rand;
 	
 	public Funcion5() {
-		super(true, n);
+		super(true, n, new Monopunto());
 		this.rand = new Random();
-		this.setReproduccion(new Monopunto());
 		this.setMutacion(new NoUniforme());
 	}
 	

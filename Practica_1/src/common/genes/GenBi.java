@@ -32,34 +32,7 @@ public class GenBi extends Gen<Double> {
 		this.prec = g.prec;
 		
 		calcularCaracteristica();
-	}
-	
-	/*
-	 /** Constructor con generacion aleatoria con rango y precision 
-	 * @see common.Function_main
-	 
-	public GenBi(int n){
-		super();
-		//int n = calcLongituGen(Function_main.MIN,Function_main.MAX,Function_main.PRECISION);
-		alelo = new boolean[n];
-		Random rand = new Random();
-		for(int i = 0; i < n; i++) {
-			alelo[i] = rand.nextBoolean();
-		}
-		
-		calcularCaracteristica();
-	}
-	*/
-	
-	/* No construyes ningun objeto nuevo, usas un contenedor y simplemente vas asignando valores
-	 * 
-	 * Constructora a partir de otro gen (para el cruce)
-	public GenBi(boolean[] gen, double min, double max) {
-		super(min, max);
-		
-		alelo = gen.clone();
-	}*/
-		
+	}		
 
 	/** GETTERS
 	 *  devuelve la longitud de un alelo
@@ -71,27 +44,10 @@ public class GenBi extends Gen<Double> {
 	public boolean[] getAlelo() {
 		return alelo;
 	}
-
-	/**
-	 * @param n1
-	 * @param n2
-	 * @return
-	 */
-	public Boolean[] getalelo(int n1, int n2) {
-		Boolean[] alelotemp = {};
-		while(n1<n2) {
-			alelotemp[n1] = this.alelo[n1];
-			n1++;
-		}
-		return alelotemp;
+	
+	public boolean getAlelo(int pos) {
+		return alelo[pos];
 	}
-		
-	/** 
-	 * @see common.genes.Gen_Bi#getGenes_Bool(int)
-	 */
-	public Boolean getGenes_Bool(int n1) {
-		return this.alelo[n1];
-	}	
 
 	/** SETTERS
 	 *   Cambia el valor del alelo en la posición pos por b
@@ -110,7 +66,6 @@ public class GenBi extends Gen<Double> {
 		setCarateristica(this.min + bin2Dec()* ((this.max-this.min)/(Math.pow(2, alelo.length)-1)));
 	}
 	
-
 	/**
 	 * @return  Devuelve el valor binario del alelo
 	 */
@@ -119,29 +74,11 @@ public class GenBi extends Gen<Double> {
 		for (int i = alelo.length-1; i >= 0; i--) {
 			if(alelo[i] == true) {
 				n += Math.pow(2, i);
-			}
-			
+			}		
 		}
 		
 		return n;
 	}
-	
-	
-	/**
-	 * @param tipo de gen
-	 * @param minimo de rango
-	 * @param maximo de rango
-	 * @param precision
-	 */
-/*	public GenBi generarGen(int tipo) {
-		int n = calcLongituGen();
-		alelo = new boolean[n];
-		Random rand = new Random();
-		for(int i = 0; i < n; i++) {
-			alelo[i] = rand.nextBoolean();
-		}	
-		return this;
-	}*/
 	
 	/**
 	 * Calcula la longitud del gen para su rango en una precision
@@ -157,7 +94,7 @@ public class GenBi extends Gen<Double> {
 
 	@Override
 	public String toString() {
-		return "Gen [caracteristica=" + super.getCaracteristica() + ", long_gen=" + long_gen + "]";
+		return "Gen [caracteristica=" + super.getCaracteristica() + ", long_gen=" + this.getLong() + "]";
 	}
 	
 }

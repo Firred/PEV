@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import common.Cromosoma;
 import common.Poblacion;
+import common.cruce.Reproduccion;
 import common.evaluacion.Evaluacion;
 import common.genes.Gen;
 
@@ -11,12 +12,22 @@ public abstract class Problema<T> {
 	
 	public final boolean MINIMIZAR;
 	public final int genes;
+	private Reproduccion reproduccion;
 	
-	public Problema(boolean minimizar, int genes) {
+	public Problema(boolean minimizar, int genes, Reproduccion rep) {
 		this.MINIMIZAR = minimizar;
 		this.genes = genes;
+		this.reproduccion = rep;
 	}
 	
+	public Reproduccion getReproduccion() {
+		return reproduccion;
+	}
+
+	public void setReproduccion(Reproduccion reproduccion) {
+		this.reproduccion = reproduccion;
+	}
+
 	public int getNumGenes() {
 		return this.genes;
 	}

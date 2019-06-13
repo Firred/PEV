@@ -29,18 +29,10 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 * @param max
 	 */
 	public Cromosoma(Problema<T> func, double prec) {
-//		this.tipo = tipo;
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 		
-/*		if(Practica3.class.isAssignableFrom(func.getClass()))
-			genes = (ArrayList<Gen<T>>) func.crearGenes(((Practica3)func).getNMin(),((Practica3)func).getNMax());
-		else*/
-			genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
-		
-/*		if(tipo == 0) {
-			this.longitud = genes.size();
-		}*/
+		genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
 	}
 	
 	/**
@@ -96,23 +88,6 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	
 	public ArrayList<? extends Gen<T>> getGenes() {
 		return this.genes;
-	}
-	
-	/**
-	 * @param n1 desde que posicion recibes del gen booleano[]
-	 * @return boolean[n1-end]
-	 */
-	public Boolean getGenes_Bool(int n1, int pos) {
-		return ((GenBi) this.genes.get(pos)).getGenes_Bool(n1);
-	}
-	
-	/**
-	 * @param n1 desde que posicion recibes del gen booleano[]
-	 * @param n2 hasta que posicion recibes del gen booleano[]
-	 * @return booleano[n1-n2]
-	 */
-	public Boolean[] getGenes_BoolArray(int n1, int n2) {
-		return this.getGenes_BoolArray(n1, n2);
 	}
 	
 	/**

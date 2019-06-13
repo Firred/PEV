@@ -2,6 +2,7 @@ package practicas.practica1;
 
 import java.util.ArrayList;
 
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 import common.genes.GenBi;
 import practicas.Problema;
@@ -11,14 +12,14 @@ public abstract class Funcion extends Problema<Double> {
 	public final double[] MIN;
 	public final double[] MAX;
 
-	public Funcion(double[] min, double[] max, boolean minimizar) {
-		super(minimizar, max.length);
+	public Funcion(double[] min, double[] max, boolean minimizar, Reproduccion rep) {
+		super(minimizar, max.length, rep);
 		this.MAX = min;
 		this.MIN = max;
 	}
 	
-	public Funcion(double[] min, double[] max, boolean minimizar, int length) {
-		super(minimizar, length);
+	public Funcion(double[] min, double[] max, boolean minimizar, int length, Reproduccion rep) {
+		super(minimizar, length, rep);
 		this.MAX = min;
 		this.MIN = max;
 	}
@@ -35,9 +36,6 @@ public abstract class Funcion extends Problema<Double> {
 		
 		return genes;
 	}
-
 	
-	//public abstract double evalua(Cromosoma<Double> ind_evaluar);
-//	public abstract void Set_Function();
 	public abstract String toString();
 }

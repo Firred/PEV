@@ -123,9 +123,8 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 	}
 	
 	public Practica3() {
-		super(false);
+		super(false, new CruceSubarboles());
 		super.setMutacion(new TerminalSimple());
-		super.setReproduccion(new CruceSubarboles());
 		this.rand = new Random();
 	}
 

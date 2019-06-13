@@ -6,6 +6,7 @@ import common.Cromosoma;
 import common.Poblacion;
 import common.bloating.Bloating;
 import common.bloating.BloatingTarpeian;
+import common.cruce.Reproduccion;
 import common.genes.Gen;
 import practicas.practica3.Tipo;
 
@@ -14,9 +15,9 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	private int nMax;
 	private Bloating bloating;
 	
-	public ProblemaArbol(boolean minimizar) {
-		super(minimizar, 1);
-		this.nMax = 5;
+	public ProblemaArbol(boolean minimizar, Reproduccion rep) {
+		super(minimizar, 1, rep);
+		this.nMax = 3;
 		this.bloating = new BloatingTarpeian();
 	}
 

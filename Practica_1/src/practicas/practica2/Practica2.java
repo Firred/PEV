@@ -86,10 +86,9 @@ public class Practica2 extends ProblemaNoBinario<Integer>{
 	private final ArrayList<GenInt> lista;
 
 	public Practica2() {
-		super(true, CIUDADES.length);
+		super(true, CIUDADES.length, new CruceCiclos());
 		lista = crearLista();
 		super.setMutacion(new Inversion());
-		super.setReproduccion(new CruceCiclos());
 	}
 
 	@Override

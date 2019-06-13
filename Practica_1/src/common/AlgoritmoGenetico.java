@@ -1,7 +1,7 @@
 package common;
 
 import common.cruce.Reproduccion;
-import common.cruce.practica1.ReproduccionBinaria;
+import common.cruce.practica1.ReproduccionBinariaMonopunto;
 import common.cruce.practica2.CodificacionOrdinal;
 import common.evaluacion.Evaluacion;
 import common.mutacion.Mutacion;
@@ -28,11 +28,11 @@ public class AlgoritmoGenetico {
 	private Cromosoma mejor;
 	/**Metodo de seleccion*/
 	private Seleccion seleccion;	
-	/**Metodo de mutaci�n*/
+	/**Metodo de mutacion*/
 	private Mutacion mutacion;		
 	/**Numero de generaciones*/
 	private int generaciones;
-	/**Tamano de la �lite*/
+	/**Tamano de la elite*/
 	private int elite;	
 	/**Prob. de mutacion*/
 	private int pMut;
@@ -46,8 +46,6 @@ public class AlgoritmoGenetico {
 	private boolean contractividad;
 	/**Criterio de terminacion (solo de contenido)*/
 	private boolean critTerminacion;
-	/**Metodo para controlar el bloating*/
-//	private BloatingTarpeian bloating = new BloatingTarpeian();
 	
 	/**
 	 * Variable para pruebas.
@@ -57,7 +55,8 @@ public class AlgoritmoGenetico {
 	
 	/**Numero de generaciones sin obtener un individuo mejor*/
 	private int genSinMejora;
-	
+	/**Mejor media obtenida, usada para el criterio de terminacion*/
+	private double mejorMedia;
 	
 	public AlgoritmoGenetico() {
 		this.poblacion = 100;
@@ -69,7 +68,7 @@ public class AlgoritmoGenetico {
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
-		this.reproduccion = new ReproduccionBinaria();
+		this.reproduccion = new ReproduccionBinariaMonopunto();
 		this.contractividad = false;
 		this.genSinMejora = 0;
 	}
@@ -213,12 +212,26 @@ public class AlgoritmoGenetico {
 		this.funcion.calcularPuntuacion(poblPrincipal);
 		
 		if(poblPrincipal.getMejor().compararX(this.mejor) >= 1) {
-//			System.out.println("Cambia: " + mejor.getApt() + ", nuevo: " + poblPrincipal.getMejor().getApt());
 			this.mejor = new Cromosoma(poblPrincipal.getMejor());
 			this.genSinMejora = 0;
+			this.mejorMedia = poblPrincipal.getMedia();
 		}
-		else
-			this.genSinMejora++;
+		else {
+			if(this.funcion.MINIMIZAR) {
+				if(poblPrincipal.getMedia() > this.mejorMedia)
+					this.genSinMejora++;
+
+				else
+					this.mejorMedia = poblPrincipal.getMedia();
+			}
+			else {
+				if(poblPrincipal.getMedia() < this.mejorMedia)
+					this.genSinMejora++;
+	
+				else
+					this.mejorMedia = poblPrincipal.getMedia();
+			}
+		}
 	}
 	
 	private void selecciona() {
@@ -244,16 +257,16 @@ public class AlgoritmoGenetico {
 		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
 		if(Funcion.class.isAssignableFrom(this.funcion.getClass()) && !Funcion5.class.isAssignableFrom(this.funcion.getClass())) {
 			this.mutacion = new MutacionBinaria();
-			this.reproduccion = new ReproduccionBinaria();
 		}
 		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
 		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
-			this.reproduccion = ((ProblemaNoBinario)this.funcion).getReproduccion();
 			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
 			
 			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
 				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
 		}
+		
+		this.reproduccion = this.funcion.getReproduccion();
 	}
 	
 	public String exe(Controlador ctrl) {
