@@ -263,7 +263,6 @@ public class AlgoritmoGenetico {
 
 			if(CodificacionOrdinal.class.isAssignableFrom(this.funcion.getReproduccion().getClass())) {
 				((CodificacionOrdinal) this.funcion.getReproduccion()).setLista(((Practica2)this.funcion).getLista());
-				System.out.println("Llama");
 			}
 		}
 		
