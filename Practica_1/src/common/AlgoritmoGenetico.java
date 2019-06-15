@@ -68,7 +68,7 @@ public class AlgoritmoGenetico {
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
-		this.reproduccion = new ReproduccionBinariaMonopunto();
+//		this.reproduccion = new ReproduccionBinariaMonopunto();
 		this.contractividad = false;
 		this.genSinMejora = 0;
 	}
@@ -254,14 +254,17 @@ public class AlgoritmoGenetico {
 	private void configCheck() {
 		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
 		if(Funcion.class.isAssignableFrom(this.funcion.getClass()) && !Funcion5.class.isAssignableFrom(this.funcion.getClass())) {
+			System.out.println("If");
 			this.mutacion = new MutacionBinaria();
 		}
 		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
 		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
 			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
-			
-			if(CodificacionOrdinal.class.isAssignableFrom(this.reproduccion.getClass()))
-				((CodificacionOrdinal) this.reproduccion).setLista(((Practica2)this.funcion).getLista());
+
+			if(CodificacionOrdinal.class.isAssignableFrom(this.funcion.getReproduccion().getClass())) {
+				((CodificacionOrdinal) this.funcion.getReproduccion()).setLista(((Practica2)this.funcion).getLista());
+				System.out.println("Llama");
+			}
 		}
 		
 		this.reproduccion = this.funcion.getReproduccion();
