@@ -12,7 +12,7 @@ import common.cruce.practica1.ReproduccionBinariaMonopunto;
 import common.cruce.practica1.ReproduccionBinariaMultipunto;
 import common.cruce.practica1.ReproduccionBinariaUniforme;
 import common.cruce.practica1.SBX;
-import common.cruce.practica1.SLX;
+import common.cruce.practica1.BLX;
 import common.cruce.practica2.CodificacionOrdinal;
 import common.cruce.practica2.CruceCiclos;
 import common.cruce.practica2.OX;
@@ -63,7 +63,7 @@ public class FactoriaOpciones {
 		new DiscretoUniforme(),
 		new Aritmetico(),
 		new SBX(),
-		new SLX()
+		new BLX()
 	};
 	
 	final public static Reproduccion[] repP2 = new Reproduccion[] {
@@ -229,8 +229,8 @@ public class FactoriaOpciones {
 							  	"SLX",							
 							  	"",				 
 							  	"reproduccion",							
-							  	SLX.class))						
-						  		  .addInner(new DoubleOption<SLX>(
+							  	BLX.class))						
+						  		  .addInner(new DoubleOption<BLX>(
 						  		     "Alfa", "Alfa", "alfa", 0, 1))
 						  		  .endInner()
 				  		.beginInner(new InnerOption<AlgoritmoGenetico,Reproduccion>(  

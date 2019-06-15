@@ -5,7 +5,7 @@ import common.cruce.ParCromosoma;
 import common.cruce.Reproduccion;
 import common.genes.GenReal;
 
-public class SLX extends Reproduccion {
+public class BLX extends Reproduccion {
 
 	private double alfa = 0.5;
 	
@@ -61,6 +61,6 @@ public class SLX extends Reproduccion {
 	
 	@Override
 	public String toString() {
-		return "SLX";
+		return "BLX";
 	}
 }
