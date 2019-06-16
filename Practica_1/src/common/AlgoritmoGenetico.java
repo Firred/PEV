@@ -57,6 +57,8 @@ public class AlgoritmoGenetico {
 	private int genSinMejora;
 	/**Mejor media obtenida, usada para el criterio de terminacion*/
 	private double mejorMedia;
+	/**Mejor cromosoma anterior a la actual generacion, usado en el criterio de terminacion*/
+	private Cromosoma mejorAnterior;
 	
 	public AlgoritmoGenetico() {
 		this.poblacion = 100;
@@ -68,23 +70,8 @@ public class AlgoritmoGenetico {
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
-//		this.reproduccion = new ReproduccionBinariaMonopunto();
+		this.reproduccion = new ReproduccionBinariaMonopunto();
 		this.contractividad = false;
-		this.genSinMejora = 0;
-	}
-	
-	public AlgoritmoGenetico(int tipo, int tpobl, int generaciones, int elite, String selec, String mut, int pMut) {
-//		Function_Controller.setF_actual(0); // permite seleccionar la funcion pasandole un indice
-//		this.funcion.Set_Function();
-		this.poblPrincipal = new Poblacion(tpobl, 0, this.funcion, this.precision);
-		this.generaciones = generaciones;
-		this.mejor = poblPrincipal.getIndividuos(0);
-		this.elite = (int)(tpobl*elite/100);
-		this.pMut = pMut;
-		Object[] args = new Object[1];
-		args[0] = pMut;
-		//this.mutacion = FactoriaMutacion.getMutacion(mut, args);
-		this.mutacion = new MutacionBinaria();
 		this.genSinMejora = 0;
 	}
 	
@@ -211,6 +198,52 @@ public class AlgoritmoGenetico {
 		
 		if(poblPrincipal.getMejor().compararX(this.mejor) >= 1) {
 			this.mejor = new Cromosoma(poblPrincipal.getMejor());
+		}		
+	}
+	
+	private void selecciona() {
+		poblPrincipal = seleccion.execute(poblPrincipal);
+	}
+	
+	private void cruza() {		
+		reproduccion.ejecutar(poblPrincipal, this.pCruce);
+	}
+	
+	private void muta() {
+		mutacion.execute(poblPrincipal, this.pMut);
+	}
+				
+	private boolean terminado() {
+		return (this.generaciones <= poblPrincipal.getGeneracion()) || (critTerminacion && (this.generaciones*0.2) < this.genSinMejora);
+	}
+	
+	/**
+	 * Comprueba que la configuracion del algoritmo es correcta y realiza cambios si es necesario
+	 */
+	private void configCheck() {
+		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
+		if(Funcion.class.isAssignableFrom(this.funcion.getClass()) && !Funcion5.class.isAssignableFrom(this.funcion.getClass())) {
+			this.mutacion = new MutacionBinaria();
+		}
+		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
+		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
+			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
+
+			if(CodificacionOrdinal.class.isAssignableFrom(this.funcion.getReproduccion().getClass())) {
+				((CodificacionOrdinal) this.funcion.getReproduccion()).setLista(((Practica2)this.funcion).getLista());
+			}
+		}
+		
+		this.reproduccion = this.funcion.getReproduccion();
+	}
+	
+	/**
+	 * Esta funcion se usa con el objetivo de evitar errores cuando
+	 * se usa el criterio de terminacion junto a la contractividad
+	 */
+	private void analizaGeneracion() {
+		if(poblPrincipal.getMejor().compararX(this.mejorAnterior) >= 1) {
+			this.mejorAnterior = new Cromosoma(poblPrincipal.getMejor());
 			this.genSinMejora = 0;
 			this.mejorMedia = poblPrincipal.getMedia();
 		}
@@ -232,47 +265,12 @@ public class AlgoritmoGenetico {
 		}
 	}
 	
-	private void selecciona() {
-		poblPrincipal = seleccion.execute(poblPrincipal);
-	}
-	
-	private void cruza() {		
-		reproduccion.ejecutar(poblPrincipal, this.pCruce);
-	}
-	
-	private void muta() {
-		mutacion.execute(poblPrincipal, this.pMut);
-	}
-				
-	private boolean terminado() {
-		return (this.generaciones <= poblPrincipal.getGeneracion()) || (critTerminacion && (this.generaciones/5) < this.genSinMejora);
-	}
-	
-	/**
-	 * Comprueba que la configuracion del algoritmo es correcta y realiza cambios si es necesario
-	 */
-	private void configCheck() {
-		//Si la funcion es de la Practica 1 la mutacion pasa a ser binaria
-		if(Funcion.class.isAssignableFrom(this.funcion.getClass()) && !Funcion5.class.isAssignableFrom(this.funcion.getClass())) {
-			System.out.println("If");
-			this.mutacion = new MutacionBinaria();
-		}
-		//Si es de la Practica 2 y utiliza el cruce de Codificacion Ordinal obtiene la lista de ciudades para el cruce
-		else if(ProblemaNoBinario.class.isAssignableFrom(this.funcion.getClass())) {
-			this.mutacion = ((ProblemaNoBinario)this.funcion).getMutacion();
-
-			if(CodificacionOrdinal.class.isAssignableFrom(this.funcion.getReproduccion().getClass())) {
-				((CodificacionOrdinal) this.funcion.getReproduccion()).setLista(((Practica2)this.funcion).getLista());
-			}
-		}
-		
-		this.reproduccion = this.funcion.getReproduccion();
-	}
-	
 	public String exe(Controlador ctrl) {
 		double aptitud;
 		this.poblPrincipal = new Poblacion(this.poblacion, 0, this.funcion, this.precision);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
+		this.mejorAnterior = this.poblPrincipal.getIndividuos(0);
+		this.genSinMejora = 0;
 
 		this.poblPrincipal.setTPobl(this.poblPrincipal.getTPoblacion()-this.elite);
 		
@@ -288,6 +286,7 @@ public class AlgoritmoGenetico {
 		ctrl.update(this.poblPrincipal, this.mejor);		
 		mensajeDebug("POST-EVALUACION");
 		
+		this.mejorMedia = poblPrincipal.getMedia();
 		int intentos = 0;
 		aptitud = poblPrincipal.getAptMedia();	
 		
@@ -330,10 +329,12 @@ public class AlgoritmoGenetico {
 					ctrl.update(this.poblPrincipal, this.mejor);
 					aptitud = poblPrincipal.getAptMedia();
 					intentos = 0;
+					analizaGeneracion();
 				}
 			}
 			else {
 				ctrl.update(this.poblPrincipal, this.mejor);
+				analizaGeneracion();
 			}
 		}
 		

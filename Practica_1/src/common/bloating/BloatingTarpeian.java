@@ -22,15 +22,6 @@ public class BloatingTarpeian implements Bloating {
 
 	public void ejecutar(Poblacion pobl, ProblemaArbol func) {
 		int tam = 0;
-		GenArbol gen;
-		int i = 0;
-		
-		while(i < pobl.getTPoblacion()) {
-			if(((GenArbol)pobl.getIndividuos(i).getGen(0)).getNumNodos() > func.maximoNodos()) 
-				pobl.getIndividuos().remove(i);	
-			else
-				i++;
-		}
 		
 		for(Cromosoma crom : pobl.getIndividuos()) {
 			tam += ((GenArbol)crom.getGen(0)).getNumNodos();

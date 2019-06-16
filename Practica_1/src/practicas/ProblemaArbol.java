@@ -134,5 +134,5 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	 * con mas de ese numero de nodos.
 	 * @return
 	 */
-	public abstract int maximoNodos();
+//	public abstract int maximoNodos();
 }
