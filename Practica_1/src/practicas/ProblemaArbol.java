@@ -38,7 +38,7 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	}
 
 	@Override
-	public ArrayList<? extends Gen<T>> crearGenes(double... args) {return null;}
+	public ArrayList<? extends Gen<T>> crearGenes() {return null;}
 	
 	@Override
 	public void calcularPuntuacion(Poblacion pobl) {

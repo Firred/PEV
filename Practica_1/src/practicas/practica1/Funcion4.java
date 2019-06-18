@@ -49,14 +49,11 @@ public class Funcion4 extends Funcion {
 	}
 	
 	@Override
-	public ArrayList<? extends Gen<Double>> crearGenes(double... args) {
-		if(args.length != 1)
-			return null;
-		
+	public ArrayList<? extends Gen<Double>> crearGenes() {		
 		ArrayList<GenBi> genes = new ArrayList<>();
 		
 		for(int i = 0; i < this.n; i++) 
-			genes.add(new GenBi(i, MIN[0], MAX[0], args[0]));
+			genes.add(new GenBi(i, MIN[0], MAX[0], getPrec()));
 		
 		return genes;
 	}

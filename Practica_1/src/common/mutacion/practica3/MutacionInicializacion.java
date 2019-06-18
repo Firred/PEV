@@ -13,7 +13,7 @@ public class MutacionInicializacion extends Mutacion {
 	@Override
 	protected Cromosoma mutacion(Cromosoma crom) {
 		GenArbol aux = (GenArbol)crom.getGen(0);
-		int aleatorio, profOriginal = aux.getProfundidad();			
+		int aleatorio, profOriginal;			
 		
 		if(aux.getNumNodos() > 1) {
 			aleatorio = this.rand.nextInt(aux.getHijos().size());
@@ -26,8 +26,8 @@ public class MutacionInicializacion extends Mutacion {
 			}
 			
 			ProblemaArbol func = (ProblemaArbol)Controlador.getInstance().getAG().getFuncion();
-			
-			aux.getPadre().insertarNodo(aux, InicializacionPoblacion.inicializarArbol(rand.nextInt(profOriginal+1)+1, func));
+			profOriginal = aux.getProfundidad();
+			aux.getPadre().insertarNodo(aux, InicializacionPoblacion.inicializarArbol(rand.nextInt(profOriginal+1), func));
 			
 			if(aux.getNumNodos() == 1)
 				aux = aux.getPadre();

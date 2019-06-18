@@ -22,26 +22,23 @@ public class Funcion5 extends ProblemaNoBinario<Double> {
 	}
 	
 	public int getN() {
-		return this.n;
+		return n;
 	}
 	
 	public void setN(int n) {
-		this.n = n;
+		Funcion5.n = n;
 	}
 	
 	@Override
 	public int getNumGenes() {
-		return this.n;
+		return n;
 	}
 	
 	@Override
-	public ArrayList<? extends Gen<Double>> crearGenes(double... args) {
-		if(args.length != 1)
-			return null;
-		
+	public ArrayList<? extends Gen<Double>> crearGenes() {	
 		ArrayList<GenReal> genes = new ArrayList<>();
 		
-		for(int i = 0; i < this.getN(); i++) {
+		for(int i = 0; i < n; i++) {
 			genes.add(new GenReal(rand.nextDouble()*Math.PI, 0, Math.PI));
 		}
 		

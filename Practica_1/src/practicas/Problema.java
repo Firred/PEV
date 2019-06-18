@@ -97,5 +97,5 @@ public abstract class Problema<T> {
 	}
 	
 	public abstract double evalua(Cromosoma<T> crom);
-	public abstract ArrayList<? extends Gen<T>> crearGenes(double... args);
+	public abstract ArrayList<? extends Gen<T>> crearGenes();
 }

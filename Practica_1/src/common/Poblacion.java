@@ -31,7 +31,7 @@ public class Poblacion {
 	 * @param mejor
 	 * @param precision
 	 */
-	public Poblacion(int tPobl, int generacion, Problema<?> func, double prec) {
+	public Poblacion(int tPobl, int generacion, Problema<?> func) {
 		this.individuos = new ArrayList<>();
 		
 		if(ProblemaArbol.class.isAssignableFrom(func.getClass())) {
@@ -39,7 +39,7 @@ public class Poblacion {
 		}
 		else {
 			for(int i = 0; i < tPobl; i++) {
-				individuos.add(new Cromosoma(func, prec));
+				individuos.add(new Cromosoma(func));
 			}
 		}
 		
@@ -145,7 +145,6 @@ public class Poblacion {
 	 */
 	public void addIndividuo(Cromosoma crom) {
 		this.individuos.add(new Cromosoma(crom));
-		//this.Tpobl++;
 	}
 	
 	
@@ -181,14 +180,13 @@ public class Poblacion {
 	public void calcularMejorMedia() {
 		double m = 0, apt = 0;
 		
-		if(this.mejor == null)
-			this.mejor = this.individuos.get(0);
+		this.mejor = this.individuos.get(0);
 		
 		for(Cromosoma c : this.individuos) {
 			m += c.getX();
 			apt += c.getApt();
 			
-			if(c.compararX(this.mejor) >= 1)
+			if(c.compareTo(this.mejor) >= 1) 
 				this.mejor = c;
 		}
 		

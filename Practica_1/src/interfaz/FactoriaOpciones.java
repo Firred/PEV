@@ -129,12 +129,6 @@ public class FactoriaOpciones {
 				"PMut", 
 				0, 
 				100))
-		.addOption(new DoubleOption<>(
-				"Precision",
-				"Precision del algoritmo",
-				"precision",
-				0,
-				Double.MAX_VALUE))
 		.addOption(new IntegerOption<>(
 				"Elitismo",
 				"Porcentaje de elite",
@@ -186,6 +180,13 @@ public class FactoriaOpciones {
 									"reproduccion",
 									repBinaria
 									))
+				  		.addInner(new DoubleOption<Funcion>(
+				  				"Precision",
+								"Precision deseada",
+								"prec",
+								0,
+								Double.MAX_VALUE
+								))
 				  		  .endInner()
 				
 				.beginInner(new InnerOption<AlgoritmoGenetico,Seleccion>(  

@@ -27,7 +27,7 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 	/**
 	 * Create the panel.
 	 */
-	public PanelGrafica(/*int generaciones*/) {
+	public PanelGrafica() {
 		super();
 		
 		// define the legend position
@@ -37,7 +37,7 @@ public class PanelGrafica extends Plot2DPanel implements Observador {
 	}
 
 	@Override
-	public void update(Poblacion pobl, Cromosoma mejorG/*Cromosoma mejorG, Cromosoma mejorP, int gen*/) {
+	public void update(Poblacion pobl, Cromosoma mejorG) {
 		if(pobl.getGeneracion() < this.generaciones) {
 			yMej.add(pobl.getMejor().getX());
 			yMed.add(pobl.getMedia());

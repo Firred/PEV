@@ -36,8 +36,6 @@ public class AlgoritmoGenetico {
 	private int elite;	
 	/**Prob. de mutacion*/
 	private int pMut;
-	/**Precision*/
-	private double precision;
 	/**Prob. cruce*/
 	private int pCruce;
 	/**Metodo de reproducion*/
@@ -66,7 +64,6 @@ public class AlgoritmoGenetico {
 		this.elite = 2;
 		this.pMut = 5;
 		this.pCruce = 60;
-		this.precision = 0.001;
 		this.seleccion = new SeleccionRuleta();
 		this.funcion = new Funcion1();
 		this.mutacion = new MutacionBinaria();
@@ -102,10 +99,6 @@ public class AlgoritmoGenetico {
 	
 	public void setPMut(int pMut) {
 		this.pMut = pMut;
-	}
-	
-	public void setPrecision(double prec) {
-		this.precision = prec;
 	}
 	
 	public void setCruce(int cruce) {
@@ -153,10 +146,6 @@ public class AlgoritmoGenetico {
 	
 	public int getPMut() {
 		return this.pMut;
-	}
-	
-	public double getPrecision() {
-		return this.precision;
 	}
 	
 	public int getCruce() {
@@ -267,7 +256,7 @@ public class AlgoritmoGenetico {
 	
 	public String exe(Controlador ctrl) {
 		double aptitud;
-		this.poblPrincipal = new Poblacion(this.poblacion, 0, this.funcion, this.precision);
+		this.poblPrincipal = new Poblacion(this.poblacion, 0, this.funcion);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
 		this.mejorAnterior = this.poblPrincipal.getIndividuos(0);
 		this.genSinMejora = 0;
@@ -277,8 +266,8 @@ public class AlgoritmoGenetico {
 		configCheck();
 		
 		ctrl.start(this.generaciones, this.funcion.getNumGenes());		
-		
-		Cromosoma[] eliteP = new Cromosoma[0];
+
+		Cromosoma[] eliteP = null;
 		
 		mensajeDebug("PRIMERA GENERACION");
 		
@@ -319,7 +308,7 @@ public class AlgoritmoGenetico {
 			
 			evalua();
 			mensajeDebug("POST-EVALUACION");
-			
+
 			if(this.contractividad) {
 				if(aptitud >= poblPrincipal.getAptMedia() && intentos < 1000) {
 					poblPrincipal.setGeneracion(poblPrincipal.getGeneracion()-1);

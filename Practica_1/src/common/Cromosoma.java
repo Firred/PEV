@@ -28,11 +28,11 @@ public class Cromosoma<T> implements Comparable<Cromosoma<T>>{
 	 * @param min
 	 * @param max
 	 */
-	public Cromosoma(Problema<T> func, double prec) {
+	public Cromosoma(Problema<T> func) {
 		this.genes = new ArrayList<Gen<T>>();
 		this.minimizar = func.MINIMIZAR;
 		
-		genes = (ArrayList<Gen<T>>) func.crearGenes(prec);
+		genes = (ArrayList<Gen<T>>) func.crearGenes();
 	}
 	
 	/**
