@@ -21,14 +21,9 @@ public class Ranking extends Seleccion {
 	public Poblacion execute(Poblacion pobl) {
 		ArrayList<Cromosoma> lista = new ArrayList<>();
 		double x;
-//		int suma = (pobl.getTpobl()/2)*(pobl.getTpobl()+1);
 		int pos_super;
 		
 		Collections.sort(pobl.getIndividuos());
-		
-/*		for(int i = 0; i < pobl.getTpobl(); i++) {
-			probL[i] = (i+1)/suma;
-		}*/
 		
 		ArrayList<Double> probL = rankingPobl(pobl);
 		double seg = probL.get(probL.size()-1);
@@ -45,7 +40,6 @@ public class Ranking extends Seleccion {
 			
 			if(x <= probL.get(0)) {
 				lista.add(pobl.getIndividuos(0));
-//				newPobl.addIndividuo(pobl.getIndividuos(0));
 				
 				repeticiones.put(0, repeticiones.get(0)+1);
 			}
@@ -54,8 +48,7 @@ public class Ranking extends Seleccion {
 					pos_super++;
 				}
 				
-				lista.add(pobl.getIndividuos(pos_super));
-//				newPobl.addIndividuo(pobl.getIndividuos(pos_super));
+				lista.add(new Cromosoma<>(pobl.getIndividuos(pos_super)));
 				
 				repeticiones.put(pos_super, repeticiones.get(pos_super)+1);
 			}

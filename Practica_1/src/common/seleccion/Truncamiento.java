@@ -27,12 +27,11 @@ public class Truncamiento extends Seleccion {
 		
 		for(int i = 0; i < corte; i++) {
 			for(int j = 0; j < repeticiones; j++) {
-				lista.add(pobl.getIndividuos(i));
+				lista.add(new Cromosoma<>(pobl.getIndividuos(i)));
 			}
 		}
 		
 		pobl.setGeneracion(pobl.getGeneracion()+1);
-//		System.out.println(pobl.getTPoblacion());
 		return pobl;
 	}
 

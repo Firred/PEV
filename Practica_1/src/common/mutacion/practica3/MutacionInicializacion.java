@@ -27,7 +27,7 @@ public class MutacionInicializacion extends Mutacion {
 			
 			ProblemaArbol func = (ProblemaArbol)Controlador.getInstance().getAG().getFuncion();
 			profOriginal = aux.getProfundidad();
-			aux.getPadre().insertarNodo(aux, InicializacionPoblacion.inicializarArbol(rand.nextInt(profOriginal+1), func));
+			aux.getPadre().insertarNodo(aux, InicializacionPoblacion.inicializarArbol(rand.nextInt(profOriginal+1)+1, func));
 			
 			if(aux.getNumNodos() == 1)
 				aux = aux.getPadre();

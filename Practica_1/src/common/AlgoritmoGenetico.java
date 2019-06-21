@@ -254,7 +254,7 @@ public class AlgoritmoGenetico {
 		}
 	}
 	
-	public String exe(Controlador ctrl) {
+	public void exe(Controlador ctrl) {
 		double aptitud;
 		this.poblPrincipal = new Poblacion(this.poblacion, 0, this.funcion);
 		this.mejor = this.poblPrincipal.getIndividuos(0);
@@ -282,8 +282,8 @@ public class AlgoritmoGenetico {
 		//Inicia bucle		
 		while(!terminado()) {
 			if(this.elite > 0) {
-				if(ProblemaArbol.class.isAssignableFrom(this.funcion.getClass()))
-					((ProblemaArbol)this.funcion).calcularPuntuacionNormal(poblPrincipal);
+//				if(ProblemaArbol.class.isAssignableFrom(this.funcion.getClass()))
+//					((ProblemaArbol)this.funcion).calcularPuntuacionNormal(poblPrincipal);
 				
 				eliteP = poblPrincipal.separaMejores(elite);		
 				
@@ -291,7 +291,7 @@ public class AlgoritmoGenetico {
 					System.out.println("\n ELITE: ----------------------- generacion: " + poblPrincipal.getGeneracion() + " -----------------------\n\n");
 					for(Cromosoma c : eliteP)
 						System.out.println(c.toString());			
-				}
+					}
 			}
 			
 			selecciona();
@@ -308,7 +308,7 @@ public class AlgoritmoGenetico {
 			
 			evalua();
 			mensajeDebug("POST-EVALUACION");
-
+			
 			if(this.contractividad) {
 				if(aptitud >= poblPrincipal.getAptMedia() && intentos < 1000) {
 					poblPrincipal.setGeneracion(poblPrincipal.getGeneracion()-1);
@@ -344,9 +344,8 @@ public class AlgoritmoGenetico {
 		}
 		else
 			texto = "";
-		
-		this.funcion.evalua(mejor);
-		return texto;
+				
+		return;
 	}
 	
 	private void mensajeDebug(String mensaje) {

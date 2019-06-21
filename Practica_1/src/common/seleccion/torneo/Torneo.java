@@ -27,7 +27,7 @@ public abstract class Torneo extends Seleccion {
 				individuos[j] = pobl.getIndividuos(rand.nextInt(pobl.getTPoblacion()));
 			}
 			
-			lista.add(seleccion(individuos));		
+			lista.add(new Cromosoma<>(seleccion(individuos)));		
 		}
 		
 		pobl.setGeneracion(pobl.getGeneracion()+1);

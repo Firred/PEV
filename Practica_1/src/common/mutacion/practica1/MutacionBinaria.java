@@ -16,7 +16,7 @@ public class MutacionBinaria extends Mutacion {
 				alelo = ((GenBi)g).getAlelo();
 				
 				for(int i = 0; i < alelo.length; i++) {
-					if(prob > rand.nextInt(100)) {
+					if(prob >= rand.nextInt(100)) {
 						alelo[i] = true^alelo[i];
 					}
 				}		

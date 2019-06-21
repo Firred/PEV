@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import common.AlgoritmoGenetico;
 import common.Cromosoma;
 import common.Poblacion;
+import common.genes.GenArbol;
 import interfaz.PanelTablero;
 import practicas.practica3.Practica3;
 
@@ -56,7 +57,8 @@ public class ControladorImp extends Controlador {
 
 	@Override
 	public void actualizarTablero(PanelTablero tablero) {
-		if(Practica3.class.isAssignableFrom(this.aG.getFuncion().getClass())) {
+		if(Practica3.class.isAssignableFrom(this.aG.getFuncion().getClass()) && this.aG.getMejor() != null &&
+				GenArbol.class.isAssignableFrom(this.aG.getMejor().getGen(0).getClass())) {
 			tablero.setTablero(((Practica3)this.aG.getFuncion()).pintarTablero(this.aG.getMejor()));
 			tablero.setVisible(true);
 		}

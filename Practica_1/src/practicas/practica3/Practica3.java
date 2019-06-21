@@ -11,7 +11,7 @@ import practicas.ProblemaArbol;
 public class Practica3 extends ProblemaArbol<Tipo> {
 
 	private final static char[][] mapa = {
-			{ '@', '#', '#', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
+			{ '#', '#', '#', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
 			{ '0', '0', '0', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
 			{ '0', '0', '0', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '#', '#', '#', '0', '0', '0', '0' },
 			{ '0', '0', '0', '#', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '#', '0', '0', '0', '0', '#', '0', '0' },
@@ -142,7 +142,7 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 			}
 		}
 
-		while(this.pasos < 400 && this.punt < 89)
+		while(this.pasos < 400 && this.punt < 90)
 			ejecutarArbol((GenArbol)crom.getGen(0), tablero);
 		
 		int bonTiempo = 400-this.pasos;
@@ -151,7 +151,7 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 	}
 	
 	private void ejecutarArbol(GenArbol gen, char[][] tablero) {
-		if(this.pasos < 400 && this.punt < 89) {
+		if(this.pasos < 400 && this.punt < 90) {
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;
@@ -216,14 +216,14 @@ public class Practica3 extends ProblemaArbol<Tipo> {
 		this.pos = new Posicion();
 		this.dir = new Direccion();	
 		
-		while(this.pasos < 400 && this.punt < 89)
+		while(this.pasos < 400 && this.punt < 90)
 			rellenarTablero((GenArbol)crom.getGen(0), tablero);
 		
 		return tablero;
 	}
 	
 	private void rellenarTablero(GenArbol gen, char[][] tablero) {
-		if(this.pasos < 400 && this.punt < 89) {
+		if(this.pasos < 400 && this.punt < 90) {
 			
 			if(tablero[pos.y][pos.x] == '#') {
 				this.punt++;

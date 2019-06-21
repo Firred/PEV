@@ -50,7 +50,7 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 		}
 		
 		if(this.bloating != null) {
-			this.bloating.ejecutar(pobl, this);
+//			this.bloating.ejecutar(pobl, this);
 		}
 		
 		revisarAdaptacion(pobl);
@@ -63,6 +63,8 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 			crom.setPunt(crom.getApt()/suma_aptitud);
 			
 		}
+		
+		
 		
 		pobl.calcularMejorMedia();	
 		pobl.calcularPuntAcum();
@@ -128,11 +130,4 @@ public abstract class ProblemaArbol<T> extends ProblemaNoBinario<T> {
 	 * @return
 	 */
 	public abstract void bajoFitness(Cromosoma crom);
-	/**
-	 * Devuelve el maximo de nodos que la funcion permite.
-	 * Se usa para eliminar automaticamente los arboles 
-	 * con mas de ese numero de nodos.
-	 * @return
-	 */
-//	public abstract int maximoNodos();
 }

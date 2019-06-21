@@ -186,8 +186,9 @@ public class Poblacion {
 			m += c.getX();
 			apt += c.getApt();
 			
-			if(c.compareTo(this.mejor) >= 1) 
+			if(c.compareTo(this.mejor) >= 1) {
 				this.mejor = c;
+			}
 		}
 		
 		this.media = m/getTPoblacion();

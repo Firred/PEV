@@ -16,7 +16,7 @@ public abstract class Reproduccion {
 			return;
 		
 		for (int i = 0; i < pobl.getTPoblacion(); i++) {
-			if (probCruce >= rand.nextDouble()) {
+			if (probCruce >= rand.nextInt(100)) {
 				if(!seleccionado) {
 					h1 = i;
 					seleccionado = true;

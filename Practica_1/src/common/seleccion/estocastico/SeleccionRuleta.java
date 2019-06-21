@@ -30,7 +30,7 @@ public class SeleccionRuleta extends Seleccion {
 				pos_super++;
 			}	
 			
-			lista.add(pobl.getIndividuos(pos_super));
+			lista.add(new Cromosoma<>(pobl.getIndividuos(pos_super)));
 		}
 		
 		pobl.setIndividuos(lista);

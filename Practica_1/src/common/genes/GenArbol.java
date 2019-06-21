@@ -24,7 +24,6 @@ public class GenArbol extends Gen<Tipo> {
 	
 	public GenArbol(GenArbol gen, GenArbol padre) {
 		super((GenArbol)gen);
-		this.setCarateristica(Tipo.valueOf(gen.getCaracteristica().toString()));
 		this.numNodos = gen.getNumNodos();
 		this.profundidad = gen.getProfundidad();
 
@@ -168,18 +167,9 @@ public class GenArbol extends Gen<Tipo> {
 	}
 	
 	public String caracteristicaString(int prof) {
-/*		String s = this.getCaracteristica().toString();
-		
-		for(GenArbol g : this.hijos)
-			s += ", " + g.caracteristicaString();*/
-		String espacio = generarEspacio(prof);
-		
-/*		for (int i = 0; i < prof; i++) {
-			espacio += "    ";
-		}*/
-		
+		String espacio = generarEspacio(prof);		
 		String s = "";
-//		String.format("%1$"+prof, "");
+		
 		switch (this.getCaracteristica()) {
 		case PROGN2:
 			s += espacio + "Prog2:" + System.lineSeparator();
