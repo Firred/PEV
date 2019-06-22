@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -196,11 +201,24 @@ public class Demo extends JFrame {
 	
 	
 	// construye y muestra la interfaz
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		File file = new File("Mapa.txt"); 
+		  
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+	  
+		String st; 
+		while ((st = br.readLine()) != null) {
+			st = st.replaceAll(" ", "', '");
+			st = "{ " + st;
+			st = st + " },";
+			
+			System.out.println(st); 
 		
-		Demo p = new Demo();
-		p.setSize(600, 600);
-		p.setVisible(true);	
+		}
+		
+//		Demo p = new Demo();
+//		p.setSize(600, 600);
+//		p.setVisible(true);	
 	}
 	
 	// --- clases de ejemplo
